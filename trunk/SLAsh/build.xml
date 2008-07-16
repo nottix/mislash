@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<project name="SLAsh" default="compile" basedir=".">
+	<property name="name" value="SLAsh"/>
+	<property name="src" value="./src"/>
+	<property name="bin" value="./bin"/>
+	<property name="lib" value="./lib"/>
+
+	<path id="compile.classpath">
+		<fileset dir="${lib}">
+			<include name="*.jar" />
+		</fileset>
+	</path>
+
+	<target name="clean">
+		<delete dir="${bin}/slash" />
+	</target>
+	
+	<target name="compile" >
+		<javac debug="true" deprecation="true" destdir="${bin}" srcdir="${src}">
+			<classpath refid="compile.classpath">
+			</classpath>
+		</javac>
+	</target>
+
+    <target name="run">
+		<java fork="yes" classname="jade.Boot" failonerror="true">
+			<arg value="-container sc1:slash.slachecker.agent.SlaCheckerAgent"/>
+			<classpath>
+				<pathelement location="${bin}"/>
+				<path refid="compile.classpath"/>
+			</classpath>
+		</java>
+    </target>
+	
+    <target name="runGui">
+		<java fork="yes" classname="jade.Boot" failonerror="true">
+			<arg value="-gui"/>
+			<classpath>
+				<pathelement location="${bin}"/>
+				<path refid="compile.classpath"/>
+			</classpath>
+		</java>
+    </target>
+
+	<target name="TomcatDeploy">
+		<delete file="${tomcat}/webapps/${name}.war"/>
+		<jar basedir="${buildweb}" jarfile="./${name}.war"/>
+		<copy file="./${name}.war" overwrite="true" todir="${tomcat}/webapps"/>
+	</target>
+</project>
