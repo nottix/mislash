@@ -24,8 +24,8 @@
 	</target>
 
     <target name="run">
-		<java fork="yes" classname="jade.Boot" failonerror="true">
-			<arg value="-container sc1:slash.slachecker.agent.SlaCheckerAgent"/>
+        <java classname="jade.Boot" failonerror="true" fork="yes">
+            <arg line="-container jade.Boot sc:slash.slachecker.agent.SlaCheckerAgent"/>
 			<classpath>
 				<pathelement location="${bin}"/>
 				<path refid="compile.classpath"/>
@@ -34,8 +34,8 @@
     </target>
 	
     <target name="runGui">
-		<java fork="yes" classname="jade.Boot" failonerror="true">
-			<arg value="-gui"/>
+        <java classname="jade.Boot" failonerror="true" fork="yes">
+            <arg line="-gui jade.Boot"/>
 			<classpath>
 				<pathelement location="${bin}"/>
 				<path refid="compile.classpath"/>
