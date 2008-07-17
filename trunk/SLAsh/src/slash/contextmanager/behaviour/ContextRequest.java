@@ -14,7 +14,7 @@ public class ContextRequest extends TickerBehaviour {
 
 	public ContextRequest(ContextManagerAgent agent) {
 		super(agent, 1000);
-		cpuAid = DFUtil.search(agent, "resource"+agent.getName().charAt(2), "resource");
+		cpuAid = DFUtil.search(agent, "rs"+agent.getName().charAt(2)+"-cpu", "resource");
 	}
 	
 	protected void onTick() {

@@ -12,15 +12,15 @@ public class CpuAgent extends Agent {
 	protected void setup() {
 		System.out.println("Cpu: "+this.getName());
 
-		DFUtil.register(this, "resource"+this.getName().charAt(2), "resource");
+		DFUtil.register(this, this.getLocalName(), "resource");
 		
-		AID cmAid = DFUtil.search(this, "context-manager"+this.getName().charAt(2), "context-manager");
+		AID cmAid = DFUtil.search(this, "cm"+this.getName().charAt(2), "context-manager");
 		this.addBehaviour(new CpuBehaviour(cmAid));
 
 	}
 	
 	protected void takeDown() {
-		DFUtil.deregister(this, "resource"+this.getName().charAt(2), "resource");
+		DFUtil.deregister(this, this.getLocalName(), "resource");
 	}
 
 
