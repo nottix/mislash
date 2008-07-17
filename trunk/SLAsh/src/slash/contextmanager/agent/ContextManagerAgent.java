@@ -3,6 +3,8 @@ package slash.contextmanager.agent;
 import jade.core.*;
 import jade.domain.*;
 import jade.domain.FIPAAgentManagement.*;
+import slash.contextmanager.behaviour.*;
+import slash.df.DFUtil;
 
 public class ContextManagerAgent extends Agent {
 
@@ -10,18 +12,12 @@ public class ContextManagerAgent extends Agent {
 
 	protected void setup() {
 		System.out.println("ContextManagerAgent: "+this.getName());
-		
-		DFAgentDescription dfd = new DFAgentDescription();
-		dfd.setName(getAID());
-		ServiceDescription sd = new ServiceDescription();
-		sd.setName("context-manager");
-		sd.setType("context-manager");
-		dfd.addServices(sd);
-		try {
-			DFService.register(this, dfd);
-		} catch (FIPAException e) {
-			e.printStackTrace();
-		}
+		DFUtil.register(this, "context-manager"+this.getName().charAt(2), "context-manager");
+		this.addBehaviour(new ContextRequest(this));
 
+	}
+	
+	protected void takeDown() {
+		DFUtil.deregister(this, "context-manager"+this.getName().charAt(2), "context-manager");
 	}
 }
