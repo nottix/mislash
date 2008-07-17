@@ -14,7 +14,7 @@ public class EnergyAgent extends Agent {
 
 		DFUtil.register(this, this.getLocalName(), "resource");
 		
-		AID cmAid = DFUtil.search(this, "cm"+this.getName().charAt(2), "context-manager");
+		AID cmAid = DFUtil.search(this, "cm"+this.getLocalName().charAt(this.getLocalName().length()-1), "context-manager");
 		this.addBehaviour(new EnergyBehaviour(cmAid));
 
 	}

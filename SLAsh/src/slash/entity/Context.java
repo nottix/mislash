@@ -16,6 +16,19 @@ public class Context implements Serializable {
 	private int bandwidth;
 	private float energy;
 	
+	public Context() {
+		
+	}
+	
+	public Context(float cpu, float ram, float memory, float energy, int network, int bandwidth) {
+		this.cpu = cpu;
+		this.ram = ram;
+		this.memory = memory;
+		this.energy = energy;
+		this.network = network;
+		this.bandwidth = bandwidth;
+	}
+	
 	public void setCpu(float cpu) {
 		this.cpu = cpu;
 	}

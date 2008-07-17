@@ -13,7 +13,7 @@ public class CpuBehaviour extends CyclicBehaviour {
 	
 	private AID cmAid;
 	private MessageTemplate mt;
-	ACLMessage recvMsg;
+	private ACLMessage recvMsg;
 	
 	public CpuBehaviour(AID cmAid) {
 		this.cmAid = cmAid;
@@ -38,8 +38,9 @@ public class CpuBehaviour extends CyclicBehaviour {
 	    	msg.setLanguage("English");
 	    	String cpuStr = String.valueOf(cpu);
 	    	msg.setContent(cpuStr);
-	    	msg.setConversationId("sending");
+	    	msg.setConversationId("context response");
 	
+	    	System.out.println("Sending value...");
 	    	myAgent.send(msg);
 		}
 		else
