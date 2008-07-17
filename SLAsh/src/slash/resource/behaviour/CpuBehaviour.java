@@ -27,7 +27,6 @@ public class CpuBehaviour extends CyclicBehaviour {
 	}
 	
 	public void action() {
-		System.out.println("Receiving...");
 		recvMsg = myAgent.receive(mt);
 		
 		if(recvMsg!=null) {
@@ -38,9 +37,7 @@ public class CpuBehaviour extends CyclicBehaviour {
 	    	msg.setLanguage("English");
 	    	String cpuStr = String.valueOf(cpu);
 	    	msg.setContent(cpuStr);
-	    	msg.setConversationId("context response");
-	
-	    	System.out.println("Sending value...");
+	    	msg.setConversationId("resource response");
 	    	myAgent.send(msg);
 		}
 		else

@@ -6,19 +6,18 @@ import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 import slash.contextmanager.agent.ContextManagerAgent;
 
-public class ContextReceiveBehaviour extends CyclicBehaviour {
+public class ResourceReceiverBehaviour extends CyclicBehaviour {
 
 	private static final long serialVersionUID = 6020734463253999461L;
 	
 	private ContextManagerAgent agent;
 	
-	public ContextReceiveBehaviour(ContextManagerAgent agent) {
+	public ResourceReceiverBehaviour(ContextManagerAgent agent) {
 		this.agent = agent;
 	}
 	
 	public void action() {
-		System.out.println("Context recv...");
-		MessageTemplate mt = MessageTemplate.MatchConversationId("context response");
+		MessageTemplate mt = MessageTemplate.MatchConversationId("resource response");
 		ACLMessage recvMsg = myAgent.receive(mt);
 		if(recvMsg!=null) {
 			AID sender = recvMsg.getSender();
@@ -32,10 +31,12 @@ public class ContextReceiveBehaviour extends CyclicBehaviour {
 				System.out.println("energy: "+agent.getContext().getEnergy());
 			}
 			else if(sender.getLocalName().indexOf("memory")>=0) {
-				agent.getContext().setMemory(Float.parseFloat(recvMsg.getContent()));	
+				agent.getContext().setMemory(Float.parseFloat(recvMsg.getContent()));
+				System.out.println("memory: "+agent.getContext().getMemory());
 			}
 			else if(sender.getLocalName().indexOf("ram")>=0) {
-				agent.getContext().setRam(Float.parseFloat(recvMsg.getContent()));	
+				agent.getContext().setRam(Float.parseFloat(recvMsg.getContent()));
+				System.out.println("ram: "+agent.getContext().getRam());
 			}
 		}
 		else

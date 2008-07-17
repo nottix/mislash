@@ -5,6 +5,7 @@ package slash.slachecker.agent;
 
 import jade.core.*;
 import slash.slachecker.behaviour.*;
+import slash.df.*;
 
 /**
  * @author Simone Notargiacomo, Lorenzo Tavernese, Ibrahim Khalili
@@ -16,8 +17,12 @@ public class SLACheckerAgent extends Agent {
 	
 	protected void setup() {
 		System.out.println("SlaChecker: "+this.getName());
-		
-		//this.addBehaviour(new ReceiveContextBehaviour(this));
+		DFUtil.register(this, this.getLocalName(), "sla-checker");
+		this.addBehaviour(new ContextReceiverBehaviour(this));
+	}
+	
+	protected void takeDown() {
+		DFUtil.deregister(this, this.getLocalName(), "sla-checker");
 	}
 
 }
