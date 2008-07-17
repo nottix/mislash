@@ -6,7 +6,7 @@ import jade.lang.acl.ACLMessage;
 import slash.contextmanager.agent.*;
 import slash.df.DFUtil;
 
-public class ContextRequestBehaviour extends TickerBehaviour {
+public class ResourceRequesterBehaviour extends TickerBehaviour {
 
 	private static final long serialVersionUID = 8209781904561474880L;
 	
@@ -15,7 +15,7 @@ public class ContextRequestBehaviour extends TickerBehaviour {
 	private AID memoryAid;
 	private AID ramAid;
 
-	public ContextRequestBehaviour(ContextManagerAgent agent) {
+	public ResourceRequesterBehaviour(ContextManagerAgent agent) {
 		super(agent, 1000);
 		cpuAid = DFUtil.search(agent, "cpu"+agent.getName().charAt(2), "resource");
 		energyAid = DFUtil.search(agent, "energy"+agent.getName().charAt(2), "resource");
@@ -24,33 +24,32 @@ public class ContextRequestBehaviour extends TickerBehaviour {
 	}
 	
 	protected void onTick() {
-		System.out.println("Context request...");
 		ACLMessage msg = new ACLMessage(ACLMessage.REQUEST);
     	msg.addReceiver(cpuAid);
 		msg.setLanguage("English");
 		msg.setContent("context");
-		msg.setConversationId("context request");
+		msg.setConversationId("resource request");
 		myAgent.send(msg);
 		
 		msg = new ACLMessage(ACLMessage.REQUEST);
     	msg.addReceiver(energyAid);
 		msg.setLanguage("English");
 		msg.setContent("context");
-		msg.setConversationId("context request");
+		msg.setConversationId("resource request");
 		myAgent.send(msg);
 		
 		msg = new ACLMessage(ACLMessage.REQUEST);
     	msg.addReceiver(memoryAid);
 		msg.setLanguage("English");
 		msg.setContent("context");
-		msg.setConversationId("context request");
+		msg.setConversationId("resource request");
 		myAgent.send(msg);
 		
 		msg = new ACLMessage(ACLMessage.REQUEST);
     	msg.addReceiver(ramAid);
 		msg.setLanguage("English");
 		msg.setContent("context");
-		msg.setConversationId("context request");
+		msg.setConversationId("resource request");
 		myAgent.send(msg);
 	}
 	

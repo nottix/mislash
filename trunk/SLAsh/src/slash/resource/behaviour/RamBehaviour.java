@@ -27,7 +27,6 @@ public class RamBehaviour extends CyclicBehaviour {
 	}
 	
 	public void action() {
-		System.out.println("Receiving...");
 		recvMsg = myAgent.receive(mt);
 		
 		if(recvMsg!=null) {
@@ -38,7 +37,7 @@ public class RamBehaviour extends CyclicBehaviour {
 	    	msg.setLanguage("English");
 	    	String cpuStr = String.valueOf(ram);
 	    	msg.setContent(cpuStr);
-	    	msg.setConversationId("context response");
+	    	msg.setConversationId("resource response");
 	
 	    	myAgent.send(msg);
 		}
