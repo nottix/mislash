@@ -3,13 +3,13 @@ package slash.slachecker.behaviour;
 import jade.core.behaviours.*;
 import slash.slachecker.agent.*;
 
-public class ReceiveContext extends CyclicBehaviour {
+public class ReceiveContextBehaviour extends CyclicBehaviour {
 	
 	private static final long serialVersionUID = 5235996069711181357L;
 
-	private SlaCheckerAgent sc;
+	private SLACheckerAgent sc;
 
-	public ReceiveContext(SlaCheckerAgent sc) {
+	public ReceiveContextBehaviour(SLACheckerAgent sc) {
 		this.sc = sc;
 	}
 	
