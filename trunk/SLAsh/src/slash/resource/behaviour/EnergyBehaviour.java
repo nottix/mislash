@@ -9,11 +9,11 @@ public class EnergyBehaviour extends CyclicBehaviour {
 
 	private static final long serialVersionUID = -3231027298580344751L;
 
-	private float cpu;
+	private float energy;
 	
 	private AID cmAid;
 	private MessageTemplate mt;
-	ACLMessage recvMsg;
+	private ACLMessage recvMsg;
 	
 	public EnergyBehaviour(AID cmAid) {
 		this.cmAid = cmAid;
@@ -22,8 +22,8 @@ public class EnergyBehaviour extends CyclicBehaviour {
 	}
 	
 	private float generate() {
-		cpu = (float)Math.random();
-		return cpu;
+		energy = (float)Math.random();
+		return energy;
 	}
 	
 	public void action() {
@@ -36,9 +36,9 @@ public class EnergyBehaviour extends CyclicBehaviour {
 			ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
 	    	msg.addReceiver(cmAid);
 	    	msg.setLanguage("English");
-	    	String cpuStr = String.valueOf(cpu);
+	    	String cpuStr = String.valueOf(energy);
 	    	msg.setContent(cpuStr);
-	    	msg.setConversationId("sending");
+	    	msg.setConversationId("context response");
 	
 	    	myAgent.send(msg);
 		}

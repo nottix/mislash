@@ -5,25 +5,25 @@ import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 
-public class LatencyBehaviour extends CyclicBehaviour {
+public class RamBehaviour extends CyclicBehaviour {
 
 	private static final long serialVersionUID = -3231027298580344751L;
 
-	private float latency;
+	private float ram;
 	
 	private AID cmAid;
 	private MessageTemplate mt;
 	private ACLMessage recvMsg;
 	
-	public LatencyBehaviour(AID cmAid) {
+	public RamBehaviour(AID cmAid) {
 		this.cmAid = cmAid;
 		
 		mt = MessageTemplate.MatchPerformative(ACLMessage.REQUEST);
 	}
 	
 	private float generate() {
-		latency = (float)Math.random();
-		return latency;
+		ram = (float)Math.random();
+		return ram;
 	}
 	
 	public void action() {
@@ -36,9 +36,9 @@ public class LatencyBehaviour extends CyclicBehaviour {
 			ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
 	    	msg.addReceiver(cmAid);
 	    	msg.setLanguage("English");
-	    	String cpuStr = String.valueOf(latency);
+	    	String cpuStr = String.valueOf(ram);
 	    	msg.setContent(cpuStr);
-	    	msg.setConversationId("sending");
+	    	msg.setConversationId("context response");
 	
 	    	myAgent.send(msg);
 		}

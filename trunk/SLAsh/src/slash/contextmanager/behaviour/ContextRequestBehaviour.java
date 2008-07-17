@@ -19,8 +19,8 @@ public class ContextRequestBehaviour extends TickerBehaviour {
 		super(agent, 1000);
 		cpuAid = DFUtil.search(agent, "cpu"+agent.getName().charAt(2), "resource");
 		energyAid = DFUtil.search(agent, "energy"+agent.getName().charAt(2), "resource");
-		memoryAid = DFUtil.search(agent, "memory"+agent.getName().charAt(2), "resource");
-		ramAid = DFUtil.search(agent, "ram"+agent.getName().charAt(2), "resource");
+		//memoryAid = DFUtil.search(agent, "memory"+agent.getName().charAt(2), "resource");
+		//ramAid = DFUtil.search(agent, "ram"+agent.getName().charAt(2), "resource");
 	}
 	
 	protected void onTick() {
