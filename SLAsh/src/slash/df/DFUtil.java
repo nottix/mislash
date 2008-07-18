@@ -24,6 +24,22 @@ public class DFUtil {
 		}
 	}
 	
+	public static DFAgentDescription[] search(Agent agent, String type) {
+		try {
+			System.out.println("Searching type: "+type);
+			DFAgentDescription template = new DFAgentDescription();
+			ServiceDescription tsd = new ServiceDescription();
+			tsd.setType(type);
+			template.addServices(tsd);
+			SearchConstraints sc = new SearchConstraints();
+			DFAgentDescription[] res = DFService.search(agent, template, sc);
+			return res;
+		} catch (FIPAException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
 	public static AID search(Agent agent, String name, String type) {
 		try {
 			System.out.println("Searching name: "+name+", type: "+type);
