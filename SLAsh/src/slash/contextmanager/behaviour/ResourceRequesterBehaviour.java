@@ -17,10 +17,10 @@ public class ResourceRequesterBehaviour extends TickerBehaviour {
 
 	public ResourceRequesterBehaviour(ContextManagerAgent agent) {
 		super(agent, 1000);
-		cpuAid = DFUtil.search(agent, "cpu"+agent.getName().charAt(2), "resource");
-		energyAid = DFUtil.search(agent, "energy"+agent.getName().charAt(2), "resource");
-		memoryAid = DFUtil.search(agent, "memory"+agent.getName().charAt(2), "resource");
-		ramAid = DFUtil.search(agent, "ram"+agent.getName().charAt(2), "resource");
+		cpuAid = new AID("cpu"+agent.getName().charAt(2), AID.ISLOCALNAME);
+		energyAid = new AID("energy"+agent.getName().charAt(2), AID.ISLOCALNAME);
+		memoryAid = new AID("memory"+agent.getName().charAt(2), AID.ISLOCALNAME);
+		ramAid = new AID("ram"+agent.getName().charAt(2), AID.ISLOCALNAME);
 	}
 	
 	protected void onTick() {

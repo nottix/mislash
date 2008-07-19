@@ -12,14 +12,14 @@ public class MemoryAgent extends Agent {
 	protected void setup() {
 		System.out.println("Memory: "+this.getName());
 
-		DFUtil.register(this, this.getLocalName(), "resource");
+		//DFUtil.register(this, this.getLocalName(), "resource");
 		
-		AID cmAid = DFUtil.search(this, "cm"+this.getLocalName().charAt(this.getLocalName().length()-1), "context-manager");
+		AID cmAid = new AID("cm"+this.getLocalName().charAt(this.getLocalName().length()-1), AID.ISLOCALNAME);
 		this.addBehaviour(new MemoryBehaviour(cmAid));
 
 	}
 	
 	protected void takeDown() {
-		DFUtil.deregister(this, this.getLocalName(), "resource");
+		//DFUtil.deregister(this, this.getLocalName(), "resource");
 	}
 }
