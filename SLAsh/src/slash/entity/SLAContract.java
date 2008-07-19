@@ -11,11 +11,11 @@ public class SLAContract implements Serializable {
 	private AID cmPub;
 	private AID subscriber;
 	private AID cmSub;
-	private int latency;
+	private float latency;
 	private float reliability;
-	private int reqInterval;
+	private float reqInterval;
 	
-	public SLAContract(AID publisher, AID cmPub, AID subscriber, AID cmSub, int latency, float reliability, int reqInterval) {
+	public SLAContract(AID publisher, AID cmPub, AID subscriber, AID cmSub, float latency, float reliability, float reqInterval) {
 		this.publisher = publisher;
 		this.cmPub = cmPub;
 		this.subscriber = subscriber;
@@ -30,9 +30,9 @@ public class SLAContract implements Serializable {
 		this.cmPub = null;
 		this.subscriber = null;
 		this.cmSub = null;
-		this.latency = 0;
+		this.latency = 0.0f;
 		this.reliability = 0.0f;
-		this.reqInterval = 0;
+		this.reqInterval = 0.0f;
 	}
 	
 	public void setPublisher(AID publisher) {
@@ -67,11 +67,11 @@ public class SLAContract implements Serializable {
 		return this.cmSub;
 	}
 	
-	public void setLatency(int latency) {
+	public void setLatency(float latency) {
 		this.latency = latency;
 	}
 	
-	public int getLatency() {
+	public float getLatency() {
 		return this.latency;
 	}
 	
@@ -83,11 +83,11 @@ public class SLAContract implements Serializable {
 		return this.reliability;
 	}
 	
-	public void setReqInterval(int reqInterval) {
+	public void setReqInterval(float reqInterval) {
 		this.reqInterval = reqInterval;
 	}
 	
-	public int getReqInterval() {
+	public float getReqInterval() {
 		return this.reqInterval;
 	}
 	

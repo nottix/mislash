@@ -26,11 +26,11 @@ public class LatencyAgent extends Agent {
 			else
 				network = Context.WIRELESS;
 			
-			bandwidth = Integer.parseInt(args[1].toString());
+			bandwidth = (Integer)args[1];
 		}
 		
 		AID rmAid = new AID("rm"+this.getLocalName().charAt(this.getLocalName().length()-1), AID.ISLOCALNAME);
-		this.addBehaviour(new LatencyBehaviour(rmAid));
+		this.addBehaviour(new LatencyBehaviour(rmAid, this));
 
 	}
 	

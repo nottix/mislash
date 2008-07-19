@@ -4,6 +4,8 @@ import jade.core.AID;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
+import slash.entity.Context;
+import slash.resource.agent.LatencyAgent;
 
 public class LatencyBehaviour extends CyclicBehaviour {
 
@@ -12,17 +14,24 @@ public class LatencyBehaviour extends CyclicBehaviour {
 	private float latency;
 	
 	private AID rmAid;
+	private LatencyAgent agent;
 	private MessageTemplate mt;
 	private ACLMessage recvMsg;
 	
-	public LatencyBehaviour(AID cmAid) {
+	public LatencyBehaviour(AID cmAid, LatencyAgent agent) {
 		this.rmAid = cmAid;
-		
+		this.agent = agent;
 		mt = MessageTemplate.MatchPerformative(ACLMessage.REQUEST);
 	}
 	
 	private float generate() {
-		latency = (float)Math.random();
+		latency = (float)(Math.random()*100);
+		//latency /= ((float)agent.getBandwidth())*0.2;
+		//latency %= 100;
+		//if(agent.getNetwork() == Context.WIRED) {
+		//	latency /= 2;
+		//}
+		
 		return latency;
 	}
 	

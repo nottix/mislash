@@ -4,6 +4,7 @@ import jade.core.AID;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
+import slash.resource.agent.*;
 
 public class ReqIntervalBehaviour extends CyclicBehaviour {
 
@@ -12,17 +13,19 @@ public class ReqIntervalBehaviour extends CyclicBehaviour {
 	private float reqInterval;
 	
 	private AID rmAid;
+	private ReqIntervalAgent agent;
 	private MessageTemplate mt;
 	private ACLMessage recvMsg;
 	
-	public ReqIntervalBehaviour(AID cmAid) {
+	public ReqIntervalBehaviour(AID cmAid, ReqIntervalAgent agent) {
 		this.rmAid = cmAid;
+		this.agent = agent;
 		
 		mt = MessageTemplate.MatchPerformative(ACLMessage.REQUEST);
 	}
 	
 	private float generate() {
-		reqInterval = (float)Math.random();
+		reqInterval = (float)(Math.random()*100);
 		return reqInterval;
 	}
 	

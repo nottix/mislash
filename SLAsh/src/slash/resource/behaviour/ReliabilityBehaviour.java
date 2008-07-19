@@ -4,6 +4,8 @@ import jade.core.AID;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
+import slash.entity.Context;
+import slash.resource.agent.ReliabilityAgent;
 
 public class ReliabilityBehaviour extends CyclicBehaviour {
 
@@ -12,17 +14,20 @@ public class ReliabilityBehaviour extends CyclicBehaviour {
 	private float reliability;
 	
 	private AID rmAid;
+	private ReliabilityAgent agent;
 	private MessageTemplate mt;
 	private ACLMessage recvMsg;
 	
-	public ReliabilityBehaviour(AID cmAid) {
+	public ReliabilityBehaviour(AID cmAid, ReliabilityAgent agent) {
 		this.rmAid = cmAid;
-		
+		this.agent = agent;
 		mt = MessageTemplate.MatchPerformative(ACLMessage.REQUEST);
 	}
 	
 	private float generate() {
-		reliability = (float)Math.random();
+		reliability = (float)(Math.random()*100);
+		//if(agent.getNetwork() == Context.WIRED)
+		//	reliability *= 2;
 		return reliability;
 	}
 	

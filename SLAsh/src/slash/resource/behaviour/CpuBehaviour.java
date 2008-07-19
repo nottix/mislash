@@ -4,6 +4,8 @@ import jade.core.AID;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
+import slash.resource.agent.*;
+import slash.entity.*;
 
 public class CpuBehaviour extends CyclicBehaviour {
 
@@ -12,17 +14,19 @@ public class CpuBehaviour extends CyclicBehaviour {
 	private float cpu;
 	
 	private AID cmAid;
+	private CpuAgent agent;
 	private MessageTemplate mt;
 	private ACLMessage recvMsg;
 	
-	public CpuBehaviour(AID cmAid) {
+	public CpuBehaviour(AID cmAid, CpuAgent agent) {
 		this.cmAid = cmAid;
+		this.agent = agent;
 		
 		mt = MessageTemplate.MatchPerformative(ACLMessage.REQUEST);
 	}
 	
 	private float generate() {
-		cpu = (float)Math.random();
+		cpu = (float)(Math.random()*100);
 		return cpu;
 	}
 	

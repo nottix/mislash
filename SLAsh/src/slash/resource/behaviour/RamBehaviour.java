@@ -4,6 +4,7 @@ import jade.core.AID;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
+import slash.resource.agent.*;
 
 public class RamBehaviour extends CyclicBehaviour {
 
@@ -12,17 +13,19 @@ public class RamBehaviour extends CyclicBehaviour {
 	private float ram;
 	
 	private AID cmAid;
+	private RamAgent agent;
 	private MessageTemplate mt;
 	private ACLMessage recvMsg;
 	
-	public RamBehaviour(AID cmAid) {
+	public RamBehaviour(AID cmAid, RamAgent agent) {
 		this.cmAid = cmAid;
+		this.agent = agent;
 		
 		mt = MessageTemplate.MatchPerformative(ACLMessage.REQUEST);
 	}
 	
 	private float generate() {
-		ram = (float)Math.random();
+		ram = (float)(Math.random()*100);
 		return ram;
 	}
 	
