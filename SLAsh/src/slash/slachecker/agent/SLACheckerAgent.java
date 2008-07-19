@@ -45,6 +45,7 @@ public class SLACheckerAgent extends Agent {
 		this.addBehaviour(new SLAReceiverBehaviour(this));
 		this.addBehaviour(new StatusRequesterBehaviour(this));
 		this.addBehaviour(new StatusReceiverBehaviour(this));
+		this.addBehaviour(new SLACheckerBehaviour(this));
 	}
 	
 	protected void takeDown() {
