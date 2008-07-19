@@ -3,11 +3,14 @@ package slash.resourcemonitor.agent;
 import jade.core.Agent;
 import slash.df.DFUtil;
 import slash.resourcemonitor.behaviour.*;
+import slash.entity.*;
 
 public class ResourceMonitorAgent extends Agent {
 
 	private static final long serialVersionUID = 2514514536861766799L;
 
+	private Status status;
+	
 	protected void setup() {
 		Object[] args = this.getArguments();
 		System.out.println("ResourceMonitorAgent: "+this.getName()+", args len: "+args.length);
@@ -18,9 +21,17 @@ public class ResourceMonitorAgent extends Agent {
 		else if(args.length>0 && args[0].toString().equals("subscriber")) {
 			this.addBehaviour(new SLARequesterBehaviour());
 		}
-			
+		
+		this.addBehaviour(new CoreBehaviour(this));
+		this.addBehaviour(new StatusReqReceiverBehaviour(this));
+		this.addBehaviour(new StatusResourceReceiverBehaviour(this));
+		
+		status = new Status();
 
-
+	}
+	
+	public Status getStatus() {
+		return this.status;
 	}
 	
 	protected void takeDown() {

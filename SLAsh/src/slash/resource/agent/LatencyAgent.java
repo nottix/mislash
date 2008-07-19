@@ -12,14 +12,14 @@ public class LatencyAgent extends Agent {
 	protected void setup() {
 		System.out.println("Latency: "+this.getName());
 
-		DFUtil.register(this, this.getLocalName(), "resource");
+		//DFUtil.register(this, this.getLocalName(), "resource");
 		
-		AID cmAid = DFUtil.search(this, "cm"+this.getLocalName().charAt(this.getLocalName().length()-1), "context-manager");
-		this.addBehaviour(new LatencyBehaviour(cmAid));
+		AID rmAid = new AID("rm"+this.getLocalName().charAt(this.getLocalName().length()-1), AID.ISLOCALNAME);
+		this.addBehaviour(new LatencyBehaviour(rmAid));
 
 	}
 	
 	protected void takeDown() {
-		DFUtil.deregister(this, this.getLocalName(), "resource");
+		//DFUtil.deregister(this, this.getLocalName(), "resource");
 	}
 }
