@@ -11,12 +11,12 @@ public class ReqIntervalBehaviour extends CyclicBehaviour {
 
 	private float reqInterval;
 	
-	private AID cmAid;
+	private AID rmAid;
 	private MessageTemplate mt;
 	private ACLMessage recvMsg;
 	
 	public ReqIntervalBehaviour(AID cmAid) {
-		this.cmAid = cmAid;
+		this.rmAid = cmAid;
 		
 		mt = MessageTemplate.MatchPerformative(ACLMessage.REQUEST);
 	}
@@ -33,11 +33,11 @@ public class ReqIntervalBehaviour extends CyclicBehaviour {
 			generate();
 
 			ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
-	    	msg.addReceiver(cmAid);
+	    	msg.addReceiver(rmAid);
 	    	msg.setLanguage("English");
-	    	String cpuStr = String.valueOf(reqInterval);
-	    	msg.setContent(cpuStr);
-	    	msg.setConversationId("resource response");
+	    	String reqIntervalStr = String.valueOf(reqInterval);
+	    	msg.setContent(reqIntervalStr);
+	    	msg.setConversationId("status resource response");
 	
 	    	myAgent.send(msg);
 		}

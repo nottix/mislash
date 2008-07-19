@@ -1,0 +1,41 @@
+package slash.resourcemonitor.behaviour;
+
+import jade.core.AID;
+import jade.core.behaviours.CyclicBehaviour;
+import jade.lang.acl.ACLMessage;
+import jade.lang.acl.MessageTemplate;
+import slash.resourcemonitor.agent.*;
+
+public class StatusResourceReceiverBehaviour extends CyclicBehaviour {
+
+	private static final long serialVersionUID = 6020734463253999461L;
+	
+	private ResourceMonitorAgent rm;
+	
+	public StatusResourceReceiverBehaviour(ResourceMonitorAgent agent) {
+		this.rm = agent;
+	}
+	
+	public void action() {
+		MessageTemplate mt = MessageTemplate.MatchConversationId("status resource response");
+		ACLMessage recvMsg = myAgent.receive(mt);
+		if(recvMsg!=null) {
+			AID sender = recvMsg.getSender();
+			//System.out.println("recv from "+sender.getLocalName()+" content: "+recvMsg.getContent());
+			if(sender.getLocalName().indexOf("latency")>=0) {
+				rm.getStatus().addLatencyValue(Integer.parseInt(recvMsg.getContent()));
+				//System.out.println("cpu: "+agent.getContext().getCpu());
+			}
+			else if(sender.getLocalName().indexOf("reliability")>=0) {
+				rm.getStatus().addReliabilityValue(Float.parseFloat(recvMsg.getContent()));
+				//System.out.println("energy: "+agent.getContext().getEnergy());
+			}
+			else if(sender.getLocalName().indexOf("reqInterval")>=0) {
+				rm.getStatus().addReqIntervalValue(Integer.parseInt(recvMsg.getContent()));
+				//System.out.println("memory: "+agent.getContext().getMemory());
+			}
+		}
+		else
+			block();
+	}
+}

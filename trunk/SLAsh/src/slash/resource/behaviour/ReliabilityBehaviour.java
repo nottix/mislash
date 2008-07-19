@@ -11,12 +11,12 @@ public class ReliabilityBehaviour extends CyclicBehaviour {
 
 	private float reliability;
 	
-	private AID cmAid;
+	private AID rmAid;
 	private MessageTemplate mt;
 	private ACLMessage recvMsg;
 	
 	public ReliabilityBehaviour(AID cmAid) {
-		this.cmAid = cmAid;
+		this.rmAid = cmAid;
 		
 		mt = MessageTemplate.MatchPerformative(ACLMessage.REQUEST);
 	}
@@ -33,11 +33,11 @@ public class ReliabilityBehaviour extends CyclicBehaviour {
 			generate();
 
 			ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
-	    	msg.addReceiver(cmAid);
+	    	msg.addReceiver(rmAid);
 	    	msg.setLanguage("English");
-	    	String cpuStr = String.valueOf(reliability);
-	    	msg.setContent(cpuStr);
-	    	msg.setConversationId("resource response");
+	    	String reliabilityStr = String.valueOf(reliability);
+	    	msg.setContent(reliabilityStr);
+	    	msg.setConversationId("status resource response");
 	
 	    	myAgent.send(msg);
 		}

@@ -12,14 +12,14 @@ public class ReqIntervalAgent extends Agent {
 	protected void setup() {
 		System.out.println("ReqInterval: "+this.getName());
 
-		DFUtil.register(this, this.getLocalName(), "resource");
+		//DFUtil.register(this, this.getLocalName(), "resource");
 		
-		AID cmAid = DFUtil.search(this, "cm"+this.getLocalName().charAt(this.getLocalName().length()-1), "context-manager");
-		this.addBehaviour(new ReqIntervalBehaviour(cmAid));
+		AID rmAid = new AID("rm"+this.getLocalName().charAt(this.getLocalName().length()-1), AID.ISLOCALNAME);
+		this.addBehaviour(new ReqIntervalBehaviour(rmAid));
 
 	}
 	
 	protected void takeDown() {
-		DFUtil.deregister(this, this.getLocalName(), "resource");
+		//DFUtil.deregister(this, this.getLocalName(), "resource");
 	}
 }
