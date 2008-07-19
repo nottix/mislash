@@ -8,14 +8,18 @@ public class SLAContract implements Serializable {
 	private static final long serialVersionUID = 1280366527966115376L;
 	
 	private AID publisher;
+	private AID cmPub;
 	private AID subscriber;
+	private AID cmSub;
 	private int latency;
 	private float reliability;
 	private int reqInterval;
 	
-	public SLAContract(AID publisher, AID subscriber, int latency, float reliability, int reqInterval) {
+	public SLAContract(AID publisher, AID cmPub, AID subscriber, AID cmSub, int latency, float reliability, int reqInterval) {
 		this.publisher = publisher;
+		this.cmPub = cmPub;
 		this.subscriber = subscriber;
+		this.cmSub = cmSub;
 		this.latency = latency;
 		this.reliability = reliability;
 		this.reqInterval = reqInterval;
@@ -23,7 +27,9 @@ public class SLAContract implements Serializable {
 	
 	public SLAContract() {
 		this.publisher = null;
+		this.cmPub = null;
 		this.subscriber = null;
+		this.cmSub = null;
 		this.latency = 0;
 		this.reliability = 0.0f;
 		this.reqInterval = 0;
@@ -37,12 +43,28 @@ public class SLAContract implements Serializable {
 		return this.publisher;
 	}
 	
+	public void setCmPub(AID cmPub) {
+		this.cmPub = cmPub;
+	}
+	
+	public AID getCmPub() {
+		return this.cmPub;
+	}
+	
 	public void setSubscriber(AID subscriber) {
 		this.subscriber = subscriber;
 	}
 	
 	public AID getSubscriber() {
 		return this.subscriber;
+	}
+	
+	public void setCmSub(AID cmSub) {
+		this.cmSub = cmSub;
+	}
+	
+	public AID getCmSub() {
+		return this.cmSub;
 	}
 	
 	public void setLatency(int latency) {

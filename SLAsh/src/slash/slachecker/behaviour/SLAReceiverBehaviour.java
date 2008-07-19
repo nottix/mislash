@@ -20,7 +20,6 @@ public class SLAReceiverBehaviour extends CyclicBehaviour {
 	public void action() {
 		MessageTemplate mt = MessageTemplate.MatchConversationId("SLAContract send");
 		ACLMessage recvMsg = myAgent.receive(mt);
-		System.out.println("Received...");
 		if(recvMsg!=null) {
 			try {
 				System.out.println("Added Contract: "+((SLAContract)recvMsg.getContentObject()).getLatency());
