@@ -14,16 +14,16 @@ public class SLAReqReceiverBehaviour extends CyclicBehaviour {
 
 	private static final long serialVersionUID = 1897715821469100876L;
 
-	public int genLatency() {
-		return (int)((Math.random()*100)%100);
+	public float genLatency() {
+		return (float)(((Math.random()*100))%30)+70;
 	}
 	
 	public float genReliability() {
-		return (float)((Math.random()*100)%100);
+		return (float)(((Math.random()*100))%30)+70;
 	}
 	
-	public int genReqInterval() {
-		return (int)((Math.random()*100)%100);
+	public float genReqInterval() {
+		return (float)(((Math.random()*100))%30)+70;
 	}
 	
 	public void action() {

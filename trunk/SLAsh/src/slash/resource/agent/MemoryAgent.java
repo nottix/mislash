@@ -25,11 +25,11 @@ public class MemoryAgent extends Agent {
 			else
 				network = Context.WIRELESS;
 			
-			bandwidth = Integer.parseInt(args[1].toString());
+			bandwidth = (Integer)args[1];
 		}
 		
 		AID cmAid = new AID("cm"+this.getLocalName().charAt(this.getLocalName().length()-1), AID.ISLOCALNAME);
-		this.addBehaviour(new MemoryBehaviour(cmAid));
+		this.addBehaviour(new MemoryBehaviour(cmAid, this));
 
 	}
 	

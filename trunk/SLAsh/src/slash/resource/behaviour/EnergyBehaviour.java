@@ -4,6 +4,7 @@ import jade.core.AID;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
+import slash.resource.agent.*;
 
 public class EnergyBehaviour extends CyclicBehaviour {
 
@@ -12,17 +13,18 @@ public class EnergyBehaviour extends CyclicBehaviour {
 	private float energy;
 	
 	private AID cmAid;
+	private EnergyAgent agent;
 	private MessageTemplate mt;
 	private ACLMessage recvMsg;
 	
-	public EnergyBehaviour(AID cmAid) {
+	public EnergyBehaviour(AID cmAid, EnergyAgent agent) {
 		this.cmAid = cmAid;
-		
+		this.agent = agent;
 		mt = MessageTemplate.MatchPerformative(ACLMessage.REQUEST);
 	}
 	
 	private float generate() {
-		energy = (float)Math.random();
+		energy = (float)(Math.random()*100);
 		return energy;
 	}
 	

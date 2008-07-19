@@ -21,18 +21,18 @@ public class StatusResourceReceiverBehaviour extends CyclicBehaviour {
 		ACLMessage recvMsg = myAgent.receive(mt);
 		if(recvMsg!=null) {
 			AID sender = recvMsg.getSender();
-			System.out.println("recv from "+sender.getLocalName()+" status: "+recvMsg.getContent());
+			System.out.println("RECEIVED from "+sender.getLocalName()+" status: "+recvMsg.getContent());
 			if(sender.getLocalName().indexOf("latency")>=0) {
 				rm.getStatus().addLatencyValue(Float.parseFloat(recvMsg.getContent()));
-				//System.out.println("cpu: "+agent.getContext().getCpu());
+				System.out.println("LAT: "+Float.parseFloat(recvMsg.getContent()));
 			}
 			else if(sender.getLocalName().indexOf("reliability")>=0) {
 				rm.getStatus().addReliabilityValue(Float.parseFloat(recvMsg.getContent()));
-				//System.out.println("energy: "+agent.getContext().getEnergy());
+				System.out.println("REL: "+Float.parseFloat(recvMsg.getContent()));
 			}
 			else if(sender.getLocalName().indexOf("reqInterval")>=0) {
 				rm.getStatus().addReqIntervalValue(Float.parseFloat(recvMsg.getContent()));
-				//System.out.println("memory: "+agent.getContext().getMemory());
+				System.out.println("REQ: "+Float.parseFloat(recvMsg.getContent()));
 			}
 		}
 		else

@@ -33,7 +33,7 @@ public class AgentLauncher {
 		
 		Object[] arg = new Object[2];
 		arg[0] = network;
-		arg[1] = bandwidth;
+		arg[1] = Integer.valueOf(bandwidth);
 		
 		if(!scEnabled) {
 			launchAgent("sc", "slash.slachecker.agent.SLACheckerAgent", null, cc);

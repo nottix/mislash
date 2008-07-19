@@ -21,7 +21,10 @@ public class SLACheckerBehaviour extends TickerBehaviour {
 		for(int i=0; i<sc.getContractList().size(); i++) {
 			SLAContract contract = sc.getContractList().get(i);
 			Status status = sc.getStatusTable().get(contract.getPublisher());
-			if((status!=null) && ((status.getAvgLatency() > contract.getLatency()) || (status.getAvgReliability() > contract.getReliability()) || (status.getAvgReqInterval() > contract.getReqInterval()))) {
+			float lat=0, rel=0, req=0;
+			if((status!=null) && (((lat=status.getAvgLatency()) > contract.getLatency()) || ((rel=status.getAvgReliability()) > contract.getReliability()) || ((req=status.getAvgReqInterval()) > contract.getReqInterval()))) {
+				
+				System.out.println("Violated with: "+lat+" > "+contract.getLatency()+", "+rel+" > "+contract.getReliability()+", "+req+" > "+contract.getReqInterval());
 				
 				try {
 					ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
