@@ -42,14 +42,18 @@ public class DFUtil {
 	
 	public static AID search(Agent agent, String name, String type) {
 		try {
-			System.out.println("Searching name: "+name+", type: "+type);
-			DFAgentDescription template = new DFAgentDescription();
-			ServiceDescription tsd = new ServiceDescription();
-			tsd.setName(name);
-			tsd.setType(type);
-			template.addServices(tsd);
-			SearchConstraints sc = new SearchConstraints();
-			DFAgentDescription[] res = DFService.search(agent, template, sc);
+			DFAgentDescription[] res;
+			do {
+				System.out.println("Searching name: "+name+", type: "+type);
+				DFAgentDescription template = new DFAgentDescription();
+				ServiceDescription tsd = new ServiceDescription();
+				tsd.setName(name);
+				tsd.setType(type);
+				template.addServices(tsd);
+				SearchConstraints sc = new SearchConstraints();
+				res = DFService.search(agent, template, sc);
+			}
+			while(res.length==0);
 			return res[0].getName();
 		} catch (FIPAException e) {
 			e.printStackTrace();

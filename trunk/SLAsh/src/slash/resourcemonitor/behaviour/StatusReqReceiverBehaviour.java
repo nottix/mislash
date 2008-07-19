@@ -9,6 +9,9 @@ import jade.lang.acl.MessageTemplate;
 import slash.resourcemonitor.agent.ResourceMonitorAgent;
 
 public class StatusReqReceiverBehaviour extends CyclicBehaviour {
+
+	private static final long serialVersionUID = 4138378472593121103L;
+	
 	private ResourceMonitorAgent rm;
 	
 	public StatusReqReceiverBehaviour(ResourceMonitorAgent agent) {
