@@ -26,6 +26,7 @@ public class ContextReqReceiverBehaviour extends CyclicBehaviour{
 			MessageTemplate mt = MessageTemplate.MatchConversationId("context request");
 			ACLMessage recvMsg = myAgent.receive(mt);
 			if(recvMsg!=null) {
+				System.out.println("Received context request");
 				ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
 				msg.addReceiver(scAid);
 				msg.setLanguage("English");

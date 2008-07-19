@@ -8,6 +8,8 @@ public class Status implements Serializable {
 
 	private static final long serialVersionUID = -4467088461237807527L;
 
+	private static int RST_INTERVAL = 30;
+	
 	private List<Float> latencyList;
 	private List<Float> reliabilityList;
 	private List<Float> reqIntervalList;
@@ -23,14 +25,20 @@ public class Status implements Serializable {
 	}
 	
 	public void addLatencyValue(float latencyValue) {
+		if(this.latencyList.size() >= Status.RST_INTERVAL)
+			this.latencyList = new LinkedList<Float>();
 		this.latencyList.add(Float.valueOf(latencyValue));
 	}
 	
 	public void addReliabilityValue(float reliabilityValue) {
+		if(this.reliabilityList.size() >= Status.RST_INTERVAL)
+			this.reliabilityList = new LinkedList<Float>();
 		this.reliabilityList.add(Float.valueOf(reliabilityValue));
 	}
 	
 	public void addReqIntervalValue(float reqIntervalValue) {
+		if(this.reqIntervalList.size() >= Status.RST_INTERVAL)
+			this.reqIntervalList = new LinkedList<Float>();
 		this.reqIntervalList.add(Float.valueOf(reqIntervalValue));
 	}
 	

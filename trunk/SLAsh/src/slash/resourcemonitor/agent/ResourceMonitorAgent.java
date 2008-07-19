@@ -19,6 +19,7 @@ public class ResourceMonitorAgent extends Agent {
 			this.addBehaviour(new SLAReqReceiverBehaviour());
 		}
 		else if(args.length>0 && args[0].toString().equals("subscriber")) {
+			//DFUtil.register(this, this.getLocalName(), "subscriber");
 			this.addBehaviour(new SLARequesterBehaviour());
 		}
 		
@@ -40,7 +41,7 @@ public class ResourceMonitorAgent extends Agent {
 			DFUtil.deregister(this, this.getLocalName(), "publisher");
 		}
 		else if(args.length>0 && args[0].toString().equals("subscriber")) {
-			DFUtil.deregister(this, this.getLocalName(), "subscriber");
+			//DFUtil.deregister(this, this.getLocalName(), "subscriber");
 		}
 	}
 }

@@ -33,7 +33,7 @@ public class SLAReqReceiverBehaviour extends CyclicBehaviour {
 			
 			if(recvMsg!=null) {
 				AID sc = DFUtil.search(myAgent, "sc", "sla-checker");
-				SLAContract contract = new SLAContract(myAgent.getAID(), recvMsg.getSender(), this.genLatency(), this.genReliability(), this.genReqInterval());
+				SLAContract contract = new SLAContract(myAgent.getAID(), new AID("cm"+myAgent.getLocalName().charAt(2), AID.ISLOCALNAME), recvMsg.getSender(),  new AID("cm"+recvMsg.getSender().getLocalName().charAt(2), AID.ISLOCALNAME), this.genLatency(), this.genReliability(), this.genReqInterval());
 				
 				ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
 				msg.addReceiver(sc);
