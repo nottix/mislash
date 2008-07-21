@@ -3,6 +3,7 @@ package slash.entity;
 import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
+import jade.core.Location;
 
 public class Context implements Serializable {
 
@@ -23,6 +24,7 @@ public class Context implements Serializable {
 	private List<Float> memoryList;
 	private List<Float> energyList;
 	
+	private Location location;
 	private float cpu;
 	private float ram;
 	private float memory;
@@ -95,6 +97,14 @@ public class Context implements Serializable {
 		}
 		energy /= this.energyList.size();
 		return energy;
+	}
+	
+	public void setLocation(Location location) {
+		this.location = location;
+	}
+	
+	public Location getLocation() {
+		return this.location;
 	}
 	
 	public Context(float cpu, float ram, float memory, float energy, int network, int bandwidth) {
