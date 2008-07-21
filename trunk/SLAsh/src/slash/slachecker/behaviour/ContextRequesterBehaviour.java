@@ -20,7 +20,7 @@ public class ContextRequesterBehaviour extends TickerBehaviour {
 	protected void onTick() {
 		for(int i=0; i<sc.getContractList().size(); i++) {
 			cmAid = sc.getContractList().get(i).getCmSub();
-			System.out.println("Sending context request to "+cmAid.getLocalName());
+			//System.out.println("Sending context request to "+cmAid.getLocalName());
 			ACLMessage msg = new ACLMessage(ACLMessage.REQUEST);
 			msg.addReceiver(cmAid);
 			msg.setLanguage("English");
@@ -28,7 +28,7 @@ public class ContextRequesterBehaviour extends TickerBehaviour {
 			myAgent.send(msg);
 			
 			cmAid = sc.getContractList().get(i).getCmPub();
-			System.out.println("2Sending context request to "+cmAid.getLocalName());
+			//System.out.println("2Sending context request to "+cmAid.getLocalName());
 			msg = new ACLMessage(ACLMessage.REQUEST);
 			msg.addReceiver(cmAid);
 			msg.setLanguage("English");

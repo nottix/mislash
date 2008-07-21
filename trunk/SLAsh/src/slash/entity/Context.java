@@ -17,7 +17,7 @@ public class Context implements Serializable {
 	public static float MEMORY_LIMIT = 60.0f;
 	public static float ENERGY_LIMIT = 20.0f;
 	
-	private static int RST_INTERVAL = 30;
+	private static int RST_INTERVAL = 10;
 	
 	private List<Float> cpuList;
 	private List<Float> ramList;
@@ -58,9 +58,10 @@ public class Context implements Serializable {
 	}
 	
 	public void addEnergyValue(float energyValue) {
-		if(this.energyList.size() >= Context.RST_INTERVAL)
-			this.energyList = new LinkedList<Float>();
-		this.energyList.add(Float.valueOf(energyValue));
+//		if(this.energyList.size() >= Context.RST_INTERVAL)
+//			this.energyList = new LinkedList<Float>();
+//		this.energyList.add(Float.valueOf(energyValue));
+		this.energy = energyValue;
 	}
 	
 	public float getAvgCpu() {
@@ -91,11 +92,11 @@ public class Context implements Serializable {
 	}
 	
 	public float getAvgEnergy() {
-		energy = 0;
-		for(int i=0; i<this.energyList.size(); i++) {
-			energy += this.energyList.get(i);
-		}
-		energy /= this.energyList.size();
+//		energy = 0;
+//		for(int i=0; i<this.energyList.size(); i++) {
+//			energy += this.energyList.get(i);
+//		}
+//		energy /= this.energyList.size();
 		return energy;
 	}
 	
@@ -105,6 +106,10 @@ public class Context implements Serializable {
 	
 	public Location getLocation() {
 		return this.location;
+	}
+	
+	public float calcIndex() {
+		return cpu*0.2f+ram*0.1f+memory*0.2f+(100-energy)*0.5f;
 	}
 	
 	public Context(float cpu, float ram, float memory, float energy, int network, int bandwidth) {

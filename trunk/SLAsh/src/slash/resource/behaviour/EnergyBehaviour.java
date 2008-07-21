@@ -5,6 +5,7 @@ import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 import slash.resource.agent.*;
+import slash.entity.*;
 
 public class EnergyBehaviour extends CyclicBehaviour {
 
@@ -28,22 +29,29 @@ public class EnergyBehaviour extends CyclicBehaviour {
 	
 	private float generate() {
 		
-		if(powerOn) {
-			energy += 0.8;
-			if(agent.isLocalSC())
-				energy -= 0.2;
-		}
+		if(agent.getNetwork() == Context.WIRED)
+			energy = 100;
 		else {
-			energy -= 0.2;
-			if(agent.isLocalSC())
-				energy -= 0.6;
+			if(powerOn) {
+				energy += 0.8;
+				if(agent.isLocalSC() && (agent.getNetwork() == Context.WIRELESS))
+					energy -= 0.2;
+			}
+			else {
+				energy -= 0.2;
+				if(agent.isLocalSC() && (agent.getNetwork() == Context.WIRELESS))
+					energy -= 0.8;
+			}
+
+			if(energy<=10) {
+				powerOn = true;
+			}
+
+			if(energy>=99)
+				powerOn = false;
+
 		}
-		
-		if(energy<=10) {
-			powerOn = true;
-		}
-		else
-			powerOn = false;
+
 		return energy;
 	}
 	
