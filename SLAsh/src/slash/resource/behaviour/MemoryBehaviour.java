@@ -25,9 +25,9 @@ public class MemoryBehaviour extends CyclicBehaviour {
 	}
 	
 	private float generate() {
-		memory = (float)(Math.random()*60);
+		memory = (float)((Math.random()*100)%60);
 		if(agent.isLocalSC())
-			memory += 40;
+			memory +=(float)((Math.random()*100)%40);
 		return memory;
 	}
 	

@@ -26,9 +26,11 @@ public class CpuBehaviour extends CyclicBehaviour {
 	}
 	
 	private float generate() {
-		cpu = (float)(Math.random()*60);
-		if(agent.isLocalSC())
-			cpu += 40;
+		cpu = (float)((Math.random()*100)%60);
+		if(agent.isLocalSC()) {
+			System.out.println("LOCAL: "+myAgent.getLocalName());
+			cpu += (float)((Math.random()*100)%40);
+		}
 			
 		return cpu;
 	}

@@ -25,9 +25,9 @@ public class RamBehaviour extends CyclicBehaviour {
 	}
 	
 	private float generate() {
-		ram = (float)(Math.random()*60);
+		ram = (float)((Math.random()*100)%60);
 		if(agent.isLocalSC())
-			ram += 40;
+			ram += (float)((Math.random()*100)%40);
 		
 		return ram;
 	}

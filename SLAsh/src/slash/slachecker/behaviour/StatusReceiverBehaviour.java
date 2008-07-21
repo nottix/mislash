@@ -23,7 +23,7 @@ public class StatusReceiverBehaviour extends CyclicBehaviour {
 			ACLMessage recvMsg = myAgent.receive(mt);
 			
 			if(recvMsg!=null) {
-				System.out.println("Received status from "+recvMsg.getSender().getLocalName()+", content: "+((Status)recvMsg.getContentObject()).getAvgLatency());
+				//System.out.println("Received status from "+recvMsg.getSender().getLocalName()+", content: "+((Status)recvMsg.getContentObject()).getAvgLatency());
 				sc.getStatusTable().put(recvMsg.getSender(), (Status)recvMsg.getContentObject());
 			}
 			else

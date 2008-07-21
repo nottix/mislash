@@ -25,9 +25,9 @@ public class LatencyBehaviour extends CyclicBehaviour {
 	}
 	
 	private float generate() {
-		latency = (float)(Math.random()*60);
+		latency = (float)((Math.random()*100)%60);
 		if(agent.isLocalSC())
-			latency += 40;
+			latency += (float)((Math.random()*100)%40);
 		//latency /= ((float)agent.getBandwidth())*0.2;
 		//latency %= 100;
 		//if(agent.getNetwork() == Context.WIRED) {

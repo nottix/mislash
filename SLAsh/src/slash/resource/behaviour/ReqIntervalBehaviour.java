@@ -25,7 +25,7 @@ public class ReqIntervalBehaviour extends CyclicBehaviour {
 	}
 	
 	private float generate() {
-		reqInterval = (float)(Math.random()*100);
+		reqInterval = (float)((Math.random()*100)%100);
 		return reqInterval;
 	}
 	

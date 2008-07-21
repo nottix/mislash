@@ -23,7 +23,7 @@ public class NotifyReceiverBehaviour extends CyclicBehaviour {
 			ACLMessage recvMsg = myAgent.receive(mt);
 			//System.out.println("In attesa di notifica!!!");
 			if(recvMsg!=null) {
-				System.out.println("Notifica ricevuta!!!");
+				System.out.println("Notifica ricevuta da "+myAgent.getLocalName());
 				Notify notify = (Notify)recvMsg.getContentObject();
 				int num = Integer.valueOf(String.valueOf(myAgent.getLocalName().charAt(myAgent.getLocalName().length()-1)));
 				
@@ -33,6 +33,8 @@ public class NotifyReceiverBehaviour extends CyclicBehaviour {
 				else if(notify.getDest() == num) {
 					ra.setLocalSC(true);
 				}
+				else
+					ra.setLocalSC(false);
 			}
 			else
 				block();
