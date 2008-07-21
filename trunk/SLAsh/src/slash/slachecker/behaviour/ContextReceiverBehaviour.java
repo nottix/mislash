@@ -22,7 +22,7 @@ public class ContextReceiverBehaviour extends CyclicBehaviour {
 		ACLMessage recvMsg = myAgent.receive(mt);
 		if(recvMsg!=null) {
 			try {
-				System.out.println("Recv context "+((Context)(recvMsg.getContentObject())).getCpu());
+				//System.out.println("Recv context "+((Context)(recvMsg.getContentObject())).getAvgCpu());
 				this.sc.getContextTable().put(recvMsg.getSender(), (Context)recvMsg.getContentObject());
 			} catch (UnreadableException e) {
 				e.printStackTrace();

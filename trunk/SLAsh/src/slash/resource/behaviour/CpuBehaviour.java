@@ -26,7 +26,10 @@ public class CpuBehaviour extends CyclicBehaviour {
 	}
 	
 	private float generate() {
-		cpu = (float)(Math.random()*100);
+		cpu = (float)(Math.random()*60);
+		if(agent.isLocalSC())
+			cpu += 40;
+			
 		return cpu;
 	}
 	

@@ -6,7 +6,7 @@ import slash.resource.behaviour.*;
 import jade.core.AID;
 import jade.core.Agent;
 
-public class ReqIntervalAgent extends Agent {
+public class ReqIntervalAgent extends ResourceAgent {
 
 	private static final long serialVersionUID = -2452255667787453718L;
 
@@ -28,8 +28,9 @@ public class ReqIntervalAgent extends Agent {
 			bandwidth = (Integer)args[1];
 		}
 		
-		AID rmAid = new AID("rm"+this.getLocalName().charAt(this.getLocalName().length()-1), AID.ISLOCALNAME);
-		this.addBehaviour(new ReqIntervalBehaviour(rmAid, this));
+		this.rm = new AID("rm"+this.getLocalName().charAt(this.getLocalName().length()-1), AID.ISLOCALNAME);
+		this.addBehaviour(new ReqIntervalBehaviour(rm, this));
+		this.addBehaviour(new NotifyReceiverBehaviour(this));
 
 	}
 	

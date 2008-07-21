@@ -23,19 +23,19 @@ public class ResourceReceiverBehaviour extends CyclicBehaviour {
 			AID sender = recvMsg.getSender();
 			//System.out.println("recv from "+sender.getLocalName()+" content: "+recvMsg.getContent());
 			if(sender.getLocalName().indexOf("cpu")>=0) {
-				agent.getContext().setCpu(Float.parseFloat(recvMsg.getContent()));
+				agent.getContext().addCpuValue(Float.parseFloat(recvMsg.getContent()));
 				//System.out.println("cpu: "+agent.getContext().getCpu());
 			}
 			else if(sender.getLocalName().indexOf("energy")>=0) {
-				agent.getContext().setEnergy(Float.parseFloat(recvMsg.getContent()));
+				agent.getContext().addEnergyValue(Float.parseFloat(recvMsg.getContent()));
 				//System.out.println("energy: "+agent.getContext().getEnergy());
 			}
 			else if(sender.getLocalName().indexOf("memory")>=0) {
-				agent.getContext().setMemory(Float.parseFloat(recvMsg.getContent()));
+				agent.getContext().addMemoryValue(Float.parseFloat(recvMsg.getContent()));
 				//System.out.println("memory: "+agent.getContext().getMemory());
 			}
 			else if(sender.getLocalName().indexOf("ram")>=0) {
-				agent.getContext().setRam(Float.parseFloat(recvMsg.getContent()));
+				agent.getContext().addRamValue(Float.parseFloat(recvMsg.getContent()));
 				//System.out.println("ram: "+agent.getContext().getRam());
 			}
 		}

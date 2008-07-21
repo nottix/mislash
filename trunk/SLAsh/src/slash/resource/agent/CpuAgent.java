@@ -4,9 +4,9 @@ import jade.core.AID;
 import jade.core.Agent;
 import slash.df.DFUtil;
 import slash.entity.Context;
-import slash.resource.behaviour.CpuBehaviour;
+import slash.resource.behaviour.*;
 
-public class CpuAgent extends Agent {
+public class CpuAgent extends ResourceAgent {
 
 	private static final long serialVersionUID = -5570077702241336240L;
 
@@ -30,6 +30,7 @@ public class CpuAgent extends Agent {
 		
 		AID cmAid = new AID("cm"+this.getLocalName().charAt(this.getLocalName().length()-1), AID.ISLOCALNAME);
 		this.addBehaviour(new CpuBehaviour(cmAid, this));
+		this.addBehaviour(new NotifyReceiverBehaviour(this));
 
 	}
 	

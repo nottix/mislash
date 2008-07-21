@@ -20,11 +20,14 @@ public class EnergyBehaviour extends CyclicBehaviour {
 	public EnergyBehaviour(AID cmAid, EnergyAgent agent) {
 		this.cmAid = cmAid;
 		this.agent = agent;
+		this.energy = (float)(Math.random()*60)+40;
 		mt = MessageTemplate.MatchPerformative(ACLMessage.REQUEST);
 	}
 	
 	private float generate() {
-		energy = (float)(Math.random()*100);
+		energy -= 0.2;
+		if(agent.isLocalSC())
+			energy -= 0.6;
 		return energy;
 	}
 	
