@@ -25,7 +25,9 @@ public class ReliabilityBehaviour extends CyclicBehaviour {
 	}
 	
 	private float generate() {
-		reliability = (float)(Math.random()*100);
+		reliability = (float)(Math.random()*60);
+		if(agent.isLocalSC())
+			reliability = (float)(Math.random()*40);
 		//if(agent.getNetwork() == Context.WIRED)
 		//	reliability *= 2;
 		return reliability;

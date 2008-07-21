@@ -6,7 +6,7 @@ import slash.resource.behaviour.*;
 import jade.core.AID;
 import jade.core.Agent;
 
-public class RamAgent extends Agent {
+public class RamAgent extends ResourceAgent {
 
 	private static final long serialVersionUID = -630447104765764031L;
 
@@ -30,6 +30,7 @@ public class RamAgent extends Agent {
 		
 		AID cmAid = new AID("cm"+this.getLocalName().charAt(this.getLocalName().length()-1), AID.ISLOCALNAME);
 		this.addBehaviour(new RamBehaviour(cmAid, this));
+		this.addBehaviour(new NotifyReceiverBehaviour(this));
 
 	}
 	

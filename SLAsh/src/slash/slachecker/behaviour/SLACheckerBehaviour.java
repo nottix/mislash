@@ -5,6 +5,8 @@ import jade.lang.acl.ACLMessage;
 import slash.slachecker.agent.*;
 import slash.entity.*;
 import java.io.*;
+import jade.core.*;
+import java.util.*;
 
 public class SLACheckerBehaviour extends TickerBehaviour {
 	
@@ -46,6 +48,57 @@ public class SLACheckerBehaviour extends TickerBehaviour {
 				}
 			}
 		}
+		
+		AID cm = new AID("cm"+sc.getAssociatedID(), AID.ISLOCALNAME);
+		System.out.println("Associated with: "+cm.getLocalName());
+		Context context = sc.getContextTable().get(cm);
+
+		float avgCpu, avgRam, avgMemory, avgEnergy;
+		if(context!=null) {
+			avgCpu = context.getAvgCpu();
+			avgRam = context.getAvgRam();
+			avgMemory = context.getAvgMemory();
+			avgEnergy = context.getAvgEnergy();
+			System.out.println("Actual context--> cpu: "+avgCpu+", ram: "+avgRam+", memory: "+avgMemory+", energy: "+avgEnergy);
+			if(avgCpu >= Context.CPU_LIMIT || avgRam >= Context.RAM_LIMIT || avgMemory >= Context.MEMORY_LIMIT || 
+					avgEnergy <= Context.ENERGY_LIMIT) {
+				AID best = getBestNode();
+				if(best!=null) {
+					//myAgent.doMove(best);
+					int bestN = best.getLocalName().charAt(best.getLocalName().length()-1);
+					System.out.println("MIGRAZIONE verso "+best.getLocalName());
+				}
+				else
+					System.out.println("IMPOSSIBILE MIGRARE!!!");
+			}
+		}
+	}
+	
+	public AID getBestNode() {
+		AID best;
+		AID next;
+		Enumeration<AID> keys = sc.getContextTable().keys();
+		Context context;
+		float avgCpu, avgRam, avgMemory, avgEnergy;
+
+		while(keys.hasMoreElements()) {
+			next = keys.nextElement();
+			context = sc.getContextTable().get(next);
+			if(context!=null) {
+				avgCpu = context.getAvgCpu();
+				avgRam = context.getAvgRam();
+				avgMemory = context.getAvgMemory();
+				avgEnergy = context.getAvgEnergy();
+
+				if(avgCpu < Context.CPU_LIMIT && avgRam < Context.RAM_LIMIT && 
+						avgMemory < Context.MEMORY_LIMIT && avgEnergy > Context.ENERGY_LIMIT) {
+					best = next;
+					return best;
+				}
+			}
+		}
+
+		return null;
 	}
 
 }

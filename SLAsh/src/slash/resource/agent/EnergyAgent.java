@@ -6,7 +6,7 @@ import slash.resource.behaviour.*;
 import jade.core.AID;
 import jade.core.Agent;
 
-public class EnergyAgent extends Agent {
+public class EnergyAgent extends ResourceAgent {
 
 	private static final long serialVersionUID = 7577668356120531127L;
 
@@ -30,6 +30,7 @@ public class EnergyAgent extends Agent {
 		
 		AID cmAid = new AID("cm"+this.getLocalName().charAt(this.getLocalName().length()-1), AID.ISLOCALNAME);
 		this.addBehaviour(new EnergyBehaviour(cmAid, this));
+		this.addBehaviour(new NotifyReceiverBehaviour(this));
 
 	}
 	

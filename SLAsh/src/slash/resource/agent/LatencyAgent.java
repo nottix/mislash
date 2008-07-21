@@ -7,7 +7,7 @@ import jade.core.AID;
 import jade.core.Agent;
 import slash.entity.*;
 
-public class LatencyAgent extends Agent {
+public class LatencyAgent extends ResourceAgent {
 
 	private static final long serialVersionUID = -5626212945073184408L;
 
@@ -29,8 +29,9 @@ public class LatencyAgent extends Agent {
 			bandwidth = (Integer)args[1];
 		}
 		
-		AID rmAid = new AID("rm"+this.getLocalName().charAt(this.getLocalName().length()-1), AID.ISLOCALNAME);
-		this.addBehaviour(new LatencyBehaviour(rmAid, this));
+		this.rm = new AID("rm"+this.getLocalName().charAt(this.getLocalName().length()-1), AID.ISLOCALNAME);
+		this.addBehaviour(new LatencyBehaviour(rm, this));
+		this.addBehaviour(new NotifyReceiverBehaviour(this));
 
 	}
 	
