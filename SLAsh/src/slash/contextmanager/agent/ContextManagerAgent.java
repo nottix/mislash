@@ -17,6 +17,7 @@ public class ContextManagerAgent extends Agent {
 		System.out.println("ContextManagerAgent: "+this.getName());
 		//DFUtil.register(this, this.getLocalName(), "context-manager");
 		this.context = new Context();
+		this.context.setLocation(this.here());
 		this.addBehaviour(new ResourceReceiverBehaviour(this));
 		this.addBehaviour(new ResourceRequesterBehaviour(this));
 		this.addBehaviour(new ContextReqReceiverBehaviour(this));

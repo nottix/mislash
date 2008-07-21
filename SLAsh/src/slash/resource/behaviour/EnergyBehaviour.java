@@ -11,6 +11,7 @@ public class EnergyBehaviour extends CyclicBehaviour {
 	private static final long serialVersionUID = -3231027298580344751L;
 
 	private float energy;
+	private boolean powerOn;
 	
 	private AID cmAid;
 	private EnergyAgent agent;
@@ -20,14 +21,29 @@ public class EnergyBehaviour extends CyclicBehaviour {
 	public EnergyBehaviour(AID cmAid, EnergyAgent agent) {
 		this.cmAid = cmAid;
 		this.agent = agent;
+		this.powerOn = false;
 		this.energy = (float)(Math.random()*60)+40;
 		mt = MessageTemplate.MatchPerformative(ACLMessage.REQUEST);
 	}
 	
 	private float generate() {
-		energy -= 0.2;
-		if(agent.isLocalSC())
-			energy -= 0.6;
+		
+		if(powerOn) {
+			energy += 0.8;
+			if(agent.isLocalSC())
+				energy -= 0.2;
+		}
+		else {
+			energy -= 0.2;
+			if(agent.isLocalSC())
+				energy -= 0.6;
+		}
+		
+		if(energy<=10) {
+			powerOn = true;
+		}
+		else
+			powerOn = false;
 		return energy;
 	}
 	
