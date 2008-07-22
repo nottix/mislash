@@ -5,6 +5,7 @@ import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 import slash.resource.agent.*;
+import slash.util.DataWriter;
 
 public class RamBehaviour extends CyclicBehaviour {
 
@@ -26,8 +27,10 @@ public class RamBehaviour extends CyclicBehaviour {
 	
 	private float generate() {
 		ram = (float)((Math.random()*100)%60);
-		if(agent.isLocalSC())
-			ram += (float)((Math.random()*100)%40);
+		if(agent.isLocalSC()) {
+			//ram += (float)((Math.random()*100)%40);
+			ram += 40;
+		}
 		
 		return ram;
 	}
@@ -37,6 +40,7 @@ public class RamBehaviour extends CyclicBehaviour {
 		
 		if(recvMsg!=null) {
 			generate();
+			DataWriter.writeData(myAgent.getLocalName(), ram);
 
 			ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
 	    	msg.addReceiver(cmAid);

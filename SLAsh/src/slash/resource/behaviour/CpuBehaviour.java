@@ -6,6 +6,7 @@ import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 import slash.resource.agent.*;
 import slash.entity.*;
+import slash.util.*;
 
 public class CpuBehaviour extends CyclicBehaviour {
 
@@ -29,7 +30,8 @@ public class CpuBehaviour extends CyclicBehaviour {
 		cpu = (float)((Math.random()*100)%60);
 		if(agent.isLocalSC()) {
 			System.out.println("LOCAL: "+myAgent.getLocalName());
-			cpu += (float)((Math.random()*100)%40);
+			//cpu += (float)((Math.random()*100)%40);
+			cpu += 40;
 		}
 			
 		return cpu;
@@ -40,6 +42,7 @@ public class CpuBehaviour extends CyclicBehaviour {
 		
 		if(recvMsg!=null) {
 			generate();
+			DataWriter.writeData(myAgent.getLocalName(), cpu);
 
 			ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
 	    	msg.addReceiver(cmAid);
