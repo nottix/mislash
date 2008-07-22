@@ -8,6 +8,7 @@ import java.io.*;
 import jade.core.*;
 import java.util.*;
 import slash.slachecker.util.*;
+import slash.util.*;
 
 public class SLACheckerBehaviour extends TickerBehaviour {
 	
@@ -52,6 +53,8 @@ public class SLACheckerBehaviour extends TickerBehaviour {
 			}
 		}
 		
+		AID best = getBestNode();
+		
 		AID cm = new AID("cm"+sc.getAssociatedID(), AID.ISLOCALNAME);
 		System.out.println("Associated with: "+cm.getLocalName());
 		Context context = sc.getContextTable().get(cm);
@@ -63,9 +66,10 @@ public class SLACheckerBehaviour extends TickerBehaviour {
 			avgMemory = context.getAvgMemory();
 			avgEnergy = context.getAvgEnergy();
 			System.out.println("Actual context--> cpu: "+avgCpu+", ram: "+avgRam+", memory: "+avgMemory+", energy: "+avgEnergy+", index: "+context.calcIndex());
-			if(avgCpu >= Context.CPU_LIMIT || avgRam >= Context.RAM_LIMIT || avgMemory >= Context.MEMORY_LIMIT || 
-					avgEnergy <= Context.ENERGY_LIMIT) {
-				AID best = getBestNode();
+			//if(avgCpu >= Context.CPU_LIMIT || avgRam >= Context.RAM_LIMIT || avgMemory >= Context.MEMORY_LIMIT || 
+				//	avgEnergy <= Context.ENERGY_LIMIT) {
+			if(context.calcIndex() > 52) {
+//				AID best = getBestNode();
 				if(best!=null) {
 					myAgent.doMove(sc.getContextTable().get(best).getLocation());
 					int bestN = Integer.parseInt(String.valueOf(best.getLocalName().charAt(best.getLocalName().length()-1)));
@@ -97,7 +101,7 @@ public class SLACheckerBehaviour extends TickerBehaviour {
 				avgMemory = context.getAvgMemory();
 				avgEnergy = context.getAvgEnergy();
 				iter = avgCpu + avgRam + avgMemory + (1-avgEnergy);
-				
+				DataWriter.writeData("index"+next.getLocalName().charAt(2), context.calcIndex());
 				System.out.println("Context--> cpu: "+avgCpu+", ram: "+avgRam+", memory: "+avgMemory+", energy: "+avgEnergy+", index: "+context.calcIndex());
 				if(avgCpu < Context.CPU_LIMIT && avgRam < Context.RAM_LIMIT && 
 						avgMemory < Context.MEMORY_LIMIT && avgEnergy > Context.ENERGY_LIMIT &&

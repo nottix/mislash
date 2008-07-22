@@ -6,6 +6,7 @@ import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 import slash.entity.Context;
 import slash.resource.agent.ReliabilityAgent;
+import slash.util.DataWriter;
 
 public class ReliabilityBehaviour extends CyclicBehaviour {
 
@@ -26,8 +27,8 @@ public class ReliabilityBehaviour extends CyclicBehaviour {
 	
 	private float generate() {
 		reliability = (float)((Math.random()*100)%60);
-		if(agent.isLocalSC())
-			reliability = (float)((Math.random()*100)%40);
+		if(agent.getNetwork() == Context.WIRED)
+			reliability = (float)(((Math.random()*100)*(agent.getBandwidth()/50))%40);
 		//if(agent.getNetwork() == Context.WIRED)
 		//	reliability *= 2;
 		return reliability;
@@ -38,6 +39,7 @@ public class ReliabilityBehaviour extends CyclicBehaviour {
 		
 		if(recvMsg!=null) {
 			generate();
+			DataWriter.writeData(myAgent.getLocalName(), reliability);
 
 			ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
 	    	msg.addReceiver(rmAid);

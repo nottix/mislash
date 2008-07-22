@@ -5,6 +5,7 @@ import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 import slash.resource.agent.*;
+import slash.util.DataWriter;
 
 public class ReqIntervalBehaviour extends CyclicBehaviour {
 
@@ -34,6 +35,7 @@ public class ReqIntervalBehaviour extends CyclicBehaviour {
 		
 		if(recvMsg!=null) {
 			generate();
+			DataWriter.writeData(myAgent.getLocalName(), reqInterval);
 
 			ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
 	    	msg.addReceiver(rmAid);

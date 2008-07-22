@@ -5,6 +5,7 @@ import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 import slash.resource.agent.*;
+import slash.util.DataWriter;
 
 public class MemoryBehaviour extends CyclicBehaviour {
 
@@ -20,14 +21,20 @@ public class MemoryBehaviour extends CyclicBehaviour {
 	public MemoryBehaviour(AID cmAid, MemoryAgent agent) {
 		this.cmAid = cmAid;
 		this.agent = agent;
+		this.memory = (float)((Math.random()*100)%60);
 		
 		mt = MessageTemplate.MatchPerformative(ACLMessage.REQUEST);
 	}
 	
 	private float generate() {
-		memory = (float)((Math.random()*100)%60);
 		if(agent.isLocalSC())
-			memory +=(float)((Math.random()*100)%40);
+			memory += 0.2*(float)((Math.random()*100)%10);
+		else
+			memory -= 0.2*(float)((Math.random()*100)%10);
+		
+		if(memory<0)
+			memory = 0;
+		
 		return memory;
 	}
 	
@@ -36,6 +43,7 @@ public class MemoryBehaviour extends CyclicBehaviour {
 		
 		if(recvMsg!=null) {
 			generate();
+			DataWriter.writeData(myAgent.getLocalName(), memory);
 
 			ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
 	    	msg.addReceiver(cmAid);

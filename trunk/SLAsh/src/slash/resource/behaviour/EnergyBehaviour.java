@@ -5,6 +5,7 @@ import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 import slash.resource.agent.*;
+import slash.util.DataWriter;
 import slash.entity.*;
 
 public class EnergyBehaviour extends CyclicBehaviour {
@@ -60,7 +61,8 @@ public class EnergyBehaviour extends CyclicBehaviour {
 		
 		if(recvMsg!=null) {
 			generate();
-
+			DataWriter.writeData(myAgent.getLocalName(), energy);
+			
 			ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
 	    	msg.addReceiver(cmAid);
 	    	msg.setLanguage("English");

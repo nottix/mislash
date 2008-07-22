@@ -40,21 +40,24 @@ public class Context implements Serializable {
 	}
 	
 	public void addCpuValue(float cpuValue) {
-		if(this.cpuList.size() >= Context.RST_INTERVAL)
-			this.cpuList = new LinkedList<Float>();
-		this.cpuList.add(Float.valueOf(cpuValue));
+//		if(this.cpuList.size() >= Context.RST_INTERVAL)
+//			this.cpuList = new LinkedList<Float>();
+//		this.cpuList.add(Float.valueOf(cpuValue));
+		this.cpu = cpuValue;
 	}
 	
 	public void addRamValue(float ramValue) {
-		if(this.ramList.size() >= Context.RST_INTERVAL)
-			this.ramList = new LinkedList<Float>();
-		this.ramList.add(Float.valueOf(ramValue));
+//		if(this.ramList.size() >= Context.RST_INTERVAL)
+//			this.ramList = new LinkedList<Float>();
+//		this.ramList.add(Float.valueOf(ramValue));
+		this.ram = ramValue;
 	}
 	
 	public void addMemoryValue(float memoryValue) {
-		if(this.memoryList.size() >= Context.RST_INTERVAL)
-			this.memoryList = new LinkedList<Float>();
-		this.memoryList.add(Float.valueOf(memoryValue));
+//		if(this.memoryList.size() >= Context.RST_INTERVAL)
+//			this.memoryList = new LinkedList<Float>();
+//		this.memoryList.add(Float.valueOf(memoryValue));
+		this.memory = memoryValue;
 	}
 	
 	public void addEnergyValue(float energyValue) {
@@ -65,29 +68,29 @@ public class Context implements Serializable {
 	}
 	
 	public float getAvgCpu() {
-		cpu = 0;
-		for(int i=0; i<this.cpuList.size(); i++) {
-			cpu += this.cpuList.get(i);
-		}
-		cpu /= this.cpuList.size();
+//		cpu = 0;
+//		for(int i=0; i<this.cpuList.size(); i++) {
+//			cpu += this.cpuList.get(i);
+//		}
+//		cpu /= this.cpuList.size();
 		return cpu;
 	}
 	
 	public float getAvgRam() {
-		ram = 0;
-		for(int i=0; i<this.ramList.size(); i++) {
-			ram += this.ramList.get(i);
-		}
-		ram /= this.ramList.size();
+//		ram = 0;
+//		for(int i=0; i<this.ramList.size(); i++) {
+//			ram += this.ramList.get(i);
+//		}
+//		ram /= this.ramList.size();
 		return ram;
 	}
 	
 	public float getAvgMemory() {
-		memory = 0;
-		for(int i=0; i<this.memoryList.size(); i++) {
-			memory += this.memoryList.get(i);
-		}
-		memory /= this.memoryList.size();
+//		memory = 0;
+//		for(int i=0; i<this.memoryList.size(); i++) {
+//			memory += this.memoryList.get(i);
+//		}
+//		memory /= this.memoryList.size();
 		return memory;
 	}
 	
@@ -109,7 +112,7 @@ public class Context implements Serializable {
 	}
 	
 	public float calcIndex() {
-		return cpu*0.2f+ram*0.1f+memory*0.2f+(100-energy)*0.5f;
+		return cpu*0.23f+ram*0.23f+memory*0.23f+(100-energy)*0.3f;
 	}
 	
 	public Context(float cpu, float ram, float memory, float energy, int network, int bandwidth) {

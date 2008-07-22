@@ -6,6 +6,7 @@ import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 import slash.entity.Context;
 import slash.resource.agent.LatencyAgent;
+import slash.util.DataWriter;
 
 public class LatencyBehaviour extends CyclicBehaviour {
 
@@ -26,8 +27,9 @@ public class LatencyBehaviour extends CyclicBehaviour {
 	
 	private float generate() {
 		latency = (float)((Math.random()*100)%60);
-		if(agent.isLocalSC())
-			latency += (float)((Math.random()*100)%40);
+		if(agent.isLocalSC() || agent.getNetwork() == Context.WIRELESS) {
+			latency += (float)(((Math.random()*100)/(agent.getBandwidth()/50))%40);
+		}
 		//latency /= ((float)agent.getBandwidth())*0.2;
 		//latency %= 100;
 		//if(agent.getNetwork() == Context.WIRED) {
@@ -42,7 +44,8 @@ public class LatencyBehaviour extends CyclicBehaviour {
 		
 		if(recvMsg!=null) {
 			generate();
-
+			DataWriter.writeData(myAgent.getLocalName(), latency);
+			
 			ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
 	    	msg.addReceiver(rmAid);
 	    	msg.setLanguage("English");
