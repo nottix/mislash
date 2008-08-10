@@ -28,7 +28,7 @@ public class ReliabilityBehaviour extends CyclicBehaviour {
 	private float generate() {
 		reliability = (float)((Math.random()*100)%60);
 		if(agent.getNetwork() == Context.WIRED)
-			reliability = (float)(((Math.random()*100)*(agent.getBandwidth()/50))%40);
+			reliability += (float)(((Math.random()*100)*(agent.getBandwidth()/50))%40);
 		//if(agent.getNetwork() == Context.WIRED)
 		//	reliability *= 2;
 		return reliability;

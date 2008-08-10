@@ -37,6 +37,31 @@
 \lstset{backgroundcolor=\color{light-gray}}
 \lstset{frame=trBL}
 
+\newcommand{\code}[1]{%
+	\texttt{#1}\index{#1}
+}%
+\newcommand{\var}[1]{%
+	\emph{#1}\index{#1}%
+}%
+
+\definecolor{lightgray}{gray}{0.95}
+\newcommand{\sfondo}
+{
+	\AddToShipoutPicture{
+		\AtTextCenter{
+			\put(0,-5){
+				\makebox(0,0)[c]{
+					\resizebox{2.2\textwidth}{!}{
+						\rotatebox{60}{
+							\textsf{\textbf{\textcolor{lightgray}{TaskSpider}}}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
 \begin{document}
 \include{title}
 \pagebreak
@@ -46,14 +71,11 @@
 \tableofcontents
 
 \include{cap/abstract}
-%\include{cap/introduzione}
-%\include{cap/gnutellaVsTortella}
-%\include{cap/tortellaApplication}
-%\include{cap/architettura}
-%\include{cap/ambienteDiSviluppo}
-%\include{cap/installazioneEdEsecuzione}
+\include{cap/introduzione}
+\include{cap/architettura}
 %\include{cap/conclusioni}
 %\include{cap/appendice}
+%\include{cap/bibliografia}
 
 %\lstlistoflistings
 \listoftables
