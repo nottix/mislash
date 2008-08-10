@@ -2,7 +2,7 @@
 Per comprendere a fondo l'entità di tale progetto deve essere riportata la specifica del problema da risolvere, in quanto consente di entrare nell'ottica del problema.
 \section{Specifiche problema}
 \subsection{Logica applicazione}
-Si richiede di progettare una architettura di supporto al monitoraggio e controllo di SLA in ambiente (possibilmente) mobile. L’architettura del servizio è basata sulla definizione di un certo numero di componenti “logici”: SLA Checker (SC), Context Manager (CM), Resource Monitor (RM). Tali entità interagiscono tra loro unicamente tramite il meccanismo DSM ("tuple space"). Il ruolo di tali entità viene descritto come segue:
+Si richiede di progettare una architettura di supporto al monitoraggio e controllo di SLA\cite{rif1} in ambiente (possibilmente) mobile. L’architettura del servizio è basata sulla definizione di un certo numero di componenti “logici”: SLA Checker (SC), Context Manager (CM), Resource Monitor (RM). Tali entità interagiscono tra loro unicamente tramite il meccanismo DSM ("tuple space"). Il ruolo di tali entità viene descritto come segue:
 \begin{description}
 \item[SLAchecker (SC):] data una coppia fornitore/richiedente servizio, che ha stipulato un SLA, SC ha il compito di controllare il rispetto dei parametri del contratto sia da parte del fornitore che del richiedente, e segnalare eventuali violazioni ad entrambi. A questo scopo, SC raccoglie informazioni fornite da opportuni componenti di tipo Monitor presenti sia sul nodo del fornitore che del richiedente, relative a (per esempio):
 \begin{itemize}
