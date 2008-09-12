@@ -1,14 +1,15 @@
 package slash.resource.behaviour;
 
 import jade.core.AID;
-import jade.core.behaviours.CyclicBehaviour;
+import jade.core.behaviours.*;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 import slash.resource.agent.*;
 import slash.util.DataWriter;
+import slash.dsm.client.DsmClient;
 import slash.entity.*;
 
-public class EnergyBehaviour extends CyclicBehaviour {
+public class EnergyBehaviour extends TickerBehaviour {
 
 	private static final long serialVersionUID = -3231027298580344751L;
 
@@ -19,12 +20,15 @@ public class EnergyBehaviour extends CyclicBehaviour {
 	private EnergyAgent agent;
 	private MessageTemplate mt;
 	private ACLMessage recvMsg;
+	private DsmClient dsmClient;
 	
 	public EnergyBehaviour(AID cmAid, EnergyAgent agent) {
+		super(agent, 1000);
 		this.cmAid = cmAid;
 		this.agent = agent;
 		this.powerOn = false;
 		this.energy = (float)(Math.random()*60)+40;
+		this.dsmClient = new DsmClient(agent);
 		mt = MessageTemplate.MatchPerformative(ACLMessage.REQUEST);
 	}
 	
@@ -56,24 +60,10 @@ public class EnergyBehaviour extends CyclicBehaviour {
 		return energy;
 	}
 	
-	public void action() {
-		recvMsg = myAgent.receive(mt);
-		
-		if(recvMsg!=null) {
-			generate();
-			DataWriter.writeData(myAgent.getLocalName(), energy);
-			
-			ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
-	    	msg.addReceiver(cmAid);
-	    	msg.setLanguage("English");
-	    	String cpuStr = String.valueOf(energy);
-	    	msg.setContent(cpuStr);
-	    	msg.setConversationId("resource response");
-	
-	    	myAgent.send(msg);
-		}
-		else
-			block();
-
+	protected void onTick() {
+		generate();
+		DataWriter.writeData(myAgent.getLocalName(), energy);
+    	String energyStr = String.valueOf(energy);
+    	dsmClient.out(agent.getLocalName(), "energy", energyStr);
 	}
 }
