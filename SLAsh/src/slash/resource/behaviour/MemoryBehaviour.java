@@ -1,13 +1,14 @@
 package slash.resource.behaviour;
 
 import jade.core.AID;
-import jade.core.behaviours.CyclicBehaviour;
+import jade.core.behaviours.*;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
+import slash.dsm.client.DsmClient;
 import slash.resource.agent.*;
 import slash.util.DataWriter;
 
-public class MemoryBehaviour extends CyclicBehaviour {
+public class MemoryBehaviour extends TickerBehaviour {
 
 	private static final long serialVersionUID = -3231027298580344751L;
 
@@ -17,10 +18,13 @@ public class MemoryBehaviour extends CyclicBehaviour {
 	private MemoryAgent agent;
 	private MessageTemplate mt;
 	private ACLMessage recvMsg;
+	private DsmClient dsmClient;
 	
 	public MemoryBehaviour(AID cmAid, MemoryAgent agent) {
+		super(agent, 1000);
 		this.cmAid = cmAid;
 		this.agent = agent;
+		this.dsmClient = new DsmClient(agent);
 		this.memory = (float)((Math.random()*100)%60);
 		
 		mt = MessageTemplate.MatchPerformative(ACLMessage.REQUEST);
@@ -38,24 +42,10 @@ public class MemoryBehaviour extends CyclicBehaviour {
 		return memory;
 	}
 	
-	public void action() {
-		recvMsg = myAgent.receive(mt);
-		
-		if(recvMsg!=null) {
-			generate();
-			DataWriter.writeData(myAgent.getLocalName(), memory);
-
-			ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
-	    	msg.addReceiver(cmAid);
-	    	msg.setLanguage("English");
-	    	String cpuStr = String.valueOf(memory);
-	    	msg.setContent(cpuStr);
-	    	msg.setConversationId("resource response");
-	
-	    	myAgent.send(msg);
-		}
-		else
-			block();
-
+	protected void onTick() {
+		generate();
+		DataWriter.writeData(myAgent.getLocalName(), memory);
+    	String memoryStr = String.valueOf(memory);
+    	dsmClient.out(agent.getLocalName(), "memory", memoryStr);
 	}
 }

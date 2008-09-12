@@ -35,11 +35,13 @@ public class AgentLauncher {
 		arg[0] = network;
 		arg[1] = Integer.valueOf(bandwidth);
 		
-		if(!scEnabled) {
-			launchAgent("sc", "slash.slachecker.agent.SLACheckerAgent", null, cc);
-			scEnabled = true;
-		}
-		launchAgent("cm"+counter, "slash.contextmanager.agent.ContextManagerAgent", null, cc);
+		launchAgent("dsm", "slash.dsm.agent.DsmServerAgent", null, cc);
+		
+//		if(!scEnabled) {
+//			launchAgent("sc", "slash.slachecker.agent.SLACheckerAgent", null, cc);
+//			scEnabled = true;
+//		}
+//		launchAgent("cm"+counter, "slash.contextmanager.agent.ContextManagerAgent", null, cc);
 		
 		launchAgent("cpu"+counter, "slash.resource.agent.CpuAgent", arg, cc);
 		launchAgent("energy"+counter, "slash.resource.agent.EnergyAgent", arg, cc);
@@ -49,8 +51,8 @@ public class AgentLauncher {
 		launchAgent("latency"+counter, "slash.resource.agent.LatencyAgent", arg, cc);
 		launchAgent("reliability"+counter, "slash.resource.agent.ReliabilityAgent", arg, cc);
 		launchAgent("reqInterval"+counter, "slash.resource.agent.ReqIntervalAgent", arg, cc);
-			
-		launchAgent("rm"+counter, "slash.resourcemonitor.agent.ResourceMonitorAgent", new Object[]{type}, cc);
+//			
+//		launchAgent("rm"+counter, "slash.resourcemonitor.agent.ResourceMonitorAgent", new Object[]{type}, cc);
 		
 		counter++;
 	}
@@ -58,8 +60,8 @@ public class AgentLauncher {
 	public static void main(String[] args) {
 		
 		launchNode("wired", 512, "publisher");
-		launchNode("wireless", 256, "subscriber");
-		launchNode("wireless", 256, "subscriber");
+//		launchNode("wireless", 256, "subscriber");
+//		launchNode("wireless", 256, "subscriber");
 	}
 
 }

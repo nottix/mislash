@@ -1,13 +1,14 @@
 package slash.resource.behaviour;
 
 import jade.core.AID;
-import jade.core.behaviours.CyclicBehaviour;
+import jade.core.behaviours.*;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
+import slash.dsm.client.DsmClient;
 import slash.resource.agent.*;
 import slash.util.DataWriter;
 
-public class RamBehaviour extends CyclicBehaviour {
+public class RamBehaviour extends TickerBehaviour {
 
 	private static final long serialVersionUID = -3231027298580344751L;
 
@@ -17,10 +18,13 @@ public class RamBehaviour extends CyclicBehaviour {
 	private RamAgent agent;
 	private MessageTemplate mt;
 	private ACLMessage recvMsg;
+	private DsmClient dsmClient;
 	
 	public RamBehaviour(AID cmAid, RamAgent agent) {
+		super(agent, 1000);
 		this.cmAid = cmAid;
 		this.agent = agent;
+		this.dsmClient = new DsmClient(agent);
 		
 		mt = MessageTemplate.MatchPerformative(ACLMessage.REQUEST);
 	}
@@ -35,24 +39,10 @@ public class RamBehaviour extends CyclicBehaviour {
 		return ram;
 	}
 	
-	public void action() {
-		recvMsg = myAgent.receive(mt);
-		
-		if(recvMsg!=null) {
-			generate();
-			DataWriter.writeData(myAgent.getLocalName(), ram);
-
-			ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
-	    	msg.addReceiver(cmAid);
-	    	msg.setLanguage("English");
-	    	String cpuStr = String.valueOf(ram);
-	    	msg.setContent(cpuStr);
-	    	msg.setConversationId("resource response");
-	
-	    	myAgent.send(msg);
-		}
-		else
-			block();
-
+	protected void onTick() {
+		generate();
+		DataWriter.writeData(myAgent.getLocalName(), ram);
+    	String ramStr = String.valueOf(ram);
+    	dsmClient.out(agent.getLocalName(), "ram", ramStr);
 	}
 }

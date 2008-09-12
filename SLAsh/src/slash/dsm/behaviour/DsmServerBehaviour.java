@@ -27,9 +27,12 @@ public class DsmServerBehaviour extends CyclicBehaviour {
 			ACLMessage recvMsg = myAgent.receive(mt);
 			Tuple tuple = null;
 			if(recvMsg!=null) {
+				System.out.println("msg received from client");
 				tuple = (Tuple)recvMsg.getContentObject();
 				doOperation(tuple, recvMsg.getSender());
 			}
+			else
+				block();
 		} catch (UnreadableException e) {
 			e.printStackTrace();
 		}

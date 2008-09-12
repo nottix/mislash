@@ -16,8 +16,10 @@ public class DsmClient {
 	public DsmClient(Agent agent) {
 		this.agent = agent;
 		
-		DFAgentDescription[] res = DFUtil.search(agent, "dsm");
-		dsm = res[0].getName();
+//		DFAgentDescription[] res = DFUtil.search(agent, "dsm");
+//		dsm = res[0].getName();
+		
+		dsm = new AID("dsm", AID.ISLOCALNAME);
 	}
 	
 	public int out(String index, String type, Object value) {
@@ -31,6 +33,7 @@ public class DsmClient {
 			msg.setLanguage("English");
 			msg.setConversationId("dsm");
 			msg.setContentObject(tuple);
+			System.out.println("Sending msg to dsm");
 			agent.send(msg);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -54,7 +57,10 @@ public class DsmClient {
 			
 			ACLMessage recvMsg = agent.receive();
 			if(recvMsg!=null) {
-				return ((Tuple)(recvMsg.getContentObject())).getValue(); 
+				Object obj = recvMsg.getContentObject();
+				if(obj!=null) {
+					return ((Tuple)obj).getValue();
+				} 
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
