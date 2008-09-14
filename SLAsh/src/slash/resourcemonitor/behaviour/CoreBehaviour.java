@@ -5,6 +5,11 @@ import jade.lang.acl.ACLMessage;
 import slash.resourcemonitor.agent.*;
 import jade.core.*;
 
+/**
+ * OBSOLETO
+ * @author avenger
+ *
+ */
 public class CoreBehaviour extends TickerBehaviour {
 
 	private static final long serialVersionUID = 4263686587549217966L;

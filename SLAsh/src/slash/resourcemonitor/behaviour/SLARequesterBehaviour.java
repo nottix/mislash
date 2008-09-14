@@ -5,10 +5,20 @@ import jade.core.behaviours.OneShotBehaviour;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.lang.acl.ACLMessage;
 import slash.df.DFUtil;
+import slash.dsm.client.DsmClient;
+import slash.resourcemonitor.agent.*;
 
 public class SLARequesterBehaviour extends OneShotBehaviour {
 
 	private static final long serialVersionUID = 1897715821469100876L;
+	
+	private DsmClient dsmClient;
+	private ResourceMonitorAgent rm;
+	
+	public SLARequesterBehaviour(ResourceMonitorAgent agent) {
+		this.rm = agent;
+		dsmClient = new DsmClient(agent);
+	}
 	
 	public void action() {
 		try {
@@ -17,11 +27,7 @@ public class SLARequesterBehaviour extends OneShotBehaviour {
 			AID publisher = res[index].getName();
 			System.out.println("Selected publisher: "+publisher.getLocalName());
 			
-			ACLMessage msg = new ACLMessage(ACLMessage.REQUEST);
-			msg.addReceiver(publisher);
-			msg.setLanguage("English");
-			msg.setConversationId("SLAContract request");
-			myAgent.send(msg);
+			dsmClient.out("sc", "slacontract-request", myAgent.getLocalName());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
