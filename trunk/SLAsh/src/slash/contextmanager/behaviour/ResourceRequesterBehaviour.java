@@ -6,6 +6,11 @@ import jade.lang.acl.ACLMessage;
 import slash.contextmanager.agent.*;
 import slash.df.DFUtil;
 
+/**
+ * OBSOLETO
+ * @author avenger
+ *
+ */
 public class ResourceRequesterBehaviour extends TickerBehaviour {
 
 	private static final long serialVersionUID = 8209781904561474880L;

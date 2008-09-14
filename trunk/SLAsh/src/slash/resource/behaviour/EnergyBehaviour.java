@@ -63,7 +63,7 @@ public class EnergyBehaviour extends TickerBehaviour {
 	protected void onTick() {
 		generate();
 		DataWriter.writeData(myAgent.getLocalName(), energy);
-    	String energyStr = String.valueOf(energy);
+    	Float energyStr = energy;
     	dsmClient.out(agent.getLocalName(), "energy", energyStr);
 	}
 }

@@ -41,7 +41,7 @@ public class AgentLauncher {
 //			launchAgent("sc", "slash.slachecker.agent.SLACheckerAgent", null, cc);
 //			scEnabled = true;
 //		}
-//		launchAgent("cm"+counter, "slash.contextmanager.agent.ContextManagerAgent", null, cc);
+		launchAgent("cm"+counter, "slash.contextmanager.agent.ContextManagerAgent", null, cc);
 		
 		launchAgent("cpu"+counter, "slash.resource.agent.CpuAgent", arg, cc);
 		launchAgent("energy"+counter, "slash.resource.agent.EnergyAgent", arg, cc);

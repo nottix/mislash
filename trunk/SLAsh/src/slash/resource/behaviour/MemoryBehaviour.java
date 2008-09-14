@@ -45,7 +45,7 @@ public class MemoryBehaviour extends TickerBehaviour {
 	protected void onTick() {
 		generate();
 		DataWriter.writeData(myAgent.getLocalName(), memory);
-    	String memoryStr = String.valueOf(memory);
+    	Float memoryStr = memory;
     	dsmClient.out(agent.getLocalName(), "memory", memoryStr);
 	}
 }

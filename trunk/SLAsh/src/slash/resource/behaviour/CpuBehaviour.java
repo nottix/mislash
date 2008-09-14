@@ -45,7 +45,7 @@ public class CpuBehaviour extends TickerBehaviour {
 	protected void onTick() {
 			generate();
 			DataWriter.writeData(myAgent.getLocalName(), cpu);
-	    	String cpuStr = String.valueOf(cpu);
+	    	Float cpuStr = cpu;
 	    	dsmClient.out(agent.getLocalName(), "cpu", cpuStr);
 	}
 }

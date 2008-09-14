@@ -42,7 +42,7 @@ public class RamBehaviour extends TickerBehaviour {
 	protected void onTick() {
 		generate();
 		DataWriter.writeData(myAgent.getLocalName(), ram);
-    	String ramStr = String.valueOf(ram);
+    	Float ramStr = ram;
     	dsmClient.out(agent.getLocalName(), "ram", ramStr);
 	}
 }
