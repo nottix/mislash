@@ -39,6 +39,14 @@ public class DsmDataManager {
 	}
 	
 	public synchronized Tuple in(String index, String type) {
+		if(index==null) {
+			Enumeration<Hashtable<String, Queue<Object>>> enumeration = this.tupleSpace.elements();
+			while(enumeration.hasMoreElements()) {
+				Hashtable<String, Queue<Object>> typeTable = enumeration.nextElement();
+				return (Tuple)typeTable.get(type).poll();
+			}
+		}
+		
 		System.out.println("IN: index "+index+", type "+type);
 		if(this.tupleSpace.containsKey(index)) {
 			System.out.println("in contanier: "+index);

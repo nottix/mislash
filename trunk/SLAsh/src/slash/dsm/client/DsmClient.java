@@ -42,7 +42,7 @@ public class DsmClient {
 		return 0;
 	}
 	
-	public Object in(String index, String type) {
+	public Tuple in(String index, String type) {
 		try {
 			if(!index.matches("\\D*"))
 				index = index.replaceAll("\\D*", "");
@@ -63,7 +63,33 @@ public class DsmClient {
 				Object obj = recvMsg.getContentObject();
 				System.out.println("RECV!!! "+obj);
 				if(obj!=null) {
-					return ((Tuple)obj).getValue();
+					return ((Tuple)obj);
+				} 
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
+	public Tuple in(String type) {
+		try {
+			
+			Tuple tuple = new Tuple(Tuple.IN, type, null, null);			
+			ACLMessage msg = new ACLMessage(ACLMessage.REQUEST);
+			msg.addReceiver(dsm);
+			msg.setLanguage("English");
+			msg.setConversationId("dsm");
+			msg.setContentObject(tuple);
+			agent.send(msg);
+			
+			ACLMessage recvMsg = agent.blockingReceive();
+			if(recvMsg!=null) {
+				Object obj = recvMsg.getContentObject();
+				System.out.println("RECV!!! "+obj);
+				if(obj!=null) {
+					return ((Tuple)obj);
 				} 
 			}
 		} catch (Exception e) {

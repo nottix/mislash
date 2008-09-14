@@ -6,6 +6,7 @@ import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 import slash.dsm.client.DsmClient;
 import slash.resourcemonitor.agent.*;
+import slash.dsm.tuple.*;
 
 public class StatusResourceConsumerBehaviour extends TickerBehaviour {
 
@@ -22,8 +23,16 @@ public class StatusResourceConsumerBehaviour extends TickerBehaviour {
 
 	protected void onTick() {
 		
-		rm.getStatus().addLatencyValue((Float)dsmClient.in(myAgent.getLocalName(), "latency"));
-		rm.getStatus().addReliabilityValue((Float)dsmClient.in(myAgent.getLocalName(), "reliability"));
-		rm.getStatus().addReqIntervalValue((Float)dsmClient.in(myAgent.getLocalName(), "reqInterval"));
+		Tuple tuple = dsmClient.in(myAgent.getLocalName(), "latency");
+		if(tuple!=null)
+			rm.getStatus().addLatencyValue((Float)tuple.getValue());
+		
+		tuple = dsmClient.in(myAgent.getLocalName(), "reliability");
+		if(tuple!=null)
+			rm.getStatus().addReliabilityValue((Float)tuple.getValue());
+		
+		tuple = dsmClient.in(myAgent.getLocalName(), "reqInterval");
+		if(tuple!=null)
+			rm.getStatus().addReqIntervalValue((Float)tuple.getValue());
 	}
 }

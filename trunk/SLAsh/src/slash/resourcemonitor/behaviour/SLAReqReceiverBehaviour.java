@@ -6,7 +6,7 @@ import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 
 import java.io.IOException;
-
+import slash.dsm.tuple.*;
 import slash.df.DFUtil;
 import slash.dsm.client.DsmClient;
 import slash.entity.SLAContract;
@@ -38,9 +38,9 @@ public class SLAReqReceiverBehaviour extends TickerBehaviour {
 	}
 		
 	protected void onTick() {
-		String req;
-		if((req=(String)dsmClient.in("sc", "slacontract-request"))!=null) {
-			AID requester = new AID(req, AID.ISLOCALNAME);
+		Tuple req;
+		if((req=(Tuple)dsmClient.in("sc", "slacontract-request"))!=null) {
+			AID requester = new AID((String)req.getValue(), AID.ISLOCALNAME);
 			SLAContract contract = new SLAContract(myAgent.getAID(), new AID("cm"+myAgent.getLocalName().charAt(2), AID.ISLOCALNAME), requester,  new AID("cm"+requester.getLocalName().charAt(2), AID.ISLOCALNAME), this.genLatency(), this.genReliability(), this.genReqInterval());
 			dsmClient.out("sc", "slacontract", contract);
 		}
