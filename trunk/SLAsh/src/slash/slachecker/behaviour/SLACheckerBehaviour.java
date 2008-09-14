@@ -3,6 +3,7 @@ package slash.slachecker.behaviour;
 import jade.core.behaviours.TickerBehaviour;
 import jade.lang.acl.ACLMessage;
 import slash.slachecker.agent.*;
+import slash.dsm.client.DsmClient;
 import slash.entity.*;
 import java.io.*;
 import jade.core.*;
@@ -15,10 +16,12 @@ public class SLACheckerBehaviour extends TickerBehaviour {
 	private static final long serialVersionUID = -500981357584073158L;
 	
 	private SLACheckerAgent sc;
+	private DsmClient dsmClient;
 	
 	public SLACheckerBehaviour(SLACheckerAgent sc) {
 		super(sc, 1000);
 		this.sc = sc;
+		this.dsmClient = new DsmClient(sc);
 	}
 	
 	protected void onTick() {
@@ -32,24 +35,8 @@ public class SLACheckerBehaviour extends TickerBehaviour {
 				
 				System.out.println("Violated with: "+lat+" > "+contract.getLatency()+", "+rel+" > "+contract.getReliability()+", "+req+" > "+contract.getReqInterval());
 				
-				try {
-					ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
-					msg.addReceiver(contract.getPublisher());
-					msg.setLanguage("English");
-					msg.setContentObject((Serializable)contract);
-					msg.setConversationId("contract violation");
-					myAgent.send(msg);
-					
-					msg = new ACLMessage(ACLMessage.INFORM);
-					msg.addReceiver(contract.getSubscriber());
-					msg.setLanguage("English");
-					msg.setContentObject((Serializable)contract);
-					msg.setConversationId("contract violation");
-					myAgent.send(msg);
-					
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
+				dsmClient.out(contract.getPublisher().getLocalName(), "slacontract-violation", contract);
+				dsmClient.out(contract.getSubscriber().getLocalName(), "slacontract-violation", contract);
 			}
 		}
 		
