@@ -16,23 +16,23 @@ public class ResourceMonitorAgent extends Agent {
 		System.out.println("ResourceMonitorAgent: "+this.getName()+", args len: "+args.length);
 		if(args.length>0 && args[0].toString().equals("publisher")) {
 			DFUtil.register(this, this.getLocalName(), "publisher");
-			this.addBehaviour(new SLAReqReceiverBehaviour());
+			this.addBehaviour(new SLAReqReceiverBehaviour(this));
 		}
 		else if(args.length>0 && args[0].toString().equals("subscriber")) {
 			//DFUtil.register(this, this.getLocalName(), "subscriber");
-			this.addBehaviour(new SLARequesterBehaviour());
+			this.addBehaviour(new SLARequesterBehaviour(this));
 		}
 		
-		this.addBehaviour(new CoreBehaviour(this));
-		this.addBehaviour(new StatusReqReceiverBehaviour(this));
-		this.addBehaviour(new StatusResourceReceiverBehaviour(this));
+		//this.addBehaviour(new CoreBehaviour(this));
+		this.addBehaviour(new StatusProducerBehaviour(this));
+		this.addBehaviour(new StatusResourceConsumerBehaviour(this));
 		this.addBehaviour(new ViolationReceiverBehaviour(this));
 		
 		status = new Status();
 
 	}
 	
-	public Status getStatus() {
+	public synchronized Status getStatus() {
 		return this.status;
 	}
 	

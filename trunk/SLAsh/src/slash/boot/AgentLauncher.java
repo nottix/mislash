@@ -51,8 +51,8 @@ public class AgentLauncher {
 		launchAgent("latency"+counter, "slash.resource.agent.LatencyAgent", arg, cc);
 		launchAgent("reliability"+counter, "slash.resource.agent.ReliabilityAgent", arg, cc);
 		launchAgent("reqInterval"+counter, "slash.resource.agent.ReqIntervalAgent", arg, cc);
-//			
-//		launchAgent("rm"+counter, "slash.resourcemonitor.agent.ResourceMonitorAgent", new Object[]{type}, cc);
+			
+		launchAgent("rm"+counter, "slash.resourcemonitor.agent.ResourceMonitorAgent", new Object[]{type}, cc);
 		
 		counter++;
 	}

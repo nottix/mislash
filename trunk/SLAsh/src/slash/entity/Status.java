@@ -24,22 +24,28 @@ public class Status implements Serializable {
 		this.reqIntervalList = new LinkedList<Float>();
 	}
 	
-	public void addLatencyValue(float latencyValue) {
-		if(this.latencyList.size() >= Status.RST_INTERVAL)
-			this.latencyList = new LinkedList<Float>();
-		this.latencyList.add(Float.valueOf(latencyValue));
+	public void addLatencyValue(Float latencyValue) {
+		if(latencyValue!=null) {
+			if(this.latencyList.size() >= Status.RST_INTERVAL)
+				this.latencyList = new LinkedList<Float>();
+			this.latencyList.add(Float.valueOf(latencyValue));
+		}
 	}
 	
-	public void addReliabilityValue(float reliabilityValue) {
-		if(this.reliabilityList.size() >= Status.RST_INTERVAL)
-			this.reliabilityList = new LinkedList<Float>();
-		this.reliabilityList.add(Float.valueOf(reliabilityValue));
+	public void addReliabilityValue(Float reliabilityValue) {
+		if(reliabilityValue!=null) {
+			if(this.reliabilityList.size() >= Status.RST_INTERVAL)
+				this.reliabilityList = new LinkedList<Float>();
+			this.reliabilityList.add(Float.valueOf(reliabilityValue));
+		}
 	}
 	
-	public void addReqIntervalValue(float reqIntervalValue) {
-		if(this.reqIntervalList.size() >= Status.RST_INTERVAL)
-			this.reqIntervalList = new LinkedList<Float>();
-		this.reqIntervalList.add(Float.valueOf(reqIntervalValue));
+	public void addReqIntervalValue(Float reqIntervalValue) {
+		if(reqIntervalValue!=null) {
+			if(this.reqIntervalList.size() >= Status.RST_INTERVAL)
+				this.reqIntervalList = new LinkedList<Float>();
+			this.reqIntervalList.add(Float.valueOf(reqIntervalValue));
+		}
 	}
 	
 	public float getAvgLatency() {

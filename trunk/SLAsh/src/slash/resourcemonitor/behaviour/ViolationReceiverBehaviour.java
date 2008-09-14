@@ -1,27 +1,26 @@
 package slash.resourcemonitor.behaviour;
 
-import jade.core.behaviours.CyclicBehaviour;
+import jade.core.behaviours.*;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
+import slash.dsm.client.DsmClient;
 import slash.resourcemonitor.agent.*;
 
-public class ViolationReceiverBehaviour extends CyclicBehaviour {
+public class ViolationReceiverBehaviour extends TickerBehaviour {
 
 	private static final long serialVersionUID = -5411307240223204565L;
 
 	private ResourceMonitorAgent rm;
+	private DsmClient dsmClient;
 	
-	public ViolationReceiverBehaviour(ResourceMonitorAgent rm) {
-		this.rm = rm;
+	public ViolationReceiverBehaviour(ResourceMonitorAgent agent) {
+		super(agent, 1000);
+		this.rm = agent;
+		this.dsmClient = new DsmClient(agent);
 	}
 	
-	public void action() {
-		MessageTemplate mt = MessageTemplate.MatchConversationId("contract violation");
-		ACLMessage recvMsg = myAgent.receive(mt);
-		if(recvMsg!=null) {
+	protected void onTick() {
+		if(dsmClient.in(myAgent.getLocalName(), "slacontract-violation")!=null)
 			System.out.println("Contract violated!!!");
-		}
-		else
-			block();
 	}
 }
