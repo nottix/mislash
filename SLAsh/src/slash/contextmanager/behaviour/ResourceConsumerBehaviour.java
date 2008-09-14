@@ -6,6 +6,7 @@ import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 import slash.contextmanager.agent.ContextManagerAgent;
 import slash.dsm.client.DsmClient;
+import slash.dsm.tuple.*;
 
 public class ResourceConsumerBehaviour extends TickerBehaviour {
 
@@ -21,10 +22,21 @@ public class ResourceConsumerBehaviour extends TickerBehaviour {
 	}
 	
 	protected void onTick() {
-		agent.getContext().addCpuValue((Float)dsmClient.in(myAgent.getLocalName(), "cpu"));
-		agent.getContext().addEnergyValue((Float)dsmClient.in(myAgent.getLocalName(), "energy"));
-		agent.getContext().addMemoryValue((Float)dsmClient.in(myAgent.getLocalName(), "memory"));
-		agent.getContext().addRamValue((Float)dsmClient.in(myAgent.getLocalName(), "ram"));
+		Tuple tuple = dsmClient.in(myAgent.getLocalName(), "cpu");
+		if(tuple!=null)
+			agent.getContext().addCpuValue((Float)tuple.getValue());
+		
+		tuple = dsmClient.in(myAgent.getLocalName(), "energy");
+		if(tuple!=null)
+			agent.getContext().addEnergyValue((Float)tuple.getValue());
+		
+		tuple = dsmClient.in(myAgent.getLocalName(), "memory");
+		if(tuple!=null)
+			agent.getContext().addMemoryValue((Float)tuple.getValue());
+		
+		tuple = dsmClient.in(myAgent.getLocalName(), "ram");
+		if(tuple!=null)
+			agent.getContext().addRamValue((Float)tuple.getValue());
 	}
 
 }

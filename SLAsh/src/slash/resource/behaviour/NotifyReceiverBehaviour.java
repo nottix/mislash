@@ -23,7 +23,10 @@ public class NotifyReceiverBehaviour extends TickerBehaviour {
 	}
 
 	protected void onTick() {
-		Notify notify = (Notify)dsmClient.in(myAgent.getLocalName(), "notify");
+		Tuple tuple = dsmClient.in("notify"); //TODO: controllare index
+		Notify notify = null;
+		if(tuple!=null)
+			notify = (Notify)tuple.getValue();
 		if(notify!=null) {
 			int num = Integer.valueOf(String.valueOf(myAgent.getLocalName().charAt(myAgent.getLocalName().length()-1)));
 			

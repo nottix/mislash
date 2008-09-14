@@ -57,11 +57,11 @@ public class SLACheckerAgent extends Agent {
 		DFUtil.register(this, this.getLocalName(), "sla-checker");
 		
 		this.addBehaviour(new SLAStarterBehaviour());
-		this.addBehaviour(new ContextReceiverBehaviour(this));
-		this.addBehaviour(new ContextRequesterBehaviour(this));
+		this.addBehaviour(new ContextConsumerBehaviour(this));
+		//this.addBehaviour(new ContextRequesterBehaviour(this));
 		this.addBehaviour(new SLAReceiverBehaviour(this));
-		this.addBehaviour(new StatusRequesterBehaviour(this));
-		this.addBehaviour(new StatusReceiverBehaviour(this));
+		//this.addBehaviour(new StatusRequesterBehaviour(this));
+		this.addBehaviour(new StatusConsumerBehaviour(this));
 		this.addBehaviour(new SLACheckerBehaviour(this));
 	}
 	

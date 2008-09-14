@@ -5,6 +5,11 @@ import jade.core.behaviours.TickerBehaviour;
 import jade.lang.acl.ACLMessage;
 import slash.slachecker.agent.SLACheckerAgent;
 
+/**
+ * OBSOLETO
+ * @author avenger
+ *
+ */
 public class StatusRequesterBehaviour extends TickerBehaviour {
 
 	private static final long serialVersionUID = 1451348345165211858L;
