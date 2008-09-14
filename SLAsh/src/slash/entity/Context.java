@@ -39,32 +39,36 @@ public class Context implements Serializable {
 		this.energyList = new LinkedList<Float>();
 	}
 	
-	public void addCpuValue(float cpuValue) {
+	public void addCpuValue(Float cpuValue) {
 //		if(this.cpuList.size() >= Context.RST_INTERVAL)
 //			this.cpuList = new LinkedList<Float>();
 //		this.cpuList.add(Float.valueOf(cpuValue));
-		this.cpu = cpuValue;
+		if(cpuValue!=null)
+			this.cpu = cpuValue;
 	}
 	
-	public void addRamValue(float ramValue) {
+	public void addRamValue(Float ramValue) {
 //		if(this.ramList.size() >= Context.RST_INTERVAL)
 //			this.ramList = new LinkedList<Float>();
 //		this.ramList.add(Float.valueOf(ramValue));
-		this.ram = ramValue;
+		if(ramValue!=null)
+			this.ram = ramValue;
 	}
 	
-	public void addMemoryValue(float memoryValue) {
+	public void addMemoryValue(Float memoryValue) {
 //		if(this.memoryList.size() >= Context.RST_INTERVAL)
 //			this.memoryList = new LinkedList<Float>();
 //		this.memoryList.add(Float.valueOf(memoryValue));
-		this.memory = memoryValue;
+		if(memoryValue!=null)
+			this.memory = memoryValue;
 	}
 	
-	public void addEnergyValue(float energyValue) {
+	public void addEnergyValue(Float energyValue) {
 //		if(this.energyList.size() >= Context.RST_INTERVAL)
 //			this.energyList = new LinkedList<Float>();
 //		this.energyList.add(Float.valueOf(energyValue));
-		this.energy = energyValue;
+		if(energyValue!=null)
+			this.energy = energyValue;
 	}
 	
 	public float getAvgCpu() {

@@ -41,7 +41,7 @@ public class ReliabilityBehaviour extends TickerBehaviour {
 	protected void onTick() {
 		generate();
 		DataWriter.writeData(myAgent.getLocalName(), reliability);
-    	String reliabilityStr = String.valueOf(reliability);
+    	Float reliabilityStr = reliability;
     	dsmClient.out(agent.getLocalName(), "reliability", reliabilityStr);
 	}
 }

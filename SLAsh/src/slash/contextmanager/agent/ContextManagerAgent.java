@@ -1,9 +1,9 @@
 package slash.contextmanager.agent;
 
 import jade.core.Agent;
-import slash.contextmanager.behaviour.ResourceReceiverBehaviour;
+import slash.contextmanager.behaviour.ResourceConsumerBehaviour;
 import slash.contextmanager.behaviour.ResourceRequesterBehaviour;
-import slash.contextmanager.behaviour.ContextReqReceiverBehaviour;
+import slash.contextmanager.behaviour.ContextProducerBehaviour;
 import slash.df.DFUtil;
 import slash.entity.Context;
 
@@ -18,9 +18,9 @@ public class ContextManagerAgent extends Agent {
 		//DFUtil.register(this, this.getLocalName(), "context-manager");
 		this.context = new Context();
 		this.context.setLocation(this.here());
-		this.addBehaviour(new ResourceReceiverBehaviour(this));
-		this.addBehaviour(new ResourceRequesterBehaviour(this));
-		this.addBehaviour(new ContextReqReceiverBehaviour(this));
+		this.addBehaviour(new ResourceConsumerBehaviour(this));
+		//this.addBehaviour(new ResourceRequesterBehaviour(this));
+		this.addBehaviour(new ContextProducerBehaviour(this));
 
 	}
 	

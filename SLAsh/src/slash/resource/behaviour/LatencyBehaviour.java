@@ -46,7 +46,7 @@ public class LatencyBehaviour extends TickerBehaviour {
 	protected void onTick() {
 		generate();
 		DataWriter.writeData(myAgent.getLocalName(), latency);
-    	String latencyStr = String.valueOf(latency);
+    	Float latencyStr = latency;
     	dsmClient.out(agent.getLocalName(), "latency", latencyStr);
 	}
 }

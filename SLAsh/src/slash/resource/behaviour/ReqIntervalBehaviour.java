@@ -36,7 +36,7 @@ public class ReqIntervalBehaviour extends TickerBehaviour {
 	protected void onTick() {
 		generate();
 		DataWriter.writeData(myAgent.getLocalName(), reqInterval);
-    	String reqIntervalStr = String.valueOf(reqInterval);
+    	Float reqIntervalStr = reqInterval;
     	dsmClient.out(agent.getLocalName(), "reqInterval", reqIntervalStr);
 	}
 }
