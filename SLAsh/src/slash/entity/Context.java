@@ -43,8 +43,10 @@ public class Context implements Serializable {
 //		if(this.cpuList.size() >= Context.RST_INTERVAL)
 //			this.cpuList = new LinkedList<Float>();
 //		this.cpuList.add(Float.valueOf(cpuValue));
-		if(cpuValue!=null)
+		if(cpuValue!=null) {
+			System.out.println("cpuValue: "+cpuValue);
 			this.cpu = cpuValue;
+		}
 	}
 	
 	public void addRamValue(Float ramValue) {
