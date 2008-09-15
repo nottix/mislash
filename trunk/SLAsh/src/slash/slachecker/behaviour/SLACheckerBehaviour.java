@@ -5,6 +5,7 @@ import jade.lang.acl.ACLMessage;
 import slash.slachecker.agent.*;
 import slash.dsm.client.DsmClient;
 import slash.entity.*;
+
 import java.io.*;
 import jade.core.*;
 import java.util.*;
@@ -55,14 +56,22 @@ public class SLACheckerBehaviour extends TickerBehaviour {
 			System.out.println("Actual context--> cpu: "+avgCpu+", ram: "+avgRam+", memory: "+avgMemory+", energy: "+avgEnergy+", index: "+context.calcIndex());
 			//if(avgCpu >= Context.CPU_LIMIT || avgRam >= Context.RAM_LIMIT || avgMemory >= Context.MEMORY_LIMIT || 
 				//	avgEnergy <= Context.ENERGY_LIMIT) {
-			if(context.calcIndex() > 52) {
+			if(context.calcIndex() > 20) { //52 originale
 //				AID best = getBestNode();
 				if(best!=null) {
+					System.out.println("queue: "+myAgent.getCurQueueSize());
 					myAgent.doMove(sc.getContextTable().get(best).getLocation());
 					int bestN = Integer.parseInt(String.valueOf(best.getLocalName().charAt(best.getLocalName().length()-1)));
 					System.out.println("MIGRAZIONE verso "+best.getLocalName());
 					System.out.println("BESTN: "+bestN);
-					MigrationUtil.notifyMigration(myAgent, sc.getAssociatedID(), bestN);
+					
+					for(int i=0; i<sc.getContractList().size(); i++) {
+						SLAContract contract = sc.getContractList().get(i);
+						Notify notify = new Notify(sc.getAssociatedID(), bestN);
+						dsmClient.out(contract.getSubscriber().getLocalName(), "notify", notify);
+						dsmClient.out(contract.getPublisher().getLocalName(), "notify", notify);
+					}
+					//MigrationUtil.notifyMigration(myAgent, sc.getAssociatedID(), bestN);
 					sc.setAssociatedID(bestN);
 				}
 				else

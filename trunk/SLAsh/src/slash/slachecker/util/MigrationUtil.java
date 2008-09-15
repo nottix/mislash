@@ -15,6 +15,8 @@ public class MigrationUtil {
 		if(dsmClient==null)
 			dsmClient = new DsmClient(agent);
 		Notify notify = new Notify(src, dest);
-		dsmClient.out("sc", "notify", notify);
+		//dsmClient.out("migration", "notify", notify);
+
+		dsmClient.out("cm1", "notify", notify);
 	}
 }

@@ -22,7 +22,7 @@ public class CpuBehaviour extends TickerBehaviour {
 	private DsmClient dsmClient;
 	
 	public CpuBehaviour(AID cmAid, CpuAgent agent) {
-		super(agent, 1000);
+		super(agent, 500);
 		this.cmAid = cmAid;
 		this.agent = agent;
 		

@@ -21,7 +21,7 @@ public class ReqIntervalBehaviour extends TickerBehaviour {
 	private DsmClient dsmClient;
 	
 	public ReqIntervalBehaviour(AID cmAid, ReqIntervalAgent agent) {
-		super(agent, 1000);
+		super(agent, 500);
 		this.rmAid = cmAid;
 		this.agent = agent;
 		this.dsmClient = new DsmClient(agent);

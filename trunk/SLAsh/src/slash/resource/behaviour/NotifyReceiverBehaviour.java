@@ -17,17 +17,19 @@ public class NotifyReceiverBehaviour extends TickerBehaviour {
 	private DsmClient dsmClient;
 	
 	public NotifyReceiverBehaviour(ResourceAgent ra) {
-		super(ra, 1000);
+		super(ra, 500);
 		this.ra = ra;
 		this.dsmClient = new DsmClient(ra);
 	}
 
 	protected void onTick() {
-		Tuple tuple = dsmClient.in(myAgent.getLocalName(), "notify"); //TODO: controllare index
+		Tuple tuple = dsmClient.in(ra.getLocalName(), "notify"); //TODO: controllare index
 		Notify notify = null;
-		if(tuple!=null)
+		if(tuple!=null) {
 			notify = (Notify)tuple.getValue();
+		}
 		if(notify!=null) {
+			System.out.println("NOTIFY recv: "+notify.getDest()+" on "+myAgent.getLocalName());
 			int num = Integer.valueOf(String.valueOf(myAgent.getLocalName().charAt(myAgent.getLocalName().length()-1)));
 			
 			if(notify.getSrc() == num) {

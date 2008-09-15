@@ -23,6 +23,6 @@ public class StatusProducerBehaviour extends TickerBehaviour {
 	
 	protected void onTick() {
 		dsmClient.out(myAgent.getLocalName(), "status", rm.getStatus());
-		System.out.println("Status produced on "+myAgent.getLocalName());
+		//System.out.println("Status produced on "+myAgent.getLocalName());
 	}
 }

@@ -1,6 +1,7 @@
 package slash.dsm.client;
 
 import java.io.IOException;
+import java.io.Serializable;
 
 import slash.df.DFUtil;
 import slash.dsm.tuple.*;
@@ -9,7 +10,7 @@ import jade.core.*;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.lang.acl.ACLMessage;
 
-public class DsmClient {
+public class DsmClient implements Serializable {
 
 	private Agent agent;
 	private AID dsm;

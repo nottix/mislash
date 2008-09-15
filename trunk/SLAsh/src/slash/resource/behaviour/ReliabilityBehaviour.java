@@ -22,7 +22,7 @@ public class ReliabilityBehaviour extends TickerBehaviour {
 	private DsmClient dsmClient;
 	
 	public ReliabilityBehaviour(AID cmAid, ReliabilityAgent agent) {
-		super(agent, 1000);
+		super(agent, 500);
 		this.rmAid = cmAid;
 		this.agent = agent;
 		this.dsmClient = new DsmClient(agent);

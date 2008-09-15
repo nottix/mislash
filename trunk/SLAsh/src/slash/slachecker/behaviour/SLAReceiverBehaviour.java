@@ -24,7 +24,7 @@ public class SLAReceiverBehaviour extends TickerBehaviour {
 	
 	protected void onTick() {
 		Tuple tuple = dsmClient.in("slacontract", "slacontract");
-		System.out.println("Checking contract");
+		//System.out.println("Checking contract");
 		if(tuple!=null && tuple.getValue()!=null) {
 			System.out.println("Added Contract: "+((SLAContract)tuple.getValue()).getLatency());
 			sc.getContractList().add((SLAContract)tuple.getValue());
