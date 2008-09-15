@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import slash.df.DFUtil;
 import slash.dsm.tuple.*;
+import slash.entity.*;
 import jade.core.*;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.lang.acl.ACLMessage;
@@ -33,7 +34,7 @@ public class DsmClient {
 			msg.setLanguage("English");
 			msg.setConversationId("dsm");
 			msg.setContentObject(tuple);
-			System.out.println("Sending msg to dsm");
+			//System.out.println("Sending msg to dsm");
 			agent.send(msg);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -46,10 +47,12 @@ public class DsmClient {
 		try {
 			if(!index.matches("\\D*"))
 				index = index.replaceAll("\\D*", "");
-			System.out.println("INDEX: "+index);
+			//System.out.println("INDEX: "+index);
 			Tuple tuple = new Tuple(Tuple.IN, type, index, null);
 			
-			System.out.println("Selected dsm: "+dsm.getLocalName()+", sending: index "+index+", type "+type);
+//			if(type.equals("slacontract"))
+//				System.out.println("CONTRATTO Richiesto");
+			//System.out.println("Selected dsm: "+dsm.getLocalName()+", sending: index "+index+", type "+type);
 			
 			ACLMessage msg = new ACLMessage(ACLMessage.REQUEST);
 			msg.addReceiver(dsm);
@@ -57,12 +60,18 @@ public class DsmClient {
 			msg.setConversationId("dsm");
 			msg.setContentObject(tuple);
 			agent.send(msg);
+			//System.out.println(agent.getLocalName()+" -> SEND");
 			
 			ACLMessage recvMsg = agent.blockingReceive();
+			//System.out.println(agent.getLocalName()+" -> RESPONSE");
+//			if(type.equals("slacontract"))
+//				System.out.println("CONTRATTO Ricevuto?");
 			if(recvMsg!=null) {
 				Object obj = recvMsg.getContentObject();
-				System.out.println("RECV!!! "+obj);
+				//System.out.println("RECV!!! "+obj);
 				if(obj!=null) {
+//					if(type.equals("slacontract"))
+//						System.out.println("CONTRATTO Ricevuto");
 					return ((Tuple)obj);
 				} 
 			}
@@ -73,6 +82,11 @@ public class DsmClient {
 		return null;
 	}
 	
+	/**
+	 * OBSOLETA
+	 * @param type
+	 * @return
+	 */
 	public Tuple in(String type) {
 		try {
 			
@@ -83,12 +97,16 @@ public class DsmClient {
 			msg.setConversationId("dsm");
 			msg.setContentObject(tuple);
 			agent.send(msg);
-			
+			//System.out.println(agent.getLocalName()+" -> SEND");
 			ACLMessage recvMsg = agent.blockingReceive();
+			//System.out.println(agent.getLocalName()+" -> RESPONSE");
 			if(recvMsg!=null) {
 				Object obj = recvMsg.getContentObject();
-				System.out.println("RECV!!! "+obj);
+				//System.out.println("RECV!!! "+obj);
 				if(obj!=null) {
+					Tuple tuple2 = (Tuple)obj;
+					if(tuple2.getType().equals("context") && tuple2.getValue()!=null)
+						System.out.println("RECV!!! cpu: "+((Context)tuple2.getValue()).getCpu());
 					return ((Tuple)obj);
 				} 
 			}

@@ -23,7 +23,7 @@ public class NotifyReceiverBehaviour extends TickerBehaviour {
 	}
 
 	protected void onTick() {
-		Tuple tuple = dsmClient.in("notify"); //TODO: controllare index
+		Tuple tuple = dsmClient.in(myAgent.getLocalName(), "notify"); //TODO: controllare index
 		Notify notify = null;
 		if(tuple!=null)
 			notify = (Notify)tuple.getValue();

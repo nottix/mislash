@@ -44,7 +44,7 @@ public class Context implements Serializable {
 //			this.cpuList = new LinkedList<Float>();
 //		this.cpuList.add(Float.valueOf(cpuValue));
 		if(cpuValue!=null) {
-			System.out.println("cpuValue: "+cpuValue);
+			//System.out.println("cpuValue: "+cpuValue);
 			this.cpu = cpuValue;
 		}
 	}
