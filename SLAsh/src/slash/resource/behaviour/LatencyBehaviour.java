@@ -22,7 +22,7 @@ public class LatencyBehaviour extends TickerBehaviour {
 	private DsmClient dsmClient;
 	
 	public LatencyBehaviour(AID cmAid, LatencyAgent agent) {
-		super(agent, 1000);
+		super(agent, 500);
 		this.rmAid = cmAid;
 		this.agent = agent;
 		this.dsmClient = new DsmClient(agent);

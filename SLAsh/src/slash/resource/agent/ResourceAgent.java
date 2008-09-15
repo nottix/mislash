@@ -5,6 +5,8 @@ import jade.core.Agent;
 
 public class ResourceAgent extends Agent {
 
+	private static final long serialVersionUID = -8360934789152239831L;
+
 	private boolean localSC = false;
 	
 	protected AID rm;

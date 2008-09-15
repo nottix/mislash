@@ -18,7 +18,7 @@ public class ContextConsumerBehaviour extends TickerBehaviour {
 	private DsmClient dsmClient;
 
 	public ContextConsumerBehaviour(SLACheckerAgent agent) {
-		super(agent, 100); //TODO: da verificare starvation
+		super(agent, 1000);
 		this.sc = agent;
 		this.dsmClient = new DsmClient(agent);
 	}

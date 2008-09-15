@@ -52,7 +52,7 @@ public class DsmServerBehaviour extends CyclicBehaviour {
 					if(tupleRes!=null && tupleRes.getValue()!=null) {
 						if(tupleRes.getType().equals("context")) {
 							Context context = (Context)tupleRes.getValue();
-							System.out.println("Tuple IN sending, context->cpu: "+context.getCpu());
+							//System.out.println("Tuple IN sending, context->cpu: "+context.getCpu());
 						}
 					}
 					myAgent.send(msg);

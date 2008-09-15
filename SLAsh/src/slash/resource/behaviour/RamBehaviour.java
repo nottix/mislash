@@ -21,7 +21,7 @@ public class RamBehaviour extends TickerBehaviour {
 	private DsmClient dsmClient;
 	
 	public RamBehaviour(AID cmAid, RamAgent agent) {
-		super(agent, 1000);
+		super(agent, 500);
 		this.cmAid = cmAid;
 		this.agent = agent;
 		this.dsmClient = new DsmClient(agent);

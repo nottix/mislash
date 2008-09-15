@@ -23,7 +23,7 @@ public class EnergyBehaviour extends TickerBehaviour {
 	private DsmClient dsmClient;
 	
 	public EnergyBehaviour(AID cmAid, EnergyAgent agent) {
-		super(agent, 1000);
+		super(agent, 500);
 		this.cmAid = cmAid;
 		this.agent = agent;
 		this.powerOn = false;
