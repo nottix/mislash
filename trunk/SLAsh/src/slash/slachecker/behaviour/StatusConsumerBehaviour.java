@@ -24,9 +24,18 @@ public class StatusConsumerBehaviour extends TickerBehaviour {
 	}
 
 	protected void onTick() {
-		Tuple tuple = dsmClient.in("status");
-		if(tuple!=null) {
-			sc.getStatusTable().put(new AID("rm"+tuple.getIndex(), AID.ISLOCALNAME), (Status)tuple.getValue());
+		for(int i=0; i<sc.getContractList().size(); i++) {
+			SLAContract contract = sc.getContractList().get(i);
+
+			Tuple tuple = dsmClient.in(contract.getPublisher().getLocalName(), "status");
+			if(tuple!=null && tuple.getValue()!=null) {
+				sc.getStatusTable().put(new AID("rm"+tuple.getIndex(), AID.ISLOCALNAME), (Status)tuple.getValue());
+			}
+			
+			tuple = dsmClient.in(contract.getSubscriber().getLocalName(), "status");
+			if(tuple!=null && tuple.getValue()!=null) {
+				sc.getStatusTable().put(new AID("rm"+tuple.getIndex(), AID.ISLOCALNAME), (Status)tuple.getValue());
+			}
 		}
 	}
 }

@@ -28,6 +28,7 @@ public class ContextProducerBehaviour extends TickerBehaviour{
 	
 	protected void onTick() {
     	dsmClient.out(myAgent.getLocalName(), "context", cm.getContext());
+    	System.out.println("Context produced on "+myAgent.getLocalName()+", context->cpu: "+cm.getContext().getCpu());
 	}
 	
 }

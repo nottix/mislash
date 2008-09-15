@@ -18,15 +18,24 @@ public class ContextConsumerBehaviour extends TickerBehaviour {
 	private DsmClient dsmClient;
 
 	public ContextConsumerBehaviour(SLACheckerAgent agent) {
-		super(agent, 500); //TODO: da verificare starvation
+		super(agent, 100); //TODO: da verificare starvation
 		this.sc = agent;
 		this.dsmClient = new DsmClient(agent);
 	}
 	
 	protected void onTick() {
-		Tuple tuple = dsmClient.in("context");
-		if(tuple != null) {
-			this.sc.getContextTable().put(new AID("rm"+tuple.getIndex(), AID.ISLOCALNAME), (Context)tuple.getValue());
+		for(int i=0; i<sc.getContractList().size(); i++) {
+			SLAContract contract = sc.getContractList().get(i);
+
+			Tuple tuple = dsmClient.in(contract.getPublisher().getLocalName(), "context");
+			if(tuple!=null && tuple.getValue()!=null) {
+				this.sc.getContextTable().put(new AID("cm"+tuple.getIndex(), AID.ISLOCALNAME), (Context)tuple.getValue());
+			}
+			
+			tuple = dsmClient.in(contract.getSubscriber().getLocalName(), "context");
+			if(tuple!=null && tuple.getValue()!=null) {
+				this.sc.getContextTable().put(new AID("cm"+tuple.getIndex(), AID.ISLOCALNAME), (Context)tuple.getValue());
+			}
 		}
 	}
 

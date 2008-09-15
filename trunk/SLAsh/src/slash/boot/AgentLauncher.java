@@ -9,6 +9,7 @@ public class AgentLauncher {
 
 	private static int counter = 1;
 	private static boolean scEnabled = false;
+	private static boolean dsmEnabled = false;
 	
 	public static void launchAgent(String name, String path, Object[] args, ContainerController cc) {
 		try {
@@ -35,12 +36,15 @@ public class AgentLauncher {
 		arg[0] = network;
 		arg[1] = Integer.valueOf(bandwidth);
 		
-		launchAgent("dsm", "slash.dsm.agent.DsmServerAgent", null, cc);
+		if(!dsmEnabled) {
+			launchAgent("dsm", "slash.dsm.agent.DsmServerAgent", null, cc);
+			dsmEnabled = true;
+		}
 		
-//		if(!scEnabled) {
-//			launchAgent("sc", "slash.slachecker.agent.SLACheckerAgent", null, cc);
-//			scEnabled = true;
-//		}
+		if(!scEnabled) {
+			launchAgent("sc", "slash.slachecker.agent.SLACheckerAgent", null, cc);
+			scEnabled = true;
+		}
 		launchAgent("cm"+counter, "slash.contextmanager.agent.ContextManagerAgent", null, cc);
 		
 		launchAgent("cpu"+counter, "slash.resource.agent.CpuAgent", arg, cc);
@@ -60,7 +64,7 @@ public class AgentLauncher {
 	public static void main(String[] args) {
 		
 		launchNode("wired", 512, "publisher");
-//		launchNode("wireless", 256, "subscriber");
+		launchNode("wireless", 256, "subscriber");
 //		launchNode("wireless", 256, "subscriber");
 	}
 

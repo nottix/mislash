@@ -39,10 +39,14 @@ public class SLAReqReceiverBehaviour extends TickerBehaviour {
 		
 	protected void onTick() {
 		Tuple req;
-		if((req=(Tuple)dsmClient.in("sc", "slacontract-request"))!=null) {
-			AID requester = new AID((String)req.getValue(), AID.ISLOCALNAME);
-			SLAContract contract = new SLAContract(myAgent.getAID(), new AID("cm"+myAgent.getLocalName().charAt(2), AID.ISLOCALNAME), requester,  new AID("cm"+requester.getLocalName().charAt(2), AID.ISLOCALNAME), this.genLatency(), this.genReliability(), this.genReqInterval());
-			dsmClient.out("sc", "slacontract", contract);
+		if((req=(Tuple)dsmClient.in("slacontract", "slacontract-request"))!=null) {
+			if(req.getValue()!=null) {
+				System.out.println("SLAContract-request received from "+req.getValue());
+				AID requester = new AID((String)req.getValue(), AID.ISLOCALNAME);
+				SLAContract contract = new SLAContract(myAgent.getAID(), new AID("cm"+myAgent.getLocalName().charAt(2), AID.ISLOCALNAME), requester,  new AID("cm"+requester.getLocalName().charAt(2), AID.ISLOCALNAME), this.genLatency(), this.genReliability(), this.genReqInterval());
+				//System.out.println("SLAContract sending");
+				dsmClient.out("slacontract", "slacontract", contract);
+			}
 		}
 	}
 }

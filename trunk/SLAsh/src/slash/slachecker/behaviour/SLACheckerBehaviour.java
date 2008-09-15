@@ -19,7 +19,7 @@ public class SLACheckerBehaviour extends TickerBehaviour {
 	private DsmClient dsmClient;
 	
 	public SLACheckerBehaviour(SLACheckerAgent sc) {
-		super(sc, 1000);
+		super(sc, 2000);
 		this.sc = sc;
 		this.dsmClient = new DsmClient(sc);
 	}
@@ -89,7 +89,7 @@ public class SLACheckerBehaviour extends TickerBehaviour {
 				avgEnergy = context.getAvgEnergy();
 				iter = avgCpu + avgRam + avgMemory + (1-avgEnergy);
 				DataWriter.writeData("index"+next.getLocalName().charAt(2), context.calcIndex());
-				System.out.println("Context--> cpu: "+avgCpu+", ram: "+avgRam+", memory: "+avgMemory+", energy: "+avgEnergy+", index: "+context.calcIndex());
+				System.out.println("Context["+next.getLocalName()+"]--> cpu: "+avgCpu+", ram: "+avgRam+", memory: "+avgMemory+", energy: "+avgEnergy+", index: "+context.calcIndex());
 				if(avgCpu < Context.CPU_LIMIT && avgRam < Context.RAM_LIMIT && 
 						avgMemory < Context.MEMORY_LIMIT && avgEnergy > Context.ENERGY_LIMIT &&
 						iter < total) {

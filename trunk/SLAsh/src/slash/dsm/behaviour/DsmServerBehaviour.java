@@ -10,6 +10,7 @@ import jade.lang.acl.UnreadableException;
 import slash.dsm.agent.*;
 import slash.dsm.tuple.*;
 import slash.dsm.data.*;
+import slash.entity.*;
 
 public class DsmServerBehaviour extends CyclicBehaviour {
 
@@ -28,7 +29,7 @@ public class DsmServerBehaviour extends CyclicBehaviour {
 			Tuple tuple = null;
 			if(recvMsg!=null) {
 				tuple = (Tuple)recvMsg.getContentObject();
-				System.out.println("msg received from client: op "+tuple.getOperation());
+				//System.out.println("msg received from client: op "+tuple.getOperation());
 				doOperation(tuple, recvMsg.getSender());
 			}
 			else
@@ -48,8 +49,12 @@ public class DsmServerBehaviour extends CyclicBehaviour {
 					msg.setLanguage("English");
 					msg.setConversationId("dsm");
 					msg.setContentObject(tupleRes);
-					if(tupleRes!=null)
-						System.out.println("Tuple IN sending, value: "+tupleRes.getValue());
+					if(tupleRes!=null && tupleRes.getValue()!=null) {
+						if(tupleRes.getType().equals("context")) {
+							Context context = (Context)tupleRes.getValue();
+							System.out.println("Tuple IN sending, context->cpu: "+context.getCpu());
+						}
+					}
 					myAgent.send(msg);
 				}
 				else if(tuple.getOperation().equals(Tuple.READ)) {

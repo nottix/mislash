@@ -23,8 +23,10 @@ public class ResourceConsumerBehaviour extends TickerBehaviour {
 	
 	protected void onTick() {
 		Tuple tuple = dsmClient.in(myAgent.getLocalName(), "cpu");
-		if(tuple!=null)
+		if(tuple!=null) {
+			System.out.println("Resource consumed -> cpu: "+(Float)tuple.getValue());
 			agent.getContext().addCpuValue((Float)tuple.getValue());
+		}
 		
 		tuple = dsmClient.in(myAgent.getLocalName(), "energy");
 		if(tuple!=null)

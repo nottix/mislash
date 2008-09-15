@@ -27,7 +27,8 @@ public class SLARequesterBehaviour extends OneShotBehaviour {
 			AID publisher = res[index].getName();
 			System.out.println("Selected publisher: "+publisher.getLocalName());
 			
-			dsmClient.out("sc", "slacontract-request", myAgent.getLocalName());
+			dsmClient.out("slacontract", "slacontract-request", myAgent.getLocalName());
+			//System.out.println("Request sent");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
