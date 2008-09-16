@@ -17,6 +17,6 @@ public class MigrationUtil {
 		Notify notify = new Notify(src, dest);
 		//dsmClient.out("migration", "notify", notify);
 
-		dsmClient.out("cm1", "notify", notify);
+		dsmClient.out("notify", "notify", notify);
 	}
 }

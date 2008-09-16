@@ -9,7 +9,7 @@ import jade.lang.acl.MessageTemplate;
 import slash.contextmanager.agent.*;
 import slash.df.DFUtil;
 import slash.dsm.client.DsmClient;
-import slash.util.DataWriter;
+import slash.util.*;
 
 public class ContextProducerBehaviour extends TickerBehaviour{
 
@@ -20,15 +20,14 @@ public class ContextProducerBehaviour extends TickerBehaviour{
 	private DsmClient dsmClient;
 	
 	public ContextProducerBehaviour(ContextManagerAgent agent) {
-		super(agent, 1000);
+		super(agent, Integer.parseInt(PropertiesReader.getProperty("contextproducer.tick")));
 		this.cm = agent;
 		this.dsmClient = new DsmClient(agent);
-		//scAid = DFUtil.search(agent, "sc", "sla-checker");
 	}
 	
 	protected void onTick() {
     	dsmClient.out(myAgent.getLocalName(), "context", cm.getContext());
-    	System.out.println("Context produced on "+myAgent.getLocalName()+", context->cpu: "+cm.getContext().getCpu());
+    	//System.out.println("Context produced on "+myAgent.getLocalName()+", context->cpu: "+cm.getContext().getCpu());
 	}
 	
 }

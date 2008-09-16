@@ -11,6 +11,7 @@ import slash.df.DFUtil;
 import slash.dsm.client.DsmClient;
 import slash.entity.SLAContract;
 import slash.resourcemonitor.agent.*;
+import slash.util.PropertiesReader;
 
 public class SLAReqReceiverBehaviour extends TickerBehaviour {
 
@@ -20,7 +21,7 @@ public class SLAReqReceiverBehaviour extends TickerBehaviour {
 	private ResourceMonitorAgent rm;
 	
 	public SLAReqReceiverBehaviour(ResourceMonitorAgent agent) {
-		super(agent, 1000);
+		super(agent, Integer.parseInt(PropertiesReader.getProperty("slareqreceiver.tick")));
 		this.rm = agent;
 		this.dsmClient = new DsmClient(agent);
 	}

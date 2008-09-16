@@ -7,6 +7,7 @@ import jade.lang.acl.MessageTemplate;
 import slash.dsm.client.DsmClient;
 import slash.resource.agent.*;
 import slash.util.DataWriter;
+import slash.util.PropertiesReader;
 
 public class ReqIntervalBehaviour extends TickerBehaviour {
 
@@ -21,7 +22,7 @@ public class ReqIntervalBehaviour extends TickerBehaviour {
 	private DsmClient dsmClient;
 	
 	public ReqIntervalBehaviour(AID cmAid, ReqIntervalAgent agent) {
-		super(agent, 500);
+		super(agent, Integer.parseInt(PropertiesReader.getProperty("reqinterval.tick")));
 		this.rmAid = cmAid;
 		this.agent = agent;
 		this.dsmClient = new DsmClient(agent);

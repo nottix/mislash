@@ -7,6 +7,7 @@ import jade.lang.acl.MessageTemplate;
 import slash.dsm.client.DsmClient;
 import slash.resource.agent.*;
 import slash.util.DataWriter;
+import slash.util.PropertiesReader;
 
 public class RamBehaviour extends TickerBehaviour {
 
@@ -21,7 +22,7 @@ public class RamBehaviour extends TickerBehaviour {
 	private DsmClient dsmClient;
 	
 	public RamBehaviour(AID cmAid, RamAgent agent) {
-		super(agent, 500);
+		super(agent, Integer.parseInt(PropertiesReader.getProperty("ram.tick")));
 		this.cmAid = cmAid;
 		this.agent = agent;
 		this.dsmClient = new DsmClient(agent);

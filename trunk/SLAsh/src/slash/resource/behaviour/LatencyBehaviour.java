@@ -8,6 +8,7 @@ import slash.dsm.client.DsmClient;
 import slash.entity.Context;
 import slash.resource.agent.LatencyAgent;
 import slash.util.DataWriter;
+import slash.util.PropertiesReader;
 
 public class LatencyBehaviour extends TickerBehaviour {
 
@@ -22,7 +23,7 @@ public class LatencyBehaviour extends TickerBehaviour {
 	private DsmClient dsmClient;
 	
 	public LatencyBehaviour(AID cmAid, LatencyAgent agent) {
-		super(agent, 500);
+		super(agent, Integer.parseInt(PropertiesReader.getProperty("latency.tick")));
 		this.rmAid = cmAid;
 		this.agent = agent;
 		this.dsmClient = new DsmClient(agent);

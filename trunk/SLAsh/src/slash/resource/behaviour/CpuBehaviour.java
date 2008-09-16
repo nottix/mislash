@@ -22,19 +22,17 @@ public class CpuBehaviour extends TickerBehaviour {
 	private DsmClient dsmClient;
 	
 	public CpuBehaviour(AID cmAid, CpuAgent agent) {
-		super(agent, 500);
+		super(agent, Integer.parseInt(PropertiesReader.getProperty("cpu.tick")));
 		this.cmAid = cmAid;
 		this.agent = agent;
 		
 		this.dsmClient = new DsmClient(agent);
-		
-		mt = MessageTemplate.MatchPerformative(ACLMessage.REQUEST);
 	}
 	
 	private float generate() {
 		cpu = (float)((Math.random()*100)%60);
 		if(agent.isLocalSC()) {
-			System.out.println("LOCAL: "+myAgent.getLocalName());
+			//System.out.println("LOCAL: "+myAgent.getLocalName());
 			//cpu += (float)((Math.random()*100)%40);
 			cpu += 40;
 		}

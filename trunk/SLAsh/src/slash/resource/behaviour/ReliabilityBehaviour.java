@@ -8,6 +8,7 @@ import slash.dsm.client.DsmClient;
 import slash.entity.Context;
 import slash.resource.agent.ReliabilityAgent;
 import slash.util.DataWriter;
+import slash.util.PropertiesReader;
 
 public class ReliabilityBehaviour extends TickerBehaviour {
 
@@ -22,7 +23,7 @@ public class ReliabilityBehaviour extends TickerBehaviour {
 	private DsmClient dsmClient;
 	
 	public ReliabilityBehaviour(AID cmAid, ReliabilityAgent agent) {
-		super(agent, 500);
+		super(agent, Integer.parseInt(PropertiesReader.getProperty("reliability.tick")));
 		this.rmAid = cmAid;
 		this.agent = agent;
 		this.dsmClient = new DsmClient(agent);

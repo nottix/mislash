@@ -18,9 +18,11 @@ public class SLACheckerBehaviour extends TickerBehaviour {
 	
 	private SLACheckerAgent sc;
 	private DsmClient dsmClient;
+	private int check;
 	
 	public SLACheckerBehaviour(SLACheckerAgent sc) {
-		super(sc, 2000);
+		super(sc, Integer.parseInt(PropertiesReader.getProperty("slachecker.tick")));
+		this.check = Integer.parseInt(PropertiesReader.getProperty("slachecker.check"));
 		this.sc = sc;
 		this.dsmClient = new DsmClient(sc);
 	}
@@ -56,7 +58,7 @@ public class SLACheckerBehaviour extends TickerBehaviour {
 			System.out.println("Actual context--> cpu: "+avgCpu+", ram: "+avgRam+", memory: "+avgMemory+", energy: "+avgEnergy+", index: "+context.calcIndex());
 			//if(avgCpu >= Context.CPU_LIMIT || avgRam >= Context.RAM_LIMIT || avgMemory >= Context.MEMORY_LIMIT || 
 				//	avgEnergy <= Context.ENERGY_LIMIT) {
-			if(context.calcIndex() > 20) { //52 originale
+			if(context.calcIndex() > check) { //52 originale
 //				AID best = getBestNode();
 				if(best!=null) {
 					System.out.println("queue: "+myAgent.getCurQueueSize());
@@ -65,12 +67,14 @@ public class SLACheckerBehaviour extends TickerBehaviour {
 					System.out.println("MIGRAZIONE verso "+best.getLocalName());
 					System.out.println("BESTN: "+bestN);
 					
-					for(int i=0; i<sc.getContractList().size(); i++) {
-						SLAContract contract = sc.getContractList().get(i);
-						Notify notify = new Notify(sc.getAssociatedID(), bestN);
-						dsmClient.out(contract.getSubscriber().getLocalName(), "notify", notify);
-						dsmClient.out(contract.getPublisher().getLocalName(), "notify", notify);
-					}
+//					for(int i=0; i<sc.getContractList().size(); i++) {
+//						SLAContract contract = sc.getContractList().get(i);
+//						Notify notify = new Notify(sc.getAssociatedID(), bestN);
+//						
+//						dsmClient.update("notify", "notify", notify);
+//					}
+					Notify notify = new Notify(sc.getAssociatedID(), bestN);
+					dsmClient.update("notify", "notify", notify);
 					//MigrationUtil.notifyMigration(myAgent, sc.getAssociatedID(), bestN);
 					sc.setAssociatedID(bestN);
 				}

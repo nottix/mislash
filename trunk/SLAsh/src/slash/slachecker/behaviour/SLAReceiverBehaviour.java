@@ -5,6 +5,7 @@ import jade.lang.acl.MessageTemplate;
 import jade.lang.acl.UnreadableException;
 import jade.core.behaviours.*;
 import slash.slachecker.agent.*;
+import slash.util.PropertiesReader;
 import slash.dsm.client.DsmClient;
 import slash.entity.*;
 import slash.dsm.tuple.*;
@@ -17,7 +18,7 @@ public class SLAReceiverBehaviour extends TickerBehaviour {
 	private DsmClient dsmClient;
 	
 	public SLAReceiverBehaviour(SLACheckerAgent agent) {
-		super(agent, 1000);
+		super(agent, Integer.parseInt(PropertiesReader.getProperty("slareceiver.tick")));
 		this.sc = agent;
 		this.dsmClient = new DsmClient(agent);
 	}

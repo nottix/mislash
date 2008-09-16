@@ -6,6 +6,7 @@ import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 import slash.resource.agent.*;
 import slash.util.DataWriter;
+import slash.util.PropertiesReader;
 import slash.dsm.client.DsmClient;
 import slash.entity.*;
 
@@ -23,7 +24,7 @@ public class EnergyBehaviour extends TickerBehaviour {
 	private DsmClient dsmClient;
 	
 	public EnergyBehaviour(AID cmAid, EnergyAgent agent) {
-		super(agent, 500);
+		super(agent, Integer.parseInt(PropertiesReader.getProperty("energy.tick")));
 		this.cmAid = cmAid;
 		this.agent = agent;
 		this.powerOn = false;
