@@ -65,7 +65,7 @@ public class AgentLauncher {
 		
 		launchNode("wired", 512, "publisher");
 		launchNode("wireless", 256, "subscriber");
-//		launchNode("wireless", 256, "subscriber");
+		launchNode("wireless", 256, "subscriber");
 	}
 
 }

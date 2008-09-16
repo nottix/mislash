@@ -11,15 +11,21 @@ import slash.dsm.agent.*;
 import slash.dsm.tuple.*;
 import slash.dsm.data.*;
 import slash.entity.*;
+import java.util.*;
+import jade.content.*;
+import jade.content.onto.basic.*;
+import slash.entity.*;
 
 public class DsmServerBehaviour extends CyclicBehaviour {
 
 	private static final long serialVersionUID = 6270841980860732385L;
 	
 	private DsmDataManager dsmDataManager;
+	private int associatedID;
 	
 	public DsmServerBehaviour(DsmServerAgent agent) {
 		this.dsmDataManager = new DsmDataManager();
+		this.associatedID = 0;
 	}
 	
 	public void action() {
@@ -29,12 +35,26 @@ public class DsmServerBehaviour extends CyclicBehaviour {
 			Tuple tuple = null;
 			if(recvMsg!=null) {
 				tuple = (Tuple)recvMsg.getContentObject();
-				//System.out.println("msg received from client: op "+tuple.getOperation());
 				doOperation(tuple, recvMsg.getSender());
+				tuple = dsmDataManager.read("notify", "notify");
+				if(tuple!=null && tuple.getValue()!=null) {
+					Notify notify = (Notify)tuple.getValue();
+					int dest = notify.getDest();
+					if(dest!=this.associatedID) {
+						tuple = dsmDataManager.read(String.valueOf(dest), "context");
+						if(tuple!=null && tuple.getValue()!=null) {
+							Context context = (Context)tuple.getValue();
+							myAgent.doMove(context.getLocation());
+							System.out.println("Moving DSM to "+dest);
+							this.associatedID = dest;
+						}
+					}
+				}
+
 			}
 			else
 				block();
-		} catch (UnreadableException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
