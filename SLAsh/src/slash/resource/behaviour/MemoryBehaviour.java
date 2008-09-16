@@ -7,6 +7,7 @@ import jade.lang.acl.MessageTemplate;
 import slash.dsm.client.DsmClient;
 import slash.resource.agent.*;
 import slash.util.DataWriter;
+import slash.util.PropertiesReader;
 
 public class MemoryBehaviour extends TickerBehaviour {
 
@@ -21,13 +22,11 @@ public class MemoryBehaviour extends TickerBehaviour {
 	private DsmClient dsmClient;
 	
 	public MemoryBehaviour(AID cmAid, MemoryAgent agent) {
-		super(agent, 500);
+		super(agent, Integer.parseInt(PropertiesReader.getProperty("memory.tick")));
 		this.cmAid = cmAid;
 		this.agent = agent;
 		this.dsmClient = new DsmClient(agent);
 		this.memory = (float)((Math.random()*100)%60);
-		
-		mt = MessageTemplate.MatchPerformative(ACLMessage.REQUEST);
 	}
 	
 	private float generate() {
@@ -37,7 +36,7 @@ public class MemoryBehaviour extends TickerBehaviour {
 			memory -= 0.2*(float)((Math.random()*100)%10);
 		
 		if(memory<0)
-			memory = 0;
+			memory = (float)((Math.random()*100)%60);
 		
 		return memory;
 	}

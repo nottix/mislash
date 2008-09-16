@@ -7,6 +7,7 @@ import jade.lang.acl.MessageTemplate;
 import slash.contextmanager.agent.ContextManagerAgent;
 import slash.dsm.client.DsmClient;
 import slash.dsm.tuple.*;
+import slash.util.PropertiesReader;
 
 public class ResourceConsumerBehaviour extends TickerBehaviour {
 
@@ -16,7 +17,7 @@ public class ResourceConsumerBehaviour extends TickerBehaviour {
 	private DsmClient dsmClient;
 	
 	public ResourceConsumerBehaviour(ContextManagerAgent agent) {
-		super(agent, 1000);
+		super(agent, Integer.parseInt(PropertiesReader.getProperty("resourceconsumer.tick")));
 		this.agent = agent;
 		this.dsmClient = new DsmClient(agent);
 	}
@@ -24,7 +25,7 @@ public class ResourceConsumerBehaviour extends TickerBehaviour {
 	protected void onTick() {
 		Tuple tuple = dsmClient.in(myAgent.getLocalName(), "cpu");
 		if(tuple!=null) {
-			System.out.println("Resource consumed -> cpu: "+(Float)tuple.getValue());
+			//System.out.println("Resource consumed -> cpu: "+(Float)tuple.getValue());
 			agent.getContext().addCpuValue((Float)tuple.getValue());
 		}
 		

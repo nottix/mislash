@@ -26,7 +26,7 @@ public class ResourceMonitorAgent extends Agent {
 		//this.addBehaviour(new CoreBehaviour(this));
 		this.addBehaviour(new StatusProducerBehaviour(this));
 		this.addBehaviour(new StatusResourceConsumerBehaviour(this));
-		this.addBehaviour(new ViolationReceiverBehaviour(this));
+		this.addBehaviour(new ViolationConsumerBehaviour(this));
 		
 		status = new Status();
 

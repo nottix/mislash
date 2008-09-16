@@ -6,6 +6,7 @@ import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 import slash.dsm.client.DsmClient;
 import slash.resourcemonitor.agent.*;
+import slash.util.PropertiesReader;
 import slash.dsm.tuple.*;
 
 public class StatusResourceConsumerBehaviour extends TickerBehaviour {
@@ -16,7 +17,7 @@ public class StatusResourceConsumerBehaviour extends TickerBehaviour {
 	private DsmClient dsmClient;
 	
 	public StatusResourceConsumerBehaviour(ResourceMonitorAgent agent) {
-		super(agent, 1000);
+		super(agent, Integer.parseInt(PropertiesReader.getProperty("statusresourceconsumer.tick")));
 		this.rm = agent;
 		this.dsmClient = new DsmClient(agent);
 	}

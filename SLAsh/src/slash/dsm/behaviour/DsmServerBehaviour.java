@@ -58,13 +58,25 @@ public class DsmServerBehaviour extends CyclicBehaviour {
 					myAgent.send(msg);
 				}
 				else if(tuple.getOperation().equals(Tuple.READ)) {
-					dsmDataManager.read(tuple.getIndex(), tuple.getType());
+					Tuple tupleRes = dsmDataManager.read(tuple.getIndex(), tuple.getType());
+					ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
+					msg.addReceiver(sender);
+					msg.setLanguage("English");
+					msg.setConversationId("dsm");
+					msg.setContentObject(tupleRes);
+					if(tupleRes!=null && tupleRes.getValue()!=null) {
+						if(tupleRes.getType().equals("context")) {
+							Context context = (Context)tupleRes.getValue();
+							//System.out.println("Tuple IN sending, context->cpu: "+context.getCpu());
+						}
+					}
+					myAgent.send(msg);
 				}
 				else if(tuple.getOperation().equals(Tuple.OUT)) {
 					dsmDataManager.out(tuple.getIndex(), tuple.getType(), tuple.getValue());
 				}
 				else if(tuple.getOperation().equals(Tuple.UPDATE)) {
-					
+					dsmDataManager.update(tuple.getIndex(), tuple.getType(), tuple.getValue());
 				}
 				else if(tuple.getOperation().equals(Tuple.EVAL)) {
 					
