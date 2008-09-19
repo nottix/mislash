@@ -3,3 +3,12 @@ Il modello matematico riguarda tutta la parte generativa dei valori delle risors
 \section{Valori risorse}
 Le risorse del sistema realizzato possono essere suddivise in due gruppi: dipendenti dalla presenza dello SC (e Dsm) e indipendenti dalla loro presenza. Quanto detto è stato fatto per rappresentare più realmente un caso normale. Si consideri il seguente esempio, ovvero un nodo mobile con connessione \var{wireless} e un nodo fisso con connessione \var{wired}. Il nodo mobile viene collegato e scollegato dalla rete elettrica quando necessario. Sul nodo mobile sono in esecuzione delle normali operazioni di richiesta di informazioni verso il nodo fisso. Sul nodo fisso è in esecuzione il server che risponde alle risposte di vari nodi mobili. Lo SC è al momento sul nodo fisso, questo implica un carico computazione molto elevato per tale nodo, quindi se necessario tale agente SC migrerà sul nodo mobile che al momento ha molte risorse disponibili. Per consentire questo meccanismo di migrazione è stato necessario realizzare delle formule di generazione adattabili al loro stato attuale (presenza o non presenza dello SC oppure collegato o scollegato dalla rete elettrica). Tali formule verranno riportate e commentate di seguito.
 \subsection{Cpu}
+La risorsa \var{cpu} dipende fortemente dalla presenza dello SC, infatti si è deciso di applicare la seguenti relazioni, la prima nel caso ``senza SC''
+$$
+cpu = (\alpha * 100) mod 60
+$$
+in cui $\alpha$ rappresenta un valore casuale da 0 a 1. Il modulo 60 è stato usato per limitare il valore a 60. Nel caso ``con SC'' invece è stata usata la seguente relazione:
+$$
+cpu = ((\alpha * 100) mod 60) + 40
+$$
+in cui si aggiunge il valore 40 che rappresenta il carico supplementare dovuto alla presenza dello SC.
