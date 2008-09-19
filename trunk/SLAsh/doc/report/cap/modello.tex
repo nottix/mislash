@@ -33,7 +33,49 @@ memory = memory + 0.2 \cdot ((\alpha \cdot 100) mod 10)
 Quest'ultima relazione consiste nell'aggiungere al valore precedente il $20\%$ di un valore modulo 10, grazie a ciò si ottiene un incremento molto lieve dell'utilizzazione della memoria.
 Nel caso ``senza SC'' invece si ha
 \begin{equation}
-memory = memory - 0.2 \cdot \left( \left( \alpha \cdot 100 \right) mod 10 \right)
+memory = memory - 0.2 \cdot ( ( \alpha \cdot 100 ) mod 10 )
 \end{equation}
-a differenza del caso precedente si sottrae il nuovo valore da quello vecchio, questo sta ad indicare una diminuzione dell'utilizzazione. Inoltre nel caso in cui la memoria raggiunge valori minori di 0 si rigenera il valore della memoria con la formula usata inizialmente (\ref{eq:memory}).
+a differenza del caso precedente si sottrae il nuovo valore da quello vecchio, questo sta ad indicare una diminuzione dell'utilizzazione. Inoltre nel caso in cui la memoria raggiunge valori minori di 0 si rigenera il valore della memoria con la formula usata inizialmente (ved. \ref{eq:memory}).
 \subsection{Energy}
+Nel caso del componente riguardante l'energia sono state applicate delle formule più adattative, in quanto il suo valore dipende dal collegamento o scollegamento alla rete elettrica e dalla presenza o non presenza dello SC. Inoltre dipende dal tipo di connessione, ovverro se è wireless o wired. All'avvio viene generato il valore tramite la seguente formula.
+\begin{equation}\label{eq:energy}
+memory = (\alpha \cdot 100) mod 60
+\end{equation}
+Ad ogni tick dell'agente si può avere una delle seguenti formule in base alle condizioni. In caso di connessione wired si ha:
+\begin{equation}
+energy = 100
+\end{equation}
+considerando che il wired è stato assunto come nodo fisso collegato alla rete elettrica. In caso di connessione wireless si deve distinguere dal caso in cui è connesso alla rete elettrica (\code{powerOn}) e il caso in cui non lo è (\code{!powerOn}). Per rendere reale i valori generati si è realizzato un meccanismo per gestire la connessione e sconnessione dalla rete elettrica, ovvero:
+\begin{gather}
+\text{se }energy \leq 10\text{ then }powerOn = true \\
+\text{se }energy \geq 99\text{ then }powerOn = false
+\end{gather}
+Con la rete elettrica collegata si ha:
+\begin{gather}
+energy = energy + 0.8 \text{ se SC non presente},\\
+energy = energy + 0.6 \text{ se SC presente}
+\end{gather}
+in caso di rete elettrica scollegata si ha:
+\begin{gather}
+energy = energy - 0.2 \text{ se SC non presente},\\
+energy = energy - 1 \text{ se SC presente}
+\end{gather}
+\subsection{Latency}
+Nel caso della latenza è stato usato un meccanismo dipendente solo dalla presenza dello SC e dal tipo di connessione. In particolare se nel nodo è presente lo SC oppure ha una connessione wireless si ha:
+\begin{equation}
+latency = ((\alpha_{1} \cdot 100)mod60) + \left( \left(\frac{\alpha_{2} \cdot 100}{\frac{\beta}{50}}\right)mod40\right)
+\end{equation}
+come si può notare vengono generati due numeri, uno modulo 60 ed uno modulo 40 in modo da avere un numero massimo di 100. Inoltre è presente un valore $\beta$ che rappresenta la banda del nodo.
+\subsection{Reliability}
+Il valore della affidabilità del canale viene generato nello stesso modo della latenza, infatti si ha:
+\begin{equation}
+reliability = ((\alpha_{1} \cdot 100)mod60) + \left( \left(\frac{\alpha_{2} \cdot 100}{\frac{\beta}{50}}\right)mod40\right)
+\end{equation}
+\subsection{ReqInterval}
+In quest'ultima risorsa la generazione avviene molto semplicemente generando un numero casuale da 0 a 100.
+\begin{equation}
+reqInterval = \alpha \cdot 100
+\end{equation}
+\section{SLA Checker}
+Lo SC essendo il componente centrale di tutto il sistema ha richiesto un lavoro molto accurato per la realizzazione di un buon algoritmo e di un indice di valutazione efficiente. Per algoritmo si intendono le operazioni che vengono svolte dallo SC ciclicamente (ad ogni tick dell'agente), ovvero il controllo sulla validità dei contratti e il controllo della necessità di migrazione. Per indice di valutazione si intende il valore che viene generato per ogni nodo dai valori del suo contesto, tale indice viene utilizzato dallo SC per trovare il nodo su cui eventualmente migrare.
+\subsection{Algoritmo controllo}
