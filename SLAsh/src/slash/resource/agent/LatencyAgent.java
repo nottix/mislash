@@ -2,7 +2,6 @@ package slash.resource.agent;
 
 import slash.df.DFUtil;
 import slash.resource.behaviour.*;
-import slash.resourcemonitor.behaviour.SLAReqReceiverBehaviour;
 import jade.core.AID;
 import jade.core.Agent;
 import slash.entity.*;

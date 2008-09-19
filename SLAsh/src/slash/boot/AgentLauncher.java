@@ -45,7 +45,7 @@ public class AgentLauncher {
 			launchAgent("sc", "slash.slachecker.agent.SLACheckerAgent", null, cc);
 			scEnabled = true;
 		}
-		launchAgent("cm"+counter, "slash.contextmanager.agent.ContextManagerAgent", null, cc);
+		launchAgent("cm"+counter, "slash.contextmanager.agent.ContextManagerAgent", new Object[]{type}, cc);
 		
 		launchAgent("cpu"+counter, "slash.resource.agent.CpuAgent", arg, cc);
 		launchAgent("energy"+counter, "slash.resource.agent.EnergyAgent", arg, cc);
@@ -55,8 +55,17 @@ public class AgentLauncher {
 		launchAgent("latency"+counter, "slash.resource.agent.LatencyAgent", arg, cc);
 		launchAgent("reliability"+counter, "slash.resource.agent.ReliabilityAgent", arg, cc);
 		launchAgent("reqInterval"+counter, "slash.resource.agent.ReqIntervalAgent", arg, cc);
+		
+		launchAgent("rm-cpu"+counter, "slash.resourcemonitor.agent.CpuRmAgent", arg, cc);
+		launchAgent("rm-energy"+counter, "slash.resourcemonitor.agent.EnergyRmAgent", arg, cc);
+		launchAgent("rm-memory"+counter, "slash.resourcemonitor.agent.MemoryRmAgent", arg, cc);
+		launchAgent("rm-ram"+counter, "slash.resourcemonitor.agent.RamRmAgent", arg, cc);
+		
+		launchAgent("rm-latency"+counter, "slash.resourcemonitor.agent.LatencyRmAgent", arg, cc);
+		launchAgent("rm-reliability"+counter, "slash.resourcemonitor.agent.ReliabilityRmAgent", arg, cc);
+		launchAgent("rm-reqInterval"+counter, "slash.resourcemonitor.agent.ReqIntervalRmAgent", arg, cc);
 			
-		launchAgent("rm"+counter, "slash.resourcemonitor.agent.ResourceMonitorAgent", new Object[]{type}, cc);
+		//launchAgent("rm"+counter, "slash.resourcemonitor.agent.CpuRmAgent", new Object[]{type}, cc);
 		
 		counter++;
 	}

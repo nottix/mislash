@@ -1,4 +1,4 @@
-package slash.resourcemonitor.behaviour;
+package slash.contextmanager.behaviour;
 
 import jade.core.AID;
 import jade.core.behaviours.OneShotBehaviour;
@@ -6,17 +6,17 @@ import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.lang.acl.ACLMessage;
 import slash.df.DFUtil;
 import slash.dsm.client.DsmClient;
-import slash.resourcemonitor.agent.*;
+import slash.contextmanager.agent.*;
 
 public class SLARequesterBehaviour extends OneShotBehaviour {
 
 	private static final long serialVersionUID = 1897715821469100876L;
 	
 	private DsmClient dsmClient;
-	private ResourceMonitorAgent rm;
+	private ContextManagerAgent cm;
 	
-	public SLARequesterBehaviour(ResourceMonitorAgent agent) {
-		this.rm = agent;
+	public SLARequesterBehaviour(ContextManagerAgent agent) {
+		this.cm = agent;
 		dsmClient = new DsmClient(agent);
 	}
 	

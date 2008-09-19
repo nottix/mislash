@@ -21,7 +21,6 @@ public class SLACheckerAgent extends Agent {
 	private static final long serialVersionUID = -7918542991436312908L;
 	
 	private List<SLAContract> contractList = null;
-	private Hashtable<AID, Status> statusTable = null;
 	private Hashtable<AID, Context> contextTable = null;
 	
 	private int associatedID;
@@ -38,17 +37,12 @@ public class SLACheckerAgent extends Agent {
 		return this.contractList;
 	}
 	
-	public Hashtable<AID, Status> getStatusTable() {
-		return this.statusTable;
-	}
-	
 	public Hashtable<AID, Context> getContextTable() {
 		return this.contextTable;
 	}
 	
 	protected void setup() {
 		this.contractList = new LinkedList<SLAContract>();
-		this.statusTable = new Hashtable<AID, Status>();
 		this.contextTable = new Hashtable<AID, Context>();
 		
 		this.associatedID = 1; //TODO: DA PASSARE COME ARGOMENTO
@@ -58,10 +52,7 @@ public class SLACheckerAgent extends Agent {
 		
 		this.addBehaviour(new SLAStarterBehaviour());
 		this.addBehaviour(new ContextConsumerBehaviour(this));
-		//this.addBehaviour(new ContextRequesterBehaviour(this));
 		this.addBehaviour(new SLAReceiverBehaviour(this));
-		//this.addBehaviour(new StatusRequesterBehaviour(this));
-		this.addBehaviour(new StatusConsumerBehaviour(this));
 		this.addBehaviour(new SLACheckerBehaviour(this));
 	}
 	
