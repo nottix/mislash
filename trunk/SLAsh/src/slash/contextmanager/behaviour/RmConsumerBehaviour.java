@@ -9,37 +9,49 @@ import slash.dsm.client.DsmClient;
 import slash.dsm.tuple.*;
 import slash.util.PropertiesReader;
 
-public class ResourceConsumerBehaviour extends TickerBehaviour {
+public class RmConsumerBehaviour extends TickerBehaviour {
 
 	private static final long serialVersionUID = 6020734463253999461L;
 	
 	private ContextManagerAgent agent;
 	private DsmClient dsmClient;
 	
-	public ResourceConsumerBehaviour(ContextManagerAgent agent) {
+	public RmConsumerBehaviour(ContextManagerAgent agent) {
 		super(agent, Integer.parseInt(PropertiesReader.getProperty("resourceconsumer.tick")));
 		this.agent = agent;
 		this.dsmClient = new DsmClient(agent);
 	}
 	
 	protected void onTick() {
-		Tuple tuple = dsmClient.in(myAgent.getLocalName(), "cpu");
+		Tuple tuple = dsmClient.in(myAgent.getLocalName(), "rm-cpu");
 		if(tuple!=null) {
 			//System.out.println("Resource consumed -> cpu: "+(Float)tuple.getValue());
 			agent.getContext().addCpuValue((Float)tuple.getValue());
 		}
 		
-		tuple = dsmClient.in(myAgent.getLocalName(), "energy");
+		tuple = dsmClient.in(myAgent.getLocalName(), "rm-energy");
 		if(tuple!=null)
 			agent.getContext().addEnergyValue((Float)tuple.getValue());
 		
-		tuple = dsmClient.in(myAgent.getLocalName(), "memory");
+		tuple = dsmClient.in(myAgent.getLocalName(), "rm-memory");
 		if(tuple!=null)
 			agent.getContext().addMemoryValue((Float)tuple.getValue());
 		
-		tuple = dsmClient.in(myAgent.getLocalName(), "ram");
+		tuple = dsmClient.in(myAgent.getLocalName(), "rm-ram");
 		if(tuple!=null)
 			agent.getContext().addRamValue((Float)tuple.getValue());
+		
+		tuple = dsmClient.in(myAgent.getLocalName(), "rm-latency");
+		if(tuple!=null)
+			agent.getContext().addLatencyValue((Float)tuple.getValue());
+		
+		tuple = dsmClient.in(myAgent.getLocalName(), "rm-reliability");
+		if(tuple!=null)
+			agent.getContext().addReliabilityValue((Float)tuple.getValue());
+		
+		tuple = dsmClient.in(myAgent.getLocalName(), "rm-reqInterval");
+		if(tuple!=null)
+			agent.getContext().addReqIntervalValue((Float)tuple.getValue());
 	}
 
 }

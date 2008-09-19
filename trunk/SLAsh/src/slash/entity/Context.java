@@ -17,12 +17,15 @@ public class Context implements Serializable {
 	public static float MEMORY_LIMIT = 60.0f;
 	public static float ENERGY_LIMIT = 20.0f;
 	
-	private static int RST_INTERVAL = 10;
+	private static int RST_INTERVAL = 30;
 	
 	private List<Float> cpuList;
 	private List<Float> ramList;
 	private List<Float> memoryList;
 	private List<Float> energyList;
+	private List<Float> latencyList;
+	private List<Float> reliabilityList;
+	private List<Float> reqIntervalList;
 	
 	private Location location;
 	private float cpu;
@@ -31,12 +34,18 @@ public class Context implements Serializable {
 	private int network; //WIRED, WIRELESS
 	private int bandwidth;
 	private float energy;
+	private float latency;
+	private float reliability;
+	private float reqInterval;
 	
 	public Context() {
 		this.cpuList = new LinkedList<Float>();
 		this.ramList = new LinkedList<Float>();
 		this.memoryList = new LinkedList<Float>();
 		this.energyList = new LinkedList<Float>();
+		this.latencyList = new LinkedList<Float>();
+		this.reliabilityList = new LinkedList<Float>();
+		this.reqIntervalList = new LinkedList<Float>();
 	}
 	
 	public void addCpuValue(Float cpuValue) {
@@ -109,6 +118,57 @@ public class Context implements Serializable {
 		return energy;
 	}
 	
+	public void addLatencyValue(Float latencyValue) {
+		if(latencyValue!=null) {
+			if(this.latencyList.size() >= Context.RST_INTERVAL)
+				this.latencyList = new LinkedList<Float>();
+			this.latencyList.add(Float.valueOf(latencyValue));
+		}
+	}
+	
+	public void addReliabilityValue(Float reliabilityValue) {
+		if(reliabilityValue!=null) {
+			if(this.reliabilityList.size() >= Context.RST_INTERVAL)
+				this.reliabilityList = new LinkedList<Float>();
+			this.reliabilityList.add(Float.valueOf(reliabilityValue));
+		}
+	}
+	
+	public void addReqIntervalValue(Float reqIntervalValue) {
+		if(reqIntervalValue!=null) {
+			if(this.reqIntervalList.size() >= Context.RST_INTERVAL)
+				this.reqIntervalList = new LinkedList<Float>();
+			this.reqIntervalList.add(Float.valueOf(reqIntervalValue));
+		}
+	}
+	
+	public float getAvgLatency() {
+		latency = 0;
+		for(int i=0; i<this.latencyList.size(); i++) {
+			latency += this.latencyList.get(i);
+		}
+		latency /= this.latencyList.size();
+		return latency;
+	}
+	
+	public float getAvgReliability() {
+		reliability = 0;
+		for(int i=0; i<this.reliabilityList.size(); i++) {
+			reliability += this.reliabilityList.get(i);
+		}
+		reliability /= this.reliabilityList.size();
+		return reliability;
+	}
+	
+	public float getAvgReqInterval() {
+		reqInterval = 0;
+		for(int i=0; i<this.reqIntervalList.size(); i++) {
+			reqInterval += this.reqIntervalList.get(i);
+		}
+		reqInterval /= this.reqIntervalList.size();
+		return reqInterval;
+	}
+	
 	public void setLocation(Location location) {
 		this.location = location;
 	}
@@ -121,13 +181,16 @@ public class Context implements Serializable {
 		return cpu*0.23f+ram*0.23f+memory*0.23f+(100-energy)*0.3f;
 	}
 	
-	public Context(float cpu, float ram, float memory, float energy, int network, int bandwidth) {
+	public Context(float cpu, float ram, float memory, float energy, int network, int bandwidth, float latency, float reliability, float reqInterval) {
 		this.cpu = cpu;
 		this.ram = ram;
 		this.memory = memory;
 		this.energy = energy;
 		this.network = network;
 		this.bandwidth = bandwidth;
+		this.latency = latency;
+		this.reliability = reliability;
+		this.reqInterval = reqInterval;
 	}
 	
 	public void setCpu(float cpu) {

@@ -1,10 +1,10 @@
-package slash.resourcemonitor.behaviour;
+package slash.contextmanager.behaviour;
 
 import jade.core.behaviours.*;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 import slash.dsm.client.DsmClient;
-import slash.resourcemonitor.agent.*;
+import slash.contextmanager.agent.*;
 import slash.util.PropertiesReader;
 import slash.dsm.tuple.*;
 
@@ -12,12 +12,12 @@ public class ViolationConsumerBehaviour extends TickerBehaviour {
 
 	private static final long serialVersionUID = -5411307240223204565L;
 
-	private ResourceMonitorAgent rm;
+	private ContextManagerAgent cm;
 	private DsmClient dsmClient;
 	
-	public ViolationConsumerBehaviour(ResourceMonitorAgent agent) {
+	public ViolationConsumerBehaviour(ContextManagerAgent agent) {
 		super(agent, Integer.parseInt(PropertiesReader.getProperty("violationreceiver.tick")));
-		this.rm = agent;
+		this.cm = agent;
 		this.dsmClient = new DsmClient(agent);
 	}
 	

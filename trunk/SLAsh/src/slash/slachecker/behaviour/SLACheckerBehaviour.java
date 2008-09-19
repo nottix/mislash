@@ -32,7 +32,7 @@ public class SLACheckerBehaviour extends TickerBehaviour {
 		
 		for(int i=0; i<sc.getContractList().size(); i++) {
 			SLAContract contract = sc.getContractList().get(i);
-			Status status = sc.getStatusTable().get(contract.getPublisher());
+			Context status = sc.getContextTable().get(contract.getPublisher());
 			float lat=0, rel=0, req=0;
 			if((status!=null) && (((lat=status.getAvgLatency()) > contract.getLatency()) || ((rel=status.getAvgReliability()) > contract.getReliability()) || ((req=status.getAvgReqInterval()) > contract.getReqInterval()))) {
 				
@@ -59,7 +59,6 @@ public class SLACheckerBehaviour extends TickerBehaviour {
 			//if(avgCpu >= Context.CPU_LIMIT || avgRam >= Context.RAM_LIMIT || avgMemory >= Context.MEMORY_LIMIT || 
 				//	avgEnergy <= Context.ENERGY_LIMIT) {
 			if(context.calcIndex() > check) { //52 originale
-//				AID best = getBestNode();
 				if(best!=null) {
 					System.out.println("queue: "+myAgent.getCurQueueSize());
 					myAgent.doMove(sc.getContextTable().get(best).getLocation());
@@ -67,12 +66,6 @@ public class SLACheckerBehaviour extends TickerBehaviour {
 					System.out.println("MIGRAZIONE verso "+best.getLocalName());
 					System.out.println("BESTN: "+bestN);
 					
-//					for(int i=0; i<sc.getContractList().size(); i++) {
-//						SLAContract contract = sc.getContractList().get(i);
-//						Notify notify = new Notify(sc.getAssociatedID(), bestN);
-//						
-//						dsmClient.update("notify", "notify", notify);
-//					}
 					Notify notify = new Notify(sc.getAssociatedID(), bestN);
 					dsmClient.update("notify", "notify", notify);
 					//MigrationUtil.notifyMigration(myAgent, sc.getAssociatedID(), bestN);

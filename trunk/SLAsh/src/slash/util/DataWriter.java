@@ -5,7 +5,7 @@ import java.util.*;
 
 public class DataWriter {
 
-	private static String path = "./data/";
+	private static String path = "./tmp/";
 	private static String ext = "";
 	
 	private static Hashtable<String, Integer> counterTable = new Hashtable<String, Integer>();
