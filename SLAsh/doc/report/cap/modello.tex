@@ -1,14 +1,39 @@
 \chapter{Modello Matematico}\label{cap:modello}
 Il modello matematico riguarda tutta la parte generativa dei valori delle risorse e dell'indice di occupazione dei nodi. Molte delle relazioni che sono state utilizzate sono state ricavate empiricamente grazie ad un operazione di \var{tuning} che ci ha consentito di raggiungere una situazione il più reale possibile.
 \section{Valori risorse}
-Le risorse del sistema realizzato possono essere suddivise in due gruppi: dipendenti dalla presenza dello SC (e Dsm) e indipendenti dalla loro presenza. Quanto detto è stato fatto per rappresentare più realmente un caso normale. Si consideri il seguente esempio, ovvero un nodo mobile con connessione \var{wireless} e un nodo fisso con connessione \var{wired}. Il nodo mobile viene collegato e scollegato dalla rete elettrica quando necessario. Sul nodo mobile sono in esecuzione delle normali operazioni di richiesta di informazioni verso il nodo fisso. Sul nodo fisso è in esecuzione il server che risponde alle risposte di vari nodi mobili. Lo SC è al momento sul nodo fisso, questo implica un carico computazione molto elevato per tale nodo, quindi se necessario tale agente SC migrerà sul nodo mobile che al momento ha molte risorse disponibili. Per consentire questo meccanismo di migrazione è stato necessario realizzare delle formule di generazione adattabili al loro stato attuale (presenza o non presenza dello SC oppure collegato o scollegato dalla rete elettrica). Tali formule verranno riportate e commentate di seguito.
+Le risorse del sistema realizzato possono essere suddivise in due gruppi: dipendenti dalla presenza dello SC (e Dsm) e indipendenti dalla loro presenza. Quanto detto è stato fatto per rappresentare più realmente un caso normale. Si consideri il seguente esempio, ovvero un nodo mobile con connessione \var{wireless} e un nodo fisso con connessione \var{wired}. Il nodo mobile viene collegato e scollegato dalla rete elettrica quando necessario. Sul nodo mobile sono in esecuzione delle normali operazioni di richiesta di informazioni verso il nodo fisso. Sul nodo fisso è in esecuzione il server che risponde alle risposte di vari nodi mobili. Lo SC è al momento sul nodo fisso, questo implica un carico computazione molto elevato per tale nodo, quindi se necessario tale agente SC migrerà sul nodo mobile che al momento ha molte risorse disponibili. Per consentire questo meccanismo di migrazione è stato necessario realizzare delle formule di generazione adattabili al loro stato attuale (presenza o non presenza dello SC oppure collegato o scollegato dalla rete elettrica). Tutti i valori generati rappresentano delle percentuali. Di seguito vengono riportate tutte le formule usate per la generazione.
 \subsection{Cpu}
 La risorsa \var{cpu} dipende fortemente dalla presenza dello SC, infatti si è deciso di applicare la seguenti relazioni, la prima nel caso ``senza SC''
-$$
-cpu = (\alpha * 100) mod 60
-$$
+\begin{equation}
+cpu = (\alpha \cdot 100) mod 60
+\end{equation}
 in cui $\alpha$ rappresenta un valore casuale da 0 a 1. Il modulo 60 è stato usato per limitare il valore a 60. Nel caso ``con SC'' invece è stata usata la seguente relazione:
-$$
-cpu = ((\alpha * 100) mod 60) + 40
-$$
+\begin{equation}
+cpu = ((\alpha \cdot 100) mod 60) + 40
+\end{equation}
 in cui si aggiunge il valore 40 che rappresenta il carico supplementare dovuto alla presenza dello SC.
+\subsection{Ram}
+La risorsa viene generata come per la cpu.
+\begin{equation}
+ram = (\alpha \cdot 100) mod 60
+\end{equation}
+Nel caso ``con SC'' invece è stata usata la seguente relazione:
+\begin{equation}
+ram = ((\alpha \cdot 100) mod 60) + 40
+\end{equation}
+\subsection{Memory}
+La memoria ha un comportamento leggermente più complesso, infatti è stato realizzato un meccanismo di riempimento e svuotamento della memoria dipendente dalla presenza dello SC. All'avvio del nodo viene generato un valore iniziale tramite la seguente formula:
+\begin{equation}\label{eq:memory}
+memory = (\alpha \cdot 100) mod 60
+\end{equation}
+Ad ogni \var{tick} si modifica il valore nel seguente modo:
+\begin{equation}
+memory = memory + 0.2 \cdot ((\alpha \cdot 100) mod 10)
+\end{equation}
+Quest'ultima relazione consiste nell'aggiungere al valore precedente il $20\%$ di un valore modulo 10, grazie a ciò si ottiene un incremento molto lieve dell'utilizzazione della memoria.
+Nel caso ``senza SC'' invece si ha
+\begin{equation}
+memory = memory - 0.2 \cdot \left( \left( \alpha \cdot 100 \right) mod 10 \right)
+\end{equation}
+a differenza del caso precedente si sottrae il nuovo valore da quello vecchio, questo sta ad indicare una diminuzione dell'utilizzazione. Inoltre nel caso in cui la memoria raggiunge valori minori di 0 si rigenera il valore della memoria con la formula usata inizialmente (\ref{eq:memory}).
+\subsection{Energy}
