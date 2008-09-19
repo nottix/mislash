@@ -1,5 +1,5 @@
 \chapter{Introduzione}\label{cap:introduzione}
-Per comprendere a fondo l'entità di tale progetto deve essere riportata la specifica del problema da risolvere, in quanto consente di entrare nell'ottica del problema.
+Per comprendere a fondo l'entità di tale progetto si riporta di seguito la specifica del problema da risolvere, in quanto consente al lettore di entrare nell'ottica del problema, inoltre si fornirà una breve panoramica relativa al paradigma DSM, agli agenti mobili e al framework JADE.
 \section{Specifiche problema}
 \subsection{Logica applicazione}
 Si richiede di progettare una architettura di supporto al monitoraggio e controllo di SLA\cite{gino} in ambiente (possibilmente) mobile. L’architettura del servizio è basata sulla definizione di un certo numero di componenti “logici”: SLA Checker (SC), Context Manager (CM), Resource Monitor (RM). Tali entità interagiscono tra loro unicamente tramite il meccanismo DSM ("tuple space"). Il ruolo di tali entità viene descritto come segue:
@@ -31,3 +31,13 @@ Si richiede di progettare e realizzare, utilizzando la piattaforma JADE (\url{ht
 \item carico computazionale/di memorizzazione per nodi mobili;
 \end{itemize}
 tenendo anche conto del fatto che il contesto (disponibilità di risorse) in cui opera il servizio di controllo SLA può variare nel tempo, per esempio per effetto della mobilità di alcuni nodi.
+\section{Distributed Shared Memory}
+Il paradigma DSM fornisce agli host in un sistema distribuito la vista di uno spazio comune condiviso attraverso spazi di indirizzamento disgiunti, in cui la sincronizzazione e la comunicazione fra i partecipanti avvengono tramite operazioni sui dati comuni. La nozione di \var{tuple space} è stato originariamente integrato in Linda, e fornisce una semplice e potente astrazione per accedere alla memoria condivisa. Un \var{tuple space} è composto di una collezione di tuple ordinate, accessibili in egual modo da tutti gli host del sistema distribuito. La comunicazione tra hosts avviene tramite l'inserimento/rimozione di tuple nel/da \var{tuple space}. Possono essere eseguite tre operazioni di base: \var{out()} per esportare una tupla nel \var{tuple space}, \var{in()} per importare (e rimuovere) una tupla e \var{read()} per leggere, senza rimuovere, una tupla. Il modello di interazione offre disaccoppiamento sia spaziale che temporale, pochè consumatore e produttore non hanno bisogno di conoscersi e il creatore di una tupla non ha bisogno di sapere l'uso che verrà fatto di tale tupla. Nonostante tutto, non si ha un disaccoppiamento da un punto di vista della sincronizzazione dal lato del consumatore. 
+(INSERIRE FIGURA L04 slide 34, figura relativa al DSM)
+\section{Mobile Agent}
+
+\section{JADE}
+JADE è un framework interamente realizzato in Java, che semplifica l'implementazione di \var{Multi Agent Systems} (MAS) e permette la comunicazione tra agenti sulla stessa o su differenti piattaforme.
+(INSERIRE FIGURA SLIDE JADE SLIDE A PAGINA 3, quella col middleware e la complessità della rete)
+Gli agenti JADE comunicano utilizzando ACL (Agent Communication Language), tramite scambio di messaggi asincrono
+(INSERIRE FIGURA SLIDE JADE SLIDE A PAGINA 8 scambio di messaggi)  
