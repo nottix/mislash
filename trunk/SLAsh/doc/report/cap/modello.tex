@@ -104,4 +104,49 @@ La seconda parte di cui si occupa lo SC è la verifica della necessità di migra
 \begin{equation}\label{eq:index}
 index = cpu \cdot 0.23 + ram \cdot 0.23 + memory \cdot 0.23 + (100-energy) \cdot 0.3
 \end{equation}
-Il valore $index$ calcolato rappresenta una percentuale che va da 0 a 100 che indica l'utilizzazione del nodo valutato. L'indice è il fulcro dell'algoritmo di \var{Migration checking}, in quanto la migrazione si basa proprio sul confronto di tale valore.
+Il valore $index$ calcolato rappresenta una percentuale che va da 0 a 100 che indica l'utilizzazione del nodo valutato. L'indice è il fulcro dell'algoritmo di \var{Migration checking}, in quanto la migrazione si basa proprio sul confronto di tale valore. Verranno ora riportati i passi dell'algoritmo:
+\begin{enumerate}
+	\item Si recupera il nodo migliore su cui migrare tramite la funzione \code{getBestNode()};
+	\item si seleziona il contesto attuale del nodo in cui si trova lo SC;
+	\item si verifica che l'indice del contesto attuale sia maggiore dell'indice di migrazione;
+	\item se la condizione è verificata si effettua la migrazione sul nodo risultato migliore;
+	\item si notifica, tramite dsm, l'avvenimento della migrazione a tutti nodi presenti;
+	\item se la condizione non si verifica non viene effettuata la migrazione.
+\end{enumerate}
+\subsubsection{Best Node}
+La funzione \code{getBestNode()} riportata nell'algoritmo precedente viene descritta dettagliatamente di seguito:
+\begin{lstlisting}[frame=trBL]
+AID next, iter;
+Enumeration<AID> keys = sc.getContextTable().keys();
+Context context;
+float cpu, ram, memory, energy;
+float total=500, iter=0;
+
+while(keys.hasMoreElements()) {
+  next = keys.nextElement();
+  context = sc.getContextTable().get(next);
+  if(context!=null) {
+    cpu = context.getCpu();
+    ram = context.getRam();
+    memory = context.getMemory();
+    energy = context.getEnergy();
+    iter = cpu + ram + memory + (1-energy);
+    if(cpu < Context.CPU_LIMIT && ram < Context.RAM_LIMIT && memory < Context.MEMORY_LIMIT && energy > Context.ENERGY_LIMIT && iter < total) {
+      best = next;
+      total = iter;
+    }
+  }
+}
+\end{lstlisting}
+Lo scopo dell'algoritmo riportato è di recuperare il contesto che ha i valori ``migliori'', ovvero che si attiene alla seguente relazione:
+$$
+cpu < cpu_{limit} \;AND\; ram < ram_{limit}\; AND
+$$
+$$
+memory < memory_{limit} \;AND\; energy > energy_{limit}\; AND\; \theta < min
+$$
+in cui i valori con pedice $limit$ indicano il massimo numero per cui si accetta il valore come ``migliore''. $\theta$ invece rappresenta il minimo attuale, calcolato tramite \ref{eq:iter}
+\begin{equation}\label{eq:iter}
+\theta = cpu + ram + memory + (1-energy)
+\end{equation}
+in ogni ciclo viene calcolato tale valore e se risulta essere minore del minimo attuale si sostituisce $min$ con tale valore.

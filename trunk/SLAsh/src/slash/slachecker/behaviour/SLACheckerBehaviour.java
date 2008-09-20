@@ -37,7 +37,7 @@ public class SLACheckerBehaviour extends TickerBehaviour {
 			float lat=0, rel=0, req=0;
 			if((status!=null) && (((lat=status.getAvgLatency()) > contract.getLatency()) || ((rel=status.getAvgReliability()) > contract.getReliability()) || ((req=statusSub.getAvgReqInterval()) > contract.getReqInterval()))) {
 				
-				System.out.println("Violated with: "+lat+" > "+contract.getLatency()+", "+rel+" > "+contract.getReliability()+", "+req+" > "+contract.getReqInterval());
+				System.out.println("Violated with latency "+lat+" > "+contract.getLatency()+", reliability "+rel+" > "+contract.getReliability()+", reqInterval "+req+" > "+contract.getReqInterval());
 				
 				dsmClient.out(contract.getPublisher().getLocalName(), "slacontract-violation", contract);
 				dsmClient.out(contract.getSubscriber().getLocalName(), "slacontract-violation", contract);
