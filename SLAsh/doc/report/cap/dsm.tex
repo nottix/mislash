@@ -1,6 +1,5 @@
 \chapter{Dsm}
-In questo capitolo verrà riportato dettagliatamente il funzionamento e la strutturazione del componente dsm necessario alla comunicazione tra agenti.
-Nello specifico verra spiegato come è stato realizzato il tuple space e tutti i meccanismi ad esso correlati.
+In questo capitolo verrà riportato dettagliatamente il funzionamento e la strutturazione del componente dsm necessario alla comunicazione tra agenti, nello specifico verra spiegato come è stato realizzato il tuple space e tutti i meccanismi ad esso correlati.
 Per il progetto in questione sono stati realizzati i comandi prettamente necessari, che sono: IN, OUT, UPDATE e READ. 
 \section{DsmData}
 Per la gestione dei dati è stato realizzato una sorta di database volatile tramite lo sfruttamento di \var{Hashtable} e \var{Queue}. In particolare si realizzata una struttura del genere:
@@ -11,7 +10,7 @@ Per la gestione dei dati è stato realizzato una sorta di database volatile tram
 \label{dsm}
 \end{center}
 \end{figure}
-Dalla figura è riportato un esempio delle operazioni eseguire sul database nel momento in cui si effettua una richiesta \code{IN <index1, type3>}, ovvero si richiede un valore di tipo 3 che si trova nell'indice 1. Le operazioni eseguite sono elencate di seguito:
+Dalla figura è riportato un esempio delle operazioni eseguite sul database nel momento in cui si effettua una richiesta \code{IN <index1, type3>}, ovvero si richiede un valore di tipo 3 che si trova nell'indice 1. Le operazioni eseguite sono elencate di seguito:
 \begin{enumerate}
 	\item Quando perviene la richiesta al db si cerca immediatamente la presenza di una chiave \code{index1} nell'hashtable di primo livello;
 	\item se la chiave è presente si prende la hashtable associata e si procede con il controllo delle presenza della chiave \code{type3} all'interno dell'hashtable di secondo livello;
