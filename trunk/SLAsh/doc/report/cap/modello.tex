@@ -79,3 +79,29 @@ reqInterval = \alpha \cdot 100
 \section{SLA Checker}
 Lo SC essendo il componente centrale di tutto il sistema ha richiesto un lavoro molto accurato per la realizzazione di un buon algoritmo e di un indice di valutazione efficiente. Per algoritmo si intendono le operazioni che vengono svolte dallo SC ciclicamente (ad ogni tick dell'agente), ovvero il controllo sulla validità dei contratti e il controllo della necessità di migrazione. Per indice di valutazione si intende il valore che viene generato per ogni nodo dai valori del suo contesto, tale indice viene utilizzato dallo SC per trovare il nodo su cui eventualmente migrare.
 \subsection{Algoritmo controllo}
+L'algoritmo realizzato consente il controllo della violazione dei contratti e il controllo della necessità di migrazione. In particolare tali operazioni possono essere effettuate grazie alla conoscenza di tutte le informazioni sui nodi del sistema, ovvero il contesto e i contratti. L'algoritmo è suddiviso in due parti, la prima si occupa del controllo della validità dei contratti.
+\subsubsection{SLA Contract checking}
+\begin{enumerate}
+	\item si prende un contratto SLA dalla lista dei contratti;
+	\item si recuperano i dati del contesto dei due partecipanti al contratto (Publisher, Subscriber);
+	\item si controlla la validità del contratto tramite la relazione seguente:
+		$$
+			latency_{pub} > latency_{sla}
+		$$
+			\centering{OR}
+		$$
+			reliability_{pub} > reliability_{sla}
+		$$
+			\centering{OR}
+		$$
+			reqInt_{sub} > reqInt_{sla}
+		$$
+	\item se tale relazione risulta valida allora il contratto è stato violato.
+\end{enumerate}
+Dalla relazione riportata si può notare la presenza dei valori di \code{latency}, \code{reliability} e \code{reqInt} che hanno come pedice \code{pub}, \code{sub} e \code{sla} che indicano rispettivamente il Publisher, il Subscriber e il contratto SLA. La relazione riportata non fa altro che controllare se il publisher viola il contratto non garantendo la latenza e l'affidabilità precedente, oppure se il Subscriber viola il contratto effettuando più richieste di quante stabilite dal contratto SLA.
+\subsubsection{SC Migration checker}
+La seconda parte di cui si occupa lo SC è la verifica della necessità di migrazione su altri nodi. In particolare tale operazione consiste nel valutare l'indice del contesto di ogni nodo, controllando se il valore supera una certa soglia prefissata, nel qual caso sarebbe necessario migrare su un nuovo nodo. Il calcolo dell'indice di utilizzazione viene effettuato con la seguente formula:
+\begin{equation}\label{eq:index}
+index = cpu \cdot 0.23 + ram \cdot 0.23 + memory \cdot 0.23 + (100-energy) \cdot 0.3
+\end{equation}
+Il valore $index$ calcolato rappresenta una percentuale che va da 0 a 100 che indica l'utilizzazione del nodo valutato. L'indice è il fulcro dell'algoritmo di \var{Migration checking}, in quanto la migrazione si basa proprio sul confronto di tale valore.
