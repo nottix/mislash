@@ -1,0 +1,97 @@
+\chapter{Simulazione}
+Per valutare le prestazioni del sistema realizzato si sono effettuate numerose simulazioni. Tutti i test condotti sono stati basati su una specifica configurazione di nodi, in particolare 1 nodo Publisher e 2 Subscriber. I due nodi consumer richiedono la stipulazione di un contratto al producer, il quale espleta tutte le richieste. Si riporta ora un esempio di esecuzione con relativa descrizione ed analisi dei dati.
+\section{Esecuzione}
+In principio si avvia il nodo Producer il quale andrà in attesa di richieste dei consumatori. In seguito si avviano i due Consumer (o Subscriber) i quali richiedono ed ottengono un contratto con il Subscriber. Stabiliti i contratti inizia la vera fase di simulazione in cui ogni nodo genera valori casuali per le proprie risorse e lo SC raccoglie tali dati per valutare gli SLA e la necessità di migrazione.
+\subsection{Scenario}
+I tre nodi dello scenario d'esecuzione hanno le seguenti caratteristiche:
+\begin{enumerate}
+	\item Publisher con connessione WIRED e 512Kb di banda;
+	\item subscriber con connessione WIRELESS e 256Kb di banda;
+	\item subscriber con connessione WIRELESS e 256Kb di banda.
+\end{enumerate}
+\subsection{Generazione contratti SLA}
+Il contratto SLA, ovvero i livelli di latency, reliability e reqInterval vengono generati casualmente dal publisher nel momento in cui raccolgono una richiesta di contratto. Tale operazione può essere vista nel log di esecuzione del programma simulativo.
+\begin{enumerate}
+\item Il Subscriber richiede un contratto con un qualsiasi publisher disponibile;
+\item Il publisher legge la richiesta dal dsm;
+\begin{center}
+\begin{verbatim}
+SLAContract-request received from cm2
+\end{verbatim}
+\end{center}
+\item il publisher genera i parametri del contratto casualmente e lo immette sul dsm;
+\item lo SC rileva la presenza del contratto e lo aggiunge alla sua lista.
+\begin{center}
+\begin{verbatim}
+Added Contract
+\end{verbatim}
+\end{center}
+\end{enumerate}
+\subsection{Migrazione}
+Inizialmente lo SC risiede sul primo nodo, ovvero il publisher (ved. \ref{fig:primo}).
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=0.5]{etc/primo.png}
+\caption{Migrazione non avvenuta}
+\label{fig:primo}
+\end{center}
+\end{figure}
+In questa figura si può notare la presenza del dsm e dello SC sul primo nodo, in quanto la simulazione è stata appena avviata. Dal log si può rilevare che lo SC ha già iniziato a controllare la necessità di migrazione e che al momento si trova sul Container-1 ovvero il nodo 1. Il valore index del nodo attuale non ha ancora superato il valore di soglia (52), di conseguenza lo SC rimane sul nodo attuale.
+\begin{lstlisting}
+Sono su Container-1
+Context[cm3]--> cpu: 21.126825, ram: 12.573414, memory: 35.398045, energy: 64.588715, index: 26.515991
+Context[cm1]--> cpu: 78.77115, ram: 63.975082, memory: 15.567526, energy: 100.0, index: 36.412167
+Context[cm2]--> cpu: 50.302402, ram: 11.7872715, memory: 1.3100842, energy: 91.46843, index: 17.141415
+Associated with: cm1
+Actual context--> cpu: 78.77115, ram: 63.975082, memory: 15.567526, energy: 100.0, index: 36.412167
+\end{lstlisting}
+Nel momento in cui il carico su tale nodo raggiunge valori troppo alti avverrà la migrazione. Infatti poco tempo dopo si ha una situazione del genere:
+\begin{lstlisting}
+Sono su Container-1
+Context[cm3]--> cpu: 13.309162, ram: 0.59043956, memory: 0.59446615, energy: 58.188698, index: 15.8770275
+Context[cm1]--> cpu: 88.09482, ram: 92.11755, memory: 70.78468, energy: 100.0, index: 57.729324
+Context[cm2]--> cpu: 25.624594, ram: 58.690094, memory: 9.692705, energy: 84.86853, index: 26.161144
+Associated with: cm1
+Actual context--> cpu: 88.09482, ram: 92.11755, memory: 70.78468, energy: 100.0, index: <57.729324>
+Migration to cm3
+Moving DSM to 3
+
+Sono su Container-3
+Context[cm1]--> cpu: 54.388817, ram: 97.98689, memory: 73.320885, energy: 100.0, index: 51.910217
+Context[cm2]--> cpu: 55.2578, ram: 37.26969, memory: 6.0537763, energy: 84.46854, index: 27.33313
+Context[cm3]--> cpu: 19.112514, ram: 1.0957876, memory: 16.46449, energy: 57.788696, index: 21.098135
+Associated with: cm3
+Actual context--> cpu: 19.112514, ram: 1.0957876, memory: 16.46449, energy: 57.788696, index: <21.098135>
+\end{lstlisting}
+l'indice sul nodo attuale ha raggiunto un valore di 57.73 a causa di un elevato uso delle risorse disponibili, in particolare della della memoria. Dalla figura \ref{fig:secondo} si può notare che il dsm e lo SC si sono spostati sul Container-3. Su quest'ultimo nodo l'indice è adesso di 21.1.
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=0.5]{etc/secondo.png}
+\caption{Migrazione su secondo nodo}
+\label{fig:secondo}
+\end{center}
+\end{figure}
+Il nodo 3 è di tipo WIRELESS e quindi ha una energia limitata, il che implica un tempo di residenza per l'SC e il dsm molto più ridotto, in quanto l'indice raggiungerà rapidamente valori alti.
+\begin{lstlisting}
+Sono su Container-3
+Context[cm1]--> cpu: 5.5987797, ram: 22.451508, memory: 25.460978, energy: 100.0, index: 12.3075905
+Context[cm2]--> cpu: 19.964691, ram: 9.516586, memory: 33.974285, energy: 71.468735, index: 23.15416
+Context[cm3]--> cpu: 85.48692, ram: 87.68376, memory: 18.864735, energy: 38.188652, index: 62.711555
+Associated with: cm3
+Actual context--> cpu: 85.48692, ram: 87.68376, memory: 18.864735, energy: 38.188652, index: 62.711555
+Migration to cm1
+Moving DSM to 1
+
+Sono su Container-1
+Context[cm1]--> cpu: 3.605554, ram: 14.858828, memory: 21.918837, energy: 100.0, index: 9.28814
+Context[cm2]--> cpu: 1.8598158, ram: 25.086706, memory: 30.353884, energy: 70.868744, index: 21.91847
+Context[cm3]--> cpu: 51.03335, ram: 64.10658, memory: 20.654873, energy: 35.188652, index: 50.676212
+Associated with: cm1
+Actual context--> cpu: 3.605554, ram: 14.858828, memory: 21.918837, energy: 100.0, index: 9.28814
+\end{lstlisting}
+L'energia del nodo 3 è scesa da 57 a 38 il che ha costretto la migrazione sul nodo meno carico, ovvero l'uno (WIRED). In seguito vi è stata anche una violazione del contratto ed è stata segnalata ad entrambi i nodi partecipanti al contratto, i quali dovranno adattarsi per evitare di ripetere la violazione.
+\begin{lstlisting}
+Violated with latency 23.106468 > 82.419365, reliability 41.978447 > 99.44324, reqInterval 79.21008 > 76.23332
+\end{lstlisting}
+Dal log si può notare che è stato il subscriper ad eccedere in rischieste, infatti il reqInterval è inteso come frequenza.
+\section{Analisi dati}
