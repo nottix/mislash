@@ -65,3 +65,20 @@ E' stato realizzato un agente che si occupa principalmente della ricezione e la 
 Questo componente è necessario per la gestione del dsm e delle tuple, in quanto consente operazioni di \code{IN}, \code{OUT}, \code{UPDATE} e \code{READ}.
 \subsubsection{DsmClient}
 Quest'ultimo componente è fondamentale per ogni agente che deve inviare o riceve informazioni dal tuple space, infatti consente l'invio delle richieste direttamente all'agente server che provvederà ad esaurirle.
+\subsection{Context Manager}
+Il Context Manager, come già anticipato, si occupa di raccogliere tutte le informazioni sulle risorse del proprio su un contenitore chiamato \code{Context}, nello specifico il contenuto è il seguente:
+\begin{description}
+	\item[cpu:] valore del processore;
+	\item[ram:] valore della ram presente nel nodo;
+	\item[memory:] valore percentuale dell'occupazione di memoria del nodo;
+	\item[energy:] valore di energia residua;
+	\item[latency:] latenza di trasmissione attuale del nodo publisher;
+	\item[reliability:] valore dell'affidabilità del nodo;
+	\item[reqInterval:] intervallo tra una richiesta ed un'altra;
+	\item[location:] contiene informazioni su cui risiede CM;
+	\item[network:] tipo di rete del nodo;
+	\item[bandwidth:] banda di rete del nodo.
+\end{description}
+Per raccogliere tali informazioni il CM effettua delle operazioni di \code{IN} sul dsm ad intervalli predefiniti. Raccolti i dati immette il contesto sul dsm tramite operazioni di \code{OUT}. Il CM si occupa inoltre si richiede ed accettare contratti SLA in base al tipo di nodo in cui si trova, se il nodo è di tipo \var{publisher} accetta contratti invece se è di tipo \var{subscriber} richiede contratti. Una volta accettatto un contratto viene rinviato sul dsm tramite \code{OUT} per essere passato allo SC.
+\subsection{SLA Checker}
+E' il componente su cui si basa tutto il funzionamento del sistema realizzato, in quanto è l'agente che si occupa di controllare la validità dei contratti e migrare quando necessario. Per effettuare tali operazioni è necessario essere a conoscenza del contesto dei vari nodi e dei contratti SLA stipulati. Lo SC richiede continuamente i contesti dei vari nodi dal dsm, inoltre memorizza tutti i contratti che sono stati stipulati per essere a conoscenza delle relazioni tra i nodi. La conoscenza di tutte le informazioni descritte è necessaria all'algoritmo di \var{checking}, in quanto ha bisogno di tante informazioni per scoprire il miglior nodo su cui migrare (ved. \ref{cap:modello}).
