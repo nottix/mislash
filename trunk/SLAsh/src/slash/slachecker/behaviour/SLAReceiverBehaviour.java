@@ -1,14 +1,11 @@
 package slash.slachecker.behaviour;
 
-import jade.lang.acl.ACLMessage;
-import jade.lang.acl.MessageTemplate;
-import jade.lang.acl.UnreadableException;
-import jade.core.behaviours.*;
-import slash.slachecker.agent.*;
-import slash.util.PropertiesReader;
+import jade.core.behaviours.TickerBehaviour;
 import slash.dsm.client.DsmClient;
-import slash.entity.*;
-import slash.dsm.tuple.*;
+import slash.dsm.tuple.Tuple;
+import slash.entity.SLAContract;
+import slash.slachecker.agent.SLACheckerAgent;
+import slash.util.PropertiesReader;
 
 public class SLAReceiverBehaviour extends TickerBehaviour {
 
@@ -25,7 +22,6 @@ public class SLAReceiverBehaviour extends TickerBehaviour {
 	
 	protected void onTick() {
 		Tuple tuple = dsmClient.in("slacontract", "slacontract");
-		//System.out.println("Checking contract");
 		if(tuple!=null && tuple.getValue()!=null) {
 			System.out.println("Added Contract: "+((SLAContract)tuple.getValue()).getLatency());
 			sc.getContractList().add((SLAContract)tuple.getValue());

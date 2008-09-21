@@ -1,8 +1,7 @@
 package slash.dsm.agent;
 
-import slash.df.DFUtil;
 import jade.core.Agent;
-import slash.dsm.behaviour.*;
+import slash.dsm.behaviour.DsmServerBehaviour;
 
 public class DsmServerAgent extends Agent {
 
@@ -10,7 +9,5 @@ public class DsmServerAgent extends Agent {
 
 	protected void setup() {
 		this.addBehaviour(new DsmServerBehaviour(this));
-		//DFUtil.register(this, this.getLocalName(), "dsm");
-		
 	}
 }

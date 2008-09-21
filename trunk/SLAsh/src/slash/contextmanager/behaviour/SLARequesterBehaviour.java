@@ -3,10 +3,9 @@ package slash.contextmanager.behaviour;
 import jade.core.AID;
 import jade.core.behaviours.OneShotBehaviour;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
-import jade.lang.acl.ACLMessage;
+import slash.contextmanager.agent.ContextManagerAgent;
 import slash.df.DFUtil;
 import slash.dsm.client.DsmClient;
-import slash.contextmanager.agent.*;
 
 public class SLARequesterBehaviour extends OneShotBehaviour {
 
@@ -28,7 +27,6 @@ public class SLARequesterBehaviour extends OneShotBehaviour {
 			System.out.println("Selected publisher: "+publisher.getLocalName());
 			
 			dsmClient.out("slacontract", "slacontract-request", myAgent.getLocalName());
-			//System.out.println("Request sent");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

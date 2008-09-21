@@ -1,16 +1,17 @@
 package slash.slachecker.behaviour;
 
+import jade.core.AID;
 import jade.core.behaviours.TickerBehaviour;
-import jade.lang.acl.ACLMessage;
-import slash.slachecker.agent.*;
-import slash.dsm.client.DsmClient;
-import slash.entity.*;
 
-import java.io.*;
-import jade.core.*;
-import java.util.*;
-import slash.slachecker.util.*;
-import slash.util.*;
+import java.util.Enumeration;
+
+import slash.dsm.client.DsmClient;
+import slash.entity.Context;
+import slash.entity.Notify;
+import slash.entity.SLAContract;
+import slash.slachecker.agent.SLACheckerAgent;
+import slash.util.DataWriter;
+import slash.util.PropertiesReader;
 
 public class SLACheckerBehaviour extends TickerBehaviour {
 	
@@ -57,19 +58,15 @@ public class SLACheckerBehaviour extends TickerBehaviour {
 			avgMemory = context.getAvgMemory();
 			avgEnergy = context.getAvgEnergy();
 			System.out.println("Actual context--> cpu: "+avgCpu+", ram: "+avgRam+", memory: "+avgMemory+", energy: "+avgEnergy+", index: "+context.calcIndex());
-			//if(avgCpu >= Context.CPU_LIMIT || avgRam >= Context.RAM_LIMIT || avgMemory >= Context.MEMORY_LIMIT || 
-				//	avgEnergy <= Context.ENERGY_LIMIT) {
 			if(context.calcIndex() > check) { //52 originale
 				if(best!=null) {
 					System.out.println("queue: "+myAgent.getCurQueueSize());
 					myAgent.doMove(sc.getContextTable().get(best).getLocation());
 					int bestN = Integer.parseInt(String.valueOf(best.getLocalName().charAt(best.getLocalName().length()-1)));
-					System.out.println("MIGRAZIONE verso "+best.getLocalName());
-					System.out.println("BESTN: "+bestN);
+					System.out.println("Migration to "+best.getLocalName());
 					
 					Notify notify = new Notify(sc.getAssociatedID(), bestN);
 					dsmClient.update("notify", "notify", notify);
-					//MigrationUtil.notifyMigration(myAgent, sc.getAssociatedID(), bestN);
 					sc.setAssociatedID(bestN);
 				}
 				else
@@ -108,5 +105,4 @@ public class SLACheckerBehaviour extends TickerBehaviour {
 
 		return best;
 	}
-
 }

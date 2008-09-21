@@ -3,19 +3,21 @@
  */
 package slash.slachecker.agent;
 
-import jade.core.*;
-import jade.lang.acl.ACLMessage;
-import slash.slachecker.behaviour.*;
-import slash.df.*;
+import jade.core.AID;
+import jade.core.Agent;
 
-import java.io.IOException;
-import java.util.*;
-import slash.entity.*;
+import java.util.Hashtable;
+import java.util.LinkedList;
+import java.util.List;
 
-/**
- * @author Simone Notargiacomo, Lorenzo Tavernese, Ibrahim Khalili
- *
- */
+import slash.df.DFUtil;
+import slash.entity.Context;
+import slash.entity.SLAContract;
+import slash.slachecker.behaviour.ContextConsumerBehaviour;
+import slash.slachecker.behaviour.SLACheckerBehaviour;
+import slash.slachecker.behaviour.SLAReceiverBehaviour;
+import slash.slachecker.behaviour.SLAStarterBehaviour;
+
 public class SLACheckerAgent extends Agent {
 
 	private static final long serialVersionUID = -7918542991436312908L;
@@ -45,7 +47,7 @@ public class SLACheckerAgent extends Agent {
 		this.contractList = new LinkedList<SLAContract>();
 		this.contextTable = new Hashtable<AID, Context>();
 		
-		this.associatedID = 1; //TODO: DA PASSARE COME ARGOMENTO
+		this.associatedID = 1;
 		
 		System.out.println("SlaChecker: "+this.getName());
 		DFUtil.register(this, this.getLocalName(), "sla-checker");

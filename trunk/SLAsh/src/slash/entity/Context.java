@@ -1,9 +1,10 @@
 package slash.entity;
 
+import jade.core.Location;
+
 import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
-import jade.core.Location;
 
 public class Context implements Serializable {
 
@@ -49,72 +50,39 @@ public class Context implements Serializable {
 	}
 	
 	public void addCpuValue(Float cpuValue) {
-//		if(this.cpuList.size() >= Context.RST_INTERVAL)
-//			this.cpuList = new LinkedList<Float>();
-//		this.cpuList.add(Float.valueOf(cpuValue));
 		if(cpuValue!=null) {
-			//System.out.println("cpuValue: "+cpuValue);
 			this.cpu = cpuValue;
 		}
 	}
 	
 	public void addRamValue(Float ramValue) {
-//		if(this.ramList.size() >= Context.RST_INTERVAL)
-//			this.ramList = new LinkedList<Float>();
-//		this.ramList.add(Float.valueOf(ramValue));
 		if(ramValue!=null)
 			this.ram = ramValue;
 	}
 	
 	public void addMemoryValue(Float memoryValue) {
-//		if(this.memoryList.size() >= Context.RST_INTERVAL)
-//			this.memoryList = new LinkedList<Float>();
-//		this.memoryList.add(Float.valueOf(memoryValue));
 		if(memoryValue!=null)
 			this.memory = memoryValue;
 	}
 	
 	public void addEnergyValue(Float energyValue) {
-//		if(this.energyList.size() >= Context.RST_INTERVAL)
-//			this.energyList = new LinkedList<Float>();
-//		this.energyList.add(Float.valueOf(energyValue));
 		if(energyValue!=null)
 			this.energy = energyValue;
 	}
 	
 	public float getAvgCpu() {
-//		cpu = 0;
-//		for(int i=0; i<this.cpuList.size(); i++) {
-//			cpu += this.cpuList.get(i);
-//		}
-//		cpu /= this.cpuList.size();
 		return cpu;
 	}
 	
 	public float getAvgRam() {
-//		ram = 0;
-//		for(int i=0; i<this.ramList.size(); i++) {
-//			ram += this.ramList.get(i);
-//		}
-//		ram /= this.ramList.size();
 		return ram;
 	}
 	
 	public float getAvgMemory() {
-//		memory = 0;
-//		for(int i=0; i<this.memoryList.size(); i++) {
-//			memory += this.memoryList.get(i);
-//		}
-//		memory /= this.memoryList.size();
 		return memory;
 	}
 	
 	public float getAvgEnergy() {
-//		energy = 0;
-//		for(int i=0; i<this.energyList.size(); i++) {
-//			energy += this.energyList.get(i);
-//		}
-//		energy /= this.energyList.size();
 		return energy;
 	}
 	

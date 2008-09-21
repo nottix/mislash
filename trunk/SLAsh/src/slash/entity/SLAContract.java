@@ -1,7 +1,8 @@
 package slash.entity;
 
+import jade.core.AID;
+
 import java.io.Serializable;
-import jade.core.*;
 
 public class SLAContract implements Serializable {
 

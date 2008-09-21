@@ -1,14 +1,11 @@
 package slash.resource.behaviour;
 
-import jade.core.behaviours.*;
-import jade.lang.acl.ACLMessage;
-import jade.lang.acl.MessageTemplate;
-import jade.lang.acl.UnreadableException;
-import slash.resource.agent.*;
-import slash.util.PropertiesReader;
+import jade.core.behaviours.TickerBehaviour;
 import slash.dsm.client.DsmClient;
-import slash.entity.*;
-import slash.dsm.tuple.*;
+import slash.dsm.tuple.Tuple;
+import slash.entity.Notify;
+import slash.resource.agent.ResourceAgent;
+import slash.util.PropertiesReader;
 
 public class NotifyReceiverBehaviour extends TickerBehaviour {
 
@@ -30,7 +27,6 @@ public class NotifyReceiverBehaviour extends TickerBehaviour {
 			notify = (Notify)tuple.getValue();
 		}
 		if(notify!=null) {
-			//System.out.println("NOTIFY recv: "+notify.getDest()+" on "+myAgent.getLocalName());
 			int num = Integer.valueOf(String.valueOf(myAgent.getLocalName().charAt(myAgent.getLocalName().length()-1)));
 			
 			if(notify.getSrc() == num) {

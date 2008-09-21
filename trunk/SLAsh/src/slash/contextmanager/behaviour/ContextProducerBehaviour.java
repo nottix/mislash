@@ -1,21 +1,14 @@
 package slash.contextmanager.behaviour;
 
-import java.io.IOException;
-
-import jade.core.*;
-import jade.core.behaviours.*;
-import jade.lang.acl.ACLMessage;
-import jade.lang.acl.MessageTemplate;
-import slash.contextmanager.agent.*;
-import slash.df.DFUtil;
+import jade.core.behaviours.TickerBehaviour;
+import slash.contextmanager.agent.ContextManagerAgent;
 import slash.dsm.client.DsmClient;
-import slash.util.*;
+import slash.util.PropertiesReader;
 
 public class ContextProducerBehaviour extends TickerBehaviour{
 
 	private static final long serialVersionUID = -884539926477308910L;
 	
-	private AID scAid;
 	private ContextManagerAgent cm;
 	private DsmClient dsmClient;
 	
@@ -27,7 +20,6 @@ public class ContextProducerBehaviour extends TickerBehaviour{
 	
 	protected void onTick() {
     	dsmClient.out(myAgent.getLocalName(), "context", cm.getContext());
-    	//System.out.println("Context produced on "+myAgent.getLocalName()+", context->cpu: "+cm.getContext().getCpu());
 	}
 	
 }

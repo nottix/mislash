@@ -1,10 +1,7 @@
 package slash.slachecker.util;
 
-import jade.core.*;
-import jade.lang.acl.ACLMessage;
-import slash.dsm.client.*;
-import java.io.IOException;
-
+import jade.core.Agent;
+import slash.dsm.client.DsmClient;
 import slash.entity.Notify;
 
 public class MigrationUtil {
@@ -15,7 +12,6 @@ public class MigrationUtil {
 		if(dsmClient==null)
 			dsmClient = new DsmClient(agent);
 		Notify notify = new Notify(src, dest);
-		//dsmClient.out("migration", "notify", notify);
 
 		dsmClient.out("notify", "notify", notify);
 	}

@@ -3,8 +3,6 @@ package slash.dsm.tuple;
 import java.io.Serializable;
 
 /**
- * @author Simone Notargiacomo
- *
  * tuple: <operation, type, index, value>
  * ex: <in, Context, node1, object>
  */
@@ -16,7 +14,6 @@ public class Tuple implements Serializable {
 	public static String READ = "read";
 	public static String OUT = "out";
 	public static String UPDATE = "update";
-	public static String EVAL = "eval";
 
 	private String operation;
 	private String type;
