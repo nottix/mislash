@@ -13,10 +13,10 @@ Per la gestione dei dati è stato realizzato una sorta di database volatile tram
 Dalla figura è riportato un esempio delle operazioni eseguite sul database nel momento in cui si effettua una richiesta \code{IN <index1, type3>}, ovvero si richiede un valore di tipo 3 che si trova nell'indice 1. Le operazioni eseguite sono elencate di seguito:
 \begin{enumerate}
 	\item Quando perviene la richiesta al db si cerca immediatamente la presenza di una chiave \code{index1} nell'hashtable di primo livello;
-	\item se la chiave è presente si prende la hashtable associata e si procede con il controllo delle presenza della chiave \code{type3} all'interno dell'hashtable di secondo livello;
+	\item se la chiave è presente si prende l'hashtable associata e si procede con il controllo delle presenza della chiave \code{type3} all'interno dell'hashtable di secondo livello;
 	\item se la chiave è presente si prende la coda che gli è associata e si estrae il valore che si trova in testa.
 \end{enumerate}
-Operazioni analoge vengono effettuate per gli altri tipi di operazioni. In particolare le operazioni implementate hanno il seguente comportamento:
+Operazioni analoghe vengono effettuate per gli altri tipi di operazioni; in particolare le operazioni implementate hanno il seguente comportamento:
 \begin{description}
 	\item[OUT:] equivale alla tupla \code{OUT <index1, type3, v1>} e consiste nell'inserire un valore sul tuple space.
 	\item[IN:] è rappresentata dalla tupla \code{IN <index1, type3>} ed il suo scopo è reperire il valore in testa alla coda e quindi eliminarlo dal tuple space.
