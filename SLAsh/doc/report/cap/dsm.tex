@@ -1,4 +1,4 @@
-\chapter{Dsm}
+<\chapter{Dsm}
 In questo capitolo verrà riportato dettagliatamente il funzionamento e la strutturazione del componente dsm necessario alla comunicazione tra agenti, nello specifico verra spiegato come è stato realizzato il tuple space e tutti i meccanismi ad esso correlati.
 Per il progetto in questione sono stati realizzati i comandi prettamente necessari, che sono: IN, OUT, UPDATE e READ \cite{linda}.
 \section{DsmData}
@@ -24,7 +24,7 @@ Operazioni analoghe vengono effettuate per gli altri tipi di operazioni; in part
 	\item[UPDATE:] tupla come OUT con la differenza che se il valore esiste lo sostituisce.
 \end{description}
 \section{DsmClient}
-Questo componente consente la comunicazione con il server\cite{gino} dsm sfruttando lo scambio di messaggi che mette a disposizione Jade con il suo \var{framework}. Il modulo in questione consente due meccanismi principali che sono: l'invio di messaggi bloccanti e l'invio di messaggi non bloccanti. Per quanto riguarda i messaggi bloccanti (IN e READ) si ha:
+Questo componente consente la comunicazione con il server dsm sfruttando lo scambio di messaggi che mette a disposizione Jade con il suo \var{framework}. Il modulo in questione consente due meccanismi principali che sono: l'invio di messaggi bloccanti e l'invio di messaggi non bloccanti. Per quanto riguarda i messaggi bloccanti (IN e READ) si ha:
 \begin{enumerate}
 	\item Il Client invia la richiesta al server ed attende la risposta;
 	\item Il Server riceve la richiesta, la esaurisce ed invia la risposta;
