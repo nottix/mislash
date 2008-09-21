@@ -44,7 +44,7 @@ Inizialmente lo SC risiede sul primo nodo, ovvero il publisher (ved. \ref{fig:pr
 \label{fig:primo}
 \end{center}
 \end{figure}
-In questa figura si può notare la presenza del dsm e dello SC sul primo nodo, in quanto la simulazione è stata appena avviata. Dal log si può rilevare che lo SC ha già iniziato a controllare la necessità di migrazione e che al momento si trova sul Container-1 ovvero il nodo 1. Il valore index del nodo attuale non ha ancora superato il valore di soglia (52), di conseguenza lo SC rimane sul nodo attuale.
+In questa figura si può notare la presenza del dsm e dello SC sul primo nodo, in quanto la simulazione è stata appena avviata. Dal log si può rilevare che lo SC ha già iniziato a controllare la necessità di migrazione e che al momento si trova sul Container-1 ovvero il nodo 1. Il valore index del nodo attuale non ha ancora superato il valore di soglia (52), di conseguenza l'SC rimane sul nodo attuale.
 \begin{lstlisting}
 Sono su Container-1
 Context[cm3]--> cpu: 40.092556, ram: 16.937687, memory: 34.849556, energy: 81.61731, index: 26.647161
@@ -71,7 +71,7 @@ Context[cm3]--> cpu: 3.4131508, ram: 16.183126, memory: 7.618082, energy: 74.617
 Associated with: cm3
 Actual context--> cpu: 3.4131508, ram: 16.183126, memory: 7.618082, energy: 74.61742, index: <13.874079>
 \end{lstlisting}
-l'indice sul nodo attuale ha raggiunto un valore di 57.71 a causa di un elevato uso delle risorse disponibili, in particolare della della memoria. Dalla figura \ref{fig:secondo} si può notare che il dsm e lo SC si sono spostati sul Container-3. Su quest'ultimo nodo l'indice è adesso di 21.1.
+l'indice sul nodo attuale ha raggiunto un valore di 57.71 a causa di un elevato uso delle risorse disponibili, in particolare della della memoria. Dalla figura \ref{fig:secondo} si può notare che il dsm e l'SC si sono spostati sul Container-3. Su quest'ultimo nodo l'indice è adesso di 21.1.
 \begin{figure}[H]
 \begin{center}
 \includegraphics[scale=0.5]{etc/secondo.png}
@@ -166,7 +166,7 @@ La cpu è molto sensibile alla migrazione, infatti quando lo SC si trova su un n
 \label{fig:cpu}
 \end{center}
 \end{figure}
-In tali grafici è presente una retta sul valore 60\% per distinguere il i nodi che hanno lo SC dagli altri, in particolare quando i valori si trovano oltre 60\% è presente lo SC sul nodo corrispondente. In presenza di una migrazione avviene un brusco cambiamento di carico, infatti si scende sotto il 60\%. Nella figura \ref{fig:cpu} sono graficati i tre nodi, questo crea confusione ma rende più semplicemente l'idea di come migri lo SC da un nodo ad un altro. Nello specifico si può notare che nella parte superiore al 60\% si trova sempre un nodo nel singono istante di tempo, questo è causato dalla presenza di un solo SC che si muove tra i nodi.
+In tali grafici è presente una retta sul valore 60\% per distinguere i nodi che hanno l'SC dagli altri, in particolare quando i valori si trovano oltre 60\% è presente lo SC sul nodo corrispondente. In presenza di una migrazione avviene un brusco cambiamento di carico, infatti si scende sotto il 60\%. Nella figura \ref{fig:cpu} sono graficati i tre nodi, questo crea confusione ma rende più semplicemente l'idea di come migri lo SC da un nodo ad un altro. Nello specifico si può notare che nella parte superiore al 60\% si trova sempre un nodo nel singono istante di tempo, questo è causato dalla presenza di un solo SC che si muove tra i nodi.
 
 \subsection{Ram}
 La ram ha una sensibilità come la cpu, infatti i valore vengono generati con le stesse formule. Dai grafici che seguono si possono notare i picchi di carico in corrispondenza delle migrazioni.
@@ -200,7 +200,7 @@ La ram ha una sensibilità come la cpu, infatti i valore vengono generati con le
 \end{figure}
 
 \subsection{Memory}
-La memoria è un parametro molto più dipendente dalle migrazioni, infatti in corrispondenza di esse si ha un incremento di utilizzazione costante ma non istantaneo. Dai grafici \ref{fig:memory1}, \ref{fig:memory2}, \ref{fig:memory3} e \ref{fig:memory} si può notare che quando i valori di memoria raggiungono la soglia dello 0 o del 100 si ha un picco di traffico verticale, questo non è dovuto alle migrazioni ma potrebbe essere associato, ad esempio, a generazioni di file temporanei da parte del nodo. In corrispondenza di incrementi di memoria costanti vuol dire che è presente lo SC, invece quando si hanno cali costanti si ha il contrario, ovvero lo SC è migrato su un altro nodo.
+La memoria è un parametro molto più dipendente dalle migrazioni, infatti in corrispondenza di esse si ha un incremento di utilizzazione costante ma non istantaneo. Dai grafici \ref{fig:memory1}, \ref{fig:memory2}, \ref{fig:memory3} e \ref{fig:memory} si può notare che quando i valori di memoria raggiungono la soglia dello 0 o del 100 si ha un picco di traffico verticale, questo non è dovuto alle migrazioni ma potrebbe essere associato, ad esempio, a generazioni di file temporanei da parte del nodo. In corrispondenza di incrementi di memoria costanti vuol dire che è presente l'SC, invece quando si hanno cali costanti si ha il contrario, ovvero l'SC è migrato su un altro nodo.
 \begin{figure}[H]
 \begin{center}
 \includegraphics[scale=0.6]{etc/memory1.pdf}
@@ -231,7 +231,7 @@ La memoria è un parametro molto più dipendente dalle migrazioni, infatti in co
 \end{figure}
 
 \subsection{Energy}
-L'energia è il parametro che varia più regolarmente in quanto dipende dal tipo di connessione e dalla presenza delle rete elettrica. Tale comportamento può essere notato dai grafici \ref{fig:energy1}, \ref{fig:energy2}, \ref{fig:energy3} e \ref{fig:energy}. In particolare in presenza dello SC su un nodo si ha un utilizzo di corrente maggiore, nello specifico se il nodo è connesso alla rete elettrica si ha un caricamento più lento, essendo parte dell'energia sprecata a causa dello SC; anche in caso di scollegamento dalla rete elettrica si ha uno spreco di energia maggiore causato dallo SC. Dalle figure si può anche notare che in corrispondenza del 10\% si ha un incremento di carica, essendo il nodo ricollegato alla rete elettrica, invece al raggiungimento del 100\% viene scollegato, considerando che il caricamento è completo. Un ulteriore particolare si può notare in figura \ref{fig:energy1}, in quanto il nodo è di tipo fisso e quindi con corrente sempre disponibile, infatti il valore di energia è sempre 100\%.
+L'energia è il parametro che varia più regolarmente in quanto dipende dal tipo di connessione e dalla presenza delle rete elettrica. Tale comportamento può essere notato dai grafici \ref{fig:energy1}, \ref{fig:energy2}, \ref{fig:energy3} e \ref{fig:energy}. In particolare in presenza dell'SC su un nodo si ha un utilizzo di corrente maggiore, nello specifico se il nodo è connesso alla rete elettrica si ha un caricamento più lento, essendo parte dell'energia sprecata a causa dell'SC; anche in caso di scollegamento dalla rete elettrica si ha uno spreco di energia maggiore causato dallo SC. Dalle figure si può anche notare che in corrispondenza del 10\% si ha un incremento di carica, essendo il nodo ricollegato alla rete elettrica, invece al raggiungimento del 100\% viene scollegato, considerando che il caricamento è completo. Un ulteriore particolare si può notare in figura \ref{fig:energy1}, in quanto il nodo è di tipo fisso e quindi con corrente sempre disponibile, infatti il valore di energia è sempre 100\%.
 \begin{figure}[H]
 \begin{center}
 \includegraphics[scale=0.6]{etc/energy1.pdf}
