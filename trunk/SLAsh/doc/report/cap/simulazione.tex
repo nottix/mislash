@@ -95,7 +95,9 @@ Violated with latency 23.106468 > 82.419365, reliability 41.978447 > 99.44324, r
 \end{lstlisting}
 Dal log si può notare che è stato il subscriber ad eccedere in rischieste, infatti il reqInterval è inteso come frequenza.
 \section{Analisi dati}
-In questa sezione verranno esposti e commentati i grafici relativi alla simulazione, in quanto molto più esplicativi dei log riportati sopra. Come passo fondamentale vengono ora riportati i grafici relativi agli indici.
+In questa sezione verranno esposti e commentati i grafici relativi alla simulazione, in quanto molto più esplicativi dei log riportati sopra. Tutti i grafici riportati avranno come ascisse i secondi che non rappresentato un valore reale ma simulato, infatti servono per dare un senso più reale alla simulazione. 
+\subsection{Indice}
+L'indice è il valore più importante del test eseguito, in quanto la migrazione si basa su di esso. Come passo fondamentale vengono ora riportati i grafici relativi agli indici.
 \begin{figure}[H]
 \begin{center}
 \includegraphics[scale=0.6]{etc/index1.pdf}
@@ -122,5 +124,131 @@ In questa sezione verranno esposti e commentati i grafici relativi alla simulazi
 \includegraphics[scale=0.6]{etc/index.pdf}
 \caption{Indice tutti i nodi}
 \label{fig:index}
+\end{center}
+\end{figure}
+Nelle figure \ref{fig:index1}, \ref{fig:index2}, \ref{fig:index3} e \ref{fig:index} si può notare la presenza di una retta di colore blu, questa rappresenta il limite dell'indice, ovvero 52. Per comprendere meglio i grafici basta sapere che quando i punti superano la retta blu si ha una migrazione dal nodo corrispondente ad un altro. Ad esempio in figura \ref{fig:index1} avviene la prima migrazione al secondo 8 circa.
+
+\subsection{Cpu}
+La cpu è molto sensibile alla migrazione, infatti quando lo SC si trova su un nodo si può notare un incremento del 40\% sull'utilizzazione della cpu locale. Tale comportamento può essere facilmente estrapolato dai grafici riportati.
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=0.6]{etc/cpu1.pdf}
+\caption{Cpu primo nodo}
+\label{fig:cpu1}
+\end{center}
+\end{figure}
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=0.6]{etc/cpu2.pdf}
+\caption{Cpu secondo nodo}
+\label{fig:cpu2}
+\end{center}
+\end{figure}
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=0.6]{etc/cpu3.pdf}
+\caption{Cpu terzo nodo}
+\label{fig:cpu3}
+\end{center}
+\end{figure}
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=0.6]{etc/cpu.pdf}
+\caption{Cpu tutti i nodi}
+\label{fig:cpu}
+\end{center}
+\end{figure}
+In tali grafici è presente una retta sul valore 60\% per distinguere il i nodi che hanno lo SC dagli altri, in particolare quando i valori si trovano oltre 60\% è presente lo SC sul nodo corrispondente. In presenza di una migrazione avviene un brusco cambiamento di carico, infatti si scende sotto il 60\%. Nella figura \ref{fig:cpu} sono graficati i tre nodi, questo crea confusione ma rende più semplicemente l'idea di come migri lo SC da un nodo ad un altro. Nello specifico si può notare che nella parte superiore al 60\% si trova sempre un nodo nel singono istante di tempo, questo è causato dalla presenza di un solo SC che si muove tra i nodi.
+
+\subsection{Ram}
+La ram ha una sensibilità come la cpu, infatti i valore vengono generati con le stesse formule. Dai grafici che seguono si possono notare i picchi di carico in corrispondenza delle migrazioni.
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=0.6]{etc/ram1.pdf}
+\caption{Ram primo nodo}
+\label{fig:ram1}
+\end{center}
+\end{figure}
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=0.6]{etc/ram2.pdf}
+\caption{Ram secondo nodo}
+\label{fig:ram2}
+\end{center}
+\end{figure}
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=0.6]{etc/ram3.pdf}
+\caption{Ram terzo nodo}
+\label{fig:ram3}
+\end{center}
+\end{figure}
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=0.6]{etc/ram.pdf}
+\caption{Ram tutti i nodi}
+\label{fig:ram}
+\end{center}
+\end{figure}
+
+\subsection{Memory}
+La memoria è un parametro molto più dipendente dalle migrazioni, infatti in corrispondenza di esse si ha un incremento di utilizzazione costante ma non istantaneo. Dai grafici \ref{fig:memory1}, \ref{fig:memory2}, \ref{fig:memory3} e \ref{fig:memory} si può notare che quando i valori di memoria raggiungono la soglia dello 0 o del 100 si ha un picco di traffico verticale, questo non è dovuto alle migrazioni ma potrebbe essere associato, ad esempio, a generazioni di file temporanei da parte del nodo. In corrispondenza di incrementi di memoria costanti vuol dire che è presente lo SC, invece quando si hanno cali costanti si ha il contrario, ovvero lo SC è migrato su un altro nodo.
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=0.6]{etc/memory1.pdf}
+\caption{Memory primo nodo}
+\label{fig:memory1}
+\end{center}
+\end{figure}
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=0.6]{etc/memory2.pdf}
+\caption{Memory secondo nodo}
+\label{fig:memory2}
+\end{center}
+\end{figure}
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=0.6]{etc/memory3.pdf}
+\caption{Memory terzo nodo}
+\label{fig:memory3}
+\end{center}
+\end{figure}
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=0.6]{etc/memory.pdf}
+\caption{Memory tutti i nodi}
+\label{fig:memory}
+\end{center}
+\end{figure}
+
+\subsection{Energy}
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=0.6]{etc/energy1.pdf}
+\caption{Energy primo nodo}
+\label{fig:energy1}
+\end{center}
+\end{figure}
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=0.6]{etc/energy2.pdf}
+\caption{Energy secondo nodo}
+\label{fig:energy2}
+\end{center}
+\end{figure}
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=0.6]{etc/energy3.pdf}
+\caption{Energy terzo nodo}
+\label{fig:energy3}
+\end{center}
+\end{figure}
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=0.6]{etc/energy.pdf}
+\caption{Energy tutti i nodi}
+\label{fig:energy}
 \end{center}
 \end{figure}
