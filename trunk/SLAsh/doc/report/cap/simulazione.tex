@@ -223,7 +223,7 @@ La memoria è un parametro molto più dipendente dalle migrazioni, infatti in co
 \end{figure}
 
 \subsection{Energy}
-
+L'energia è il parametro che varia più regolarmente in quanto dipende dal tipo di connessione e dalla presenza delle rete elettrica. Tale comportamento può essere notato dai grafici \ref{fig:energy1}, \ref{fig:energy2}, \ref{fig:energy3} e \ref{fig:energy}. In particolare in presenza dello SC su un nodo si ha un utilizzo di corrente maggiore, nello specifico se il nodo è connesso alla rete elettrica si ha un caricamento più lento, essendo parte dell'energia sprecata a causa dello SC. Anche in caso di scollegamento dalla rete elettrica si ha uno spreco di energia maggiore causato dallo SC, Dalle figure si può anche notare che in corrispondenza del 10\% si ha un incremento di carica, essendo il nodo ricollegato alla rete elettrica, invece al raggiungimento del 100\% viene scollegato, considerando che il caricamento è completo. Un ulteriore particolare si può notare in figura \ref{fig:energy1}, in quanto il nodo è di tipo fisso e quindi con corrente sempre disponibile, infatti il valore di energia è sempre 100\%.
 \begin{figure}[H]
 \begin{center}
 \includegraphics[scale=0.6]{etc/energy1.pdf}
@@ -252,3 +252,55 @@ La memoria è un parametro molto più dipendente dalle migrazioni, infatti in co
 \label{fig:energy}
 \end{center}
 \end{figure}
+
+\subsection{Latency}
+Quest'ultimo valore generato dipendenze dalla presenza dell'SC, dal tipo di linea e dalla banda, come già riportato nel modello matematico. Nei seguenti grafici si possono vedere gli andamenti:
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=0.6]{etc/latency1.pdf}
+\caption{Latency primo nodo}
+\label{fig:latency1}
+\end{center}
+\end{figure}
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=0.6]{etc/latency2.pdf}
+\caption{Latency secondo nodo}
+\label{fig:latency2}
+\end{center}
+\end{figure}
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=0.6]{etc/latency3.pdf}
+\caption{Latency terzo nodo}
+\label{fig:latency3}
+\end{center}
+\end{figure}
+I valori in figura \ref{fig:latency1} è molto più basso rispetto ai valori in figura \ref{fig:latency2} e \ref{fig:latency3}, a causa della tipologia di connessione diversa.
+
+\subsection{Reliability}
+Questo valore è simile alla latenza ed anch'esso dipende fortemente dal tipo di connessione e dalla banda ma non dall'SC, il quale non influisce sulle caratteristiche della qualità della connessione. Nelle figure si può notare la differenza di valori tra il caso \ref{fig:reliability1} e i restanti.
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=0.6]{etc/reliability1.pdf}
+\caption{Reliability primo nodo}
+\label{fig:reliability1}
+\end{center}
+\end{figure}
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=0.6]{etc/reliability2.pdf}
+\caption{Reliability secondo nodo}
+\label{fig:reliability2}
+\end{center}
+\end{figure}
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=0.6]{etc/reliability3.pdf}
+\caption{Reliability terzo nodo}
+\label{fig:reliability3}
+\end{center}
+\end{figure}
+
+\subsection{ReqInterval}
+Quest'ultimo tipo di valore è strettamente casuale e può assumere valori tra lo 0\% e il 100\%.
