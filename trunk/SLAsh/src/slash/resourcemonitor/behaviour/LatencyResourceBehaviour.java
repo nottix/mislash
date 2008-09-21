@@ -23,10 +23,10 @@ public class LatencyResourceBehaviour extends TickerBehaviour {
 	}
 	
 	protected void onTick() {
-		Tuple tuple = dsmClient.in(myAgent.getLocalName(), "latency");
+		Tuple tuple = dsmClient.read(myAgent.getLocalName(), "latency");
 		if(tuple!=null) {
 			//System.out.println("Resource consumed -> cpu: "+(Float)tuple.getValue());
-			dsmClient.out(myAgent.getLocalName(), "rm-latency", tuple.getValue());
+			dsmClient.update(myAgent.getLocalName(), "rm-latency", tuple.getValue());
 		}
 	}
 

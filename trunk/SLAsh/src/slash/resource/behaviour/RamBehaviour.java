@@ -44,6 +44,6 @@ public class RamBehaviour extends TickerBehaviour {
 		generate();
 		DataWriter.writeData(myAgent.getLocalName(), ram);
     	Float ramStr = ram;
-    	dsmClient.out(agent.getLocalName(), "ram", ramStr);
+    	dsmClient.update(agent.getLocalName(), "ram", ramStr);
 	}
 }

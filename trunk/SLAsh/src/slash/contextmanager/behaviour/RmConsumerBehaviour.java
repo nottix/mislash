@@ -23,33 +23,33 @@ public class RmConsumerBehaviour extends TickerBehaviour {
 	}
 	
 	protected void onTick() {
-		Tuple tuple = dsmClient.in(myAgent.getLocalName(), "rm-cpu");
+		Tuple tuple = dsmClient.read(myAgent.getLocalName(), "rm-cpu");
 		if(tuple!=null) {
 			//System.out.println("Resource consumed -> cpu: "+(Float)tuple.getValue());
 			agent.getContext().addCpuValue((Float)tuple.getValue());
 		}
 		
-		tuple = dsmClient.in(myAgent.getLocalName(), "rm-energy");
+		tuple = dsmClient.read(myAgent.getLocalName(), "rm-energy");
 		if(tuple!=null)
 			agent.getContext().addEnergyValue((Float)tuple.getValue());
 		
-		tuple = dsmClient.in(myAgent.getLocalName(), "rm-memory");
+		tuple = dsmClient.read(myAgent.getLocalName(), "rm-memory");
 		if(tuple!=null)
 			agent.getContext().addMemoryValue((Float)tuple.getValue());
 		
-		tuple = dsmClient.in(myAgent.getLocalName(), "rm-ram");
+		tuple = dsmClient.read(myAgent.getLocalName(), "rm-ram");
 		if(tuple!=null)
 			agent.getContext().addRamValue((Float)tuple.getValue());
 		
-		tuple = dsmClient.in(myAgent.getLocalName(), "rm-latency");
+		tuple = dsmClient.read(myAgent.getLocalName(), "rm-latency");
 		if(tuple!=null)
 			agent.getContext().addLatencyValue((Float)tuple.getValue());
 		
-		tuple = dsmClient.in(myAgent.getLocalName(), "rm-reliability");
+		tuple = dsmClient.read(myAgent.getLocalName(), "rm-reliability");
 		if(tuple!=null)
 			agent.getContext().addReliabilityValue((Float)tuple.getValue());
 		
-		tuple = dsmClient.in(myAgent.getLocalName(), "rm-reqInterval");
+		tuple = dsmClient.read(myAgent.getLocalName(), "rm-reqInterval");
 		if(tuple!=null)
 			agent.getContext().addReqIntervalValue((Float)tuple.getValue());
 	}

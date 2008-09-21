@@ -43,6 +43,6 @@ public class ReliabilityBehaviour extends TickerBehaviour {
 		generate();
 		DataWriter.writeData(myAgent.getLocalName(), reliability);
     	Float reliabilityStr = reliability;
-    	dsmClient.out(agent.getLocalName(), "reliability", reliabilityStr);
+    	dsmClient.update(agent.getLocalName(), "reliability", reliabilityStr);
 	}
 }

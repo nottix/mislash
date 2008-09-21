@@ -23,10 +23,10 @@ public class ReliabilityResourceBehaviour extends TickerBehaviour {
 	}
 	
 	protected void onTick() {
-		Tuple tuple = dsmClient.in(myAgent.getLocalName(), "reliability");
+		Tuple tuple = dsmClient.read(myAgent.getLocalName(), "reliability");
 		if(tuple!=null) {
 			//System.out.println("Resource consumed -> cpu: "+(Float)tuple.getValue());
-			dsmClient.out(myAgent.getLocalName(), "rm-reliability", tuple.getValue());
+			dsmClient.update(myAgent.getLocalName(), "rm-reliability", tuple.getValue());
 		}
 	}
 
