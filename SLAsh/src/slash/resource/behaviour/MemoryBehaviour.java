@@ -35,7 +35,7 @@ public class MemoryBehaviour extends TickerBehaviour {
 		else
 			memory -= 0.2*(float)((Math.random()*100)%10);
 		
-		if(memory<0)
+		if(memory<0 || memory>100)
 			memory = (float)((Math.random()*100)%60);
 		
 		return memory;
@@ -45,6 +45,6 @@ public class MemoryBehaviour extends TickerBehaviour {
 		generate();
 		DataWriter.writeData(myAgent.getLocalName(), memory);
     	Float memoryStr = memory;
-    	dsmClient.out(agent.getLocalName(), "memory", memoryStr);
+    	dsmClient.update(agent.getLocalName(), "memory", memoryStr);
 	}
 }

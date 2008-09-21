@@ -48,22 +48,22 @@ Actual context--> cpu: 78.77115, ram: 63.975082, memory: 15.567526, energy: 100.
 Nel momento in cui il carico su tale nodo raggiunge valori troppo alti avverrà la migrazione. Infatti poco tempo dopo si ha una situazione del genere:
 \begin{lstlisting}
 Sono su Container-1
-Context[cm3]--> cpu: 13.309162, ram: 0.59043956, memory: 0.59446615, energy: 58.188698, index: 15.8770275
-Context[cm1]--> cpu: 88.09482, ram: 92.11755, memory: 70.78468, energy: 100.0, index: 57.729324
-Context[cm2]--> cpu: 25.624594, ram: 58.690094, memory: 9.692705, energy: 84.86853, index: 26.161144
+Context[cm3]--> cpu: 10.354793, ram: 26.346369, memory: 2.7747908, energy: 75.6174, index: 16.394249
+Context[cm1]--> cpu: 77.09479, ram: 64.88432, memory: 87.20903, energy: 100.0, index: 52.713272
+Context[cm2]--> cpu: 5.725228, ram: 59.014675, memory: 7.089407, energy: 92.148476, index: 18.876198
 Associated with: cm1
-Actual context--> cpu: 88.09482, ram: 92.11755, memory: 70.78468, energy: 100.0, index: <57.729324>
+Actual context--> cpu: 77.09479, ram: 64.88432, memory: 87.20903, energy: 100.0, index: <52.713272>
 Migration to cm3
 Moving DSM to 3
 
 Sono su Container-3
-Context[cm1]--> cpu: 54.388817, ram: 97.98689, memory: 73.320885, energy: 100.0, index: 51.910217
-Context[cm2]--> cpu: 55.2578, ram: 37.26969, memory: 6.0537763, energy: 84.46854, index: 27.33313
-Context[cm3]--> cpu: 19.112514, ram: 1.0957876, memory: 16.46449, energy: 57.788696, index: 21.098135
+Context[cm1]--> cpu: 7.0192904, ram: 18.302485, memory: 86.83973, energy: 100.0, index: 25.797146
+Context[cm2]--> cpu: 25.42843, ram: 30.698774, memory: 4.063858, energy: 91.34849, index: 16.4394
+Context[cm3]--> cpu: 3.4131508, ram: 16.183126, memory: 7.618082, energy: 74.61742, index: 13.874079
 Associated with: cm3
-Actual context--> cpu: 19.112514, ram: 1.0957876, memory: 16.46449, energy: 57.788696, index: <21.098135>
+Actual context--> cpu: 3.4131508, ram: 16.183126, memory: 7.618082, energy: 74.61742, index: <13.874079>
 \end{lstlisting}
-l'indice sul nodo attuale ha raggiunto un valore di 57.73 a causa di un elevato uso delle risorse disponibili, in particolare della della memoria. Dalla figura \ref{fig:secondo} si può notare che il dsm e lo SC si sono spostati sul Container-3. Su quest'ultimo nodo l'indice è adesso di 21.1.
+l'indice sul nodo attuale ha raggiunto un valore di 57.71 a causa di un elevato uso delle risorse disponibili, in particolare della della memoria. Dalla figura \ref{fig:secondo} si può notare che il dsm e lo SC si sono spostati sul Container-3. Su quest'ultimo nodo l'indice è adesso di 21.1.
 \begin{figure}[H]
 \begin{center}
 \includegraphics[scale=0.5]{etc/secondo.png}
@@ -74,24 +74,53 @@ l'indice sul nodo attuale ha raggiunto un valore di 57.73 a causa di un elevato 
 Il nodo 3 è di tipo WIRELESS e quindi ha una energia limitata, il che implica un tempo di residenza per l'SC e il dsm molto più ridotto, in quanto l'indice raggiungerà rapidamente valori alti.
 \begin{lstlisting}
 Sono su Container-3
-Context[cm1]--> cpu: 5.5987797, ram: 22.451508, memory: 25.460978, energy: 100.0, index: 12.3075905
-Context[cm2]--> cpu: 19.964691, ram: 9.516586, memory: 33.974285, energy: 71.468735, index: 23.15416
-Context[cm3]--> cpu: 85.48692, ram: 87.68376, memory: 18.864735, energy: 38.188652, index: 62.711555
+Context[cm1]--> cpu: 0.81155604, ram: 33.999382, memory: 51.11227, energy: 100.0, index: 19.762337
+Context[cm2]--> cpu: 36.432972, ram: 58.424694, memory: 1.620206, energy: 84.948586, index: 26.705338
+Context[cm3]--> cpu: 67.67117, ram: 95.22946, memory: 26.253895, energy: 49.21744, index: 58.74031
 Associated with: cm3
-Actual context--> cpu: 85.48692, ram: 87.68376, memory: 18.864735, energy: 38.188652, index: 62.711555
+Actual context--> cpu: 67.67117, ram: 95.22946, memory: 26.253895, energy: 49.21744, index: <58.74031>
 Migration to cm1
 Moving DSM to 1
 
 Sono su Container-1
-Context[cm1]--> cpu: 3.605554, ram: 14.858828, memory: 21.918837, energy: 100.0, index: 9.28814
-Context[cm2]--> cpu: 1.8598158, ram: 25.086706, memory: 30.353884, energy: 70.868744, index: 21.91847
-Context[cm3]--> cpu: 51.03335, ram: 64.10658, memory: 20.654873, energy: 35.188652, index: 50.676212
+Context[cm1]--> cpu: 50.261562, ram: 62.669903, memory: 48.456142, energy: 100.0, index: 37.11915
+Context[cm2]--> cpu: 1.1113803, ram: 6.8676476, memory: 18.00424, energy: 83.9486, index: 10.791573
+Context[cm3]--> cpu: 83.216156, ram: 71.41142, memory: 32.01974, energy: 44.21744, index: 59.663654
 Associated with: cm1
-Actual context--> cpu: 3.605554, ram: 14.858828, memory: 21.918837, energy: 100.0, index: 9.28814
+Actual context--> cpu: 50.261562, ram: 62.669903, memory: 48.456142, energy: 100.0, index: <37.11915>
 \end{lstlisting}
-L'energia del nodo 3 è scesa da 57 a 38 il che ha costretto la migrazione sul nodo meno carico, ovvero l'uno (WIRED). In seguito vi è stata anche una violazione del contratto ed è stata segnalata ad entrambi i nodi partecipanti al contratto, i quali dovranno adattarsi per evitare di ripetere la violazione.
+L'energia del nodo 3 è scesa da 49 a 44 il che ha costretto la migrazione sul nodo meno carico, ovvero l'uno (WIRED). In seguito vi è stata anche una violazione del contratto ed è stata segnalata ad entrambi i nodi partecipanti al contratto, i quali dovranno adattarsi per evitare di ripetere la violazione.
 \begin{lstlisting}
 Violated with latency 23.106468 > 82.419365, reliability 41.978447 > 99.44324, reqInterval 79.21008 > 76.23332
 \end{lstlisting}
-Dal log si può notare che è stato il subscriper ad eccedere in rischieste, infatti il reqInterval è inteso come frequenza.
+Dal log si può notare che è stato il subscriber ad eccedere in rischieste, infatti il reqInterval è inteso come frequenza.
 \section{Analisi dati}
+In questa sezione verranno esposti e commentati i grafici relativi alla simulazione, in quanto molto più esplicativi dei log riportati sopra. Come passo fondamentale vengono ora riportati i grafici relativi agli indici.
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=0.6]{etc/index1.pdf}
+\caption{Indice primo nodo}
+\label{fig:index1}
+\end{center}
+\end{figure}
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=0.6]{etc/index2.pdf}
+\caption{Indice secondo nodo}
+\label{fig:index2}
+\end{center}
+\end{figure}
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=0.6]{etc/index3.pdf}
+\caption{Indice terzo nodo}
+\label{fig:index3}
+\end{center}
+\end{figure}
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=0.6]{etc/index.pdf}
+\caption{Indice tutti i nodi}
+\label{fig:index}
+\end{center}
+\end{figure}

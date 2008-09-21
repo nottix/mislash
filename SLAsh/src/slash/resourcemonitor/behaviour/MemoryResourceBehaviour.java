@@ -23,10 +23,10 @@ public class MemoryResourceBehaviour extends TickerBehaviour {
 	}
 	
 	protected void onTick() {
-		Tuple tuple = dsmClient.in(myAgent.getLocalName(), "memory");
+		Tuple tuple = dsmClient.read(myAgent.getLocalName(), "memory");
 		if(tuple!=null) {
 			//System.out.println("Resource consumed -> cpu: "+(Float)tuple.getValue());
-			dsmClient.out(myAgent.getLocalName(), "rm-memory", tuple.getValue());
+			dsmClient.update(myAgent.getLocalName(), "rm-memory", tuple.getValue());
 		}
 	}
 

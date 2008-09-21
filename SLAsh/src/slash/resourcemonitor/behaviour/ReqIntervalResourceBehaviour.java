@@ -23,10 +23,10 @@ public class ReqIntervalResourceBehaviour extends TickerBehaviour {
 	}
 	
 	protected void onTick() {
-		Tuple tuple = dsmClient.in(myAgent.getLocalName(), "reqInterval");
+		Tuple tuple = dsmClient.read(myAgent.getLocalName(), "reqInterval");
 		if(tuple!=null) {
 			//System.out.println("Resource consumed -> cpu: "+(Float)tuple.getValue());
-			dsmClient.out(myAgent.getLocalName(), "rm-reqInterval", tuple.getValue());
+			dsmClient.update(myAgent.getLocalName(), "rm-reqInterval", tuple.getValue());
 		}
 	}
 

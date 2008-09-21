@@ -35,7 +35,7 @@ Nel caso ``senza SC'' invece si ha
 \begin{equation}
 memory = memory - 0.2 \cdot ( ( \alpha \cdot 100 ) mod 10 )
 \end{equation}
-a differenza del caso precedente si sottrae il nuovo valore da quello vecchio, questo sta ad indicare una diminuzione dell'utilizzazione. Inoltre nel caso in cui la memoria raggiunge valori minori di 0 si rigenera il valore della memoria con la formula usata inizialmente (ved. \ref{eq:memory}).
+a differenza del caso precedente si sottrae il nuovo valore da quello vecchio, questo sta ad indicare una diminuzione dell'utilizzazione. Inoltre nel caso in cui la memoria raggiunge valori minori di 0 o maggiori 100 si rigenera il valore della memoria con la formula usata inizialmente (ved. \ref{eq:memory}).
 \subsection{Energy}
 Nel caso del componente riguardante l'energia sono state applicate delle formule più adattative, in quanto il suo valore dipende dal collegamento o scollegamento alla rete elettrica e dalla presenza o non presenza dello SC. Inoltre dipende dal tipo di connessione, ovverro se è wireless o wired. All'avvio viene generato il valore tramite la seguente formula.
 \begin{equation}\label{eq:energy}

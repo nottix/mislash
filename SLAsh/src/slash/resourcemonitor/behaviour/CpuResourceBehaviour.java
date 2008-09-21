@@ -23,10 +23,10 @@ public class CpuResourceBehaviour extends TickerBehaviour {
 	}
 	
 	protected void onTick() {
-		Tuple tuple = dsmClient.in(myAgent.getLocalName(), "cpu");
+		Tuple tuple = dsmClient.read(myAgent.getLocalName(), "cpu");
 		if(tuple!=null) {
 			//System.out.println("Resource consumed -> cpu: "+(Float)tuple.getValue());
-			dsmClient.out(myAgent.getLocalName(), "rm-cpu", tuple.getValue());
+			dsmClient.update(myAgent.getLocalName(), "rm-cpu", tuple.getValue());
 		}
 	}
 

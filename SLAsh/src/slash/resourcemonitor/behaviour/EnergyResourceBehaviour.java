@@ -23,10 +23,10 @@ public class EnergyResourceBehaviour extends TickerBehaviour {
 	}
 	
 	protected void onTick() {
-		Tuple tuple = dsmClient.in(myAgent.getLocalName(), "energy");
+		Tuple tuple = dsmClient.read(myAgent.getLocalName(), "energy");
 		if(tuple!=null) {
 			//System.out.println("Resource consumed -> cpu: "+(Float)tuple.getValue());
-			dsmClient.out(myAgent.getLocalName(), "rm-energy", tuple.getValue());
+			dsmClient.update(myAgent.getLocalName(), "rm-energy", tuple.getValue());
 		}
 	}
 

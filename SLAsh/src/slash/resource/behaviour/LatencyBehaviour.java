@@ -48,6 +48,6 @@ public class LatencyBehaviour extends TickerBehaviour {
 		generate();
 		DataWriter.writeData(myAgent.getLocalName(), latency);
     	Float latencyStr = latency;
-    	dsmClient.out(agent.getLocalName(), "latency", latencyStr);
+    	dsmClient.update(agent.getLocalName(), "latency", latencyStr);
 	}
 }
