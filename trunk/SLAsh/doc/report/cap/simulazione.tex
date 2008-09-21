@@ -1,7 +1,15 @@
 \chapter{Simulazione}
 Per valutare le prestazioni del sistema realizzato si sono effettuate numerose simulazioni. Tutti i test condotti sono stati basati su una specifica configurazione di nodi, in particolare 1 nodo Publisher e 2 Subscriber. I due nodi consumer richiedono la stipulazione di un contratto al producer, il quale espleta tutte le richieste. Si riporta ora un esempio di esecuzione con relativa descrizione ed analisi dei dati.
 \section{Esecuzione}
-In principio si avvia il nodo Producer il quale andrà in attesa di richieste dei consumatori. In seguito si avviano i due Consumer (o Subscriber) i quali richiedono ed ottengono un contratto con il Subscriber. Stabiliti i contratti inizia la vera fase di simulazione in cui ogni nodo genera valori casuali per le proprie risorse e lo SC raccoglie tali dati per valutare gli SLA e la necessità di migrazione.
+In principio si avvia il nodo Producer il quale andrà in attesa di richieste dei consumatori. In seguito si avviano i due Consumer (o Subscriber) i quali richiedono ed ottengono un contratto con il Subscriber. Stabiliti i contratti inizia la vera fase di simulazione in cui ogni nodo genera valori casuali per le proprie risorse e lo SC raccoglie tali dati per valutare gli SLA e la necessità di migrazione. Per eseguire il sistema bisogna utilizzare i seguenti comandi;
+\begin{verbatim}
+ant runGui
+\end{verbatim}
+per avviare il \code{MainContainer}
+\begin{verbatim}
+ant -f build2.xml AgentLauncher
+\end{verbatim}
+che avvia i tre nodi in tre container differenti.
 \subsection{Scenario}
 I tre nodi dello scenario d'esecuzione hanno le seguenti caratteristiche:
 \begin{enumerate}

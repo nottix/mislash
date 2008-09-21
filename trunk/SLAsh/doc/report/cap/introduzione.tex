@@ -1,10 +1,10 @@
 \chapter{Introduzione}\label{cap:introduzione}
-Per comprendere a fondo l'entità di tale progetto si riportano di seguito le specifiche del progetto, in quanto consente al lettore di entrare nell'ottica del problema, inoltre si fornirà una breve panoramica relativa al paradigma DSM, agli agenti mobili e al framework JADE.
+Per comprendere a fondo l'entità di tale progetto si riportano di seguito le specifiche del progetto, in quanto consente al lettore di entrare nell'ottica del problema, inoltre si fornirà una breve panoramica relativa al paradigma DSM, agli agenti mobili\cite{slide} e al framework JADE.
 \section{Specifiche problema}
 \subsection{Logica applicazione}
-Si richiede di progettare una architettura di supporto al monitoraggio e controllo di SLA\cite{gino} in ambiente (possibilmente) mobile. L’architettura del servizio è basata sulla definizione di un certo numero di componenti “logici”: SLA Checker (SC), Context Manager (CM), Resource Monitor (RM). Tali entità interagiscono tra loro unicamente tramite il meccanismo DSM ("tuple space"). Il ruolo di tali entità viene descritto come segue:
+Si richiede di progettare una architettura di supporto al monitoraggio e controllo di SLA in ambiente (possibilmente) mobile. L’architettura del servizio è basata sulla definizione di un certo numero di componenti “logici”: SLA Checker (SC), Context Manager (CM), Resource Monitor (RM). Tali entità interagiscono tra loro unicamente tramite il meccanismo DSM ("tuple space"). Il ruolo di tali entità viene descritto come segue:
 \begin{description}
-\item[SLAchecker (SC):] data una coppia fornitore/richiedente servizio, che ha stipulato un SLA, SC ha il compito di controllare il rispetto dei parametri del contratto sia da parte del fornitore che del richiedente, e segnalare eventuali violazioni ad entrambi. A questo scopo, SC raccoglie informazioni fornite da opportuni componenti di tipo Monitor presenti sia sul nodo del fornitore che del richiedente, relative a (per esempio):
+\item[SLAchecker (SC):] data una coppia fornitore/richiedente servizio, che ha stipulato un SLA, lo SC ha il compito di controllare il rispetto dei parametri del contratto sia da parte del fornitore che del richiedente, e segnalare eventuali violazioni ad entrambi. A questo scopo, SC raccoglie informazioni fornite da opportuni componenti di tipo Monitor presenti sia sul nodo del fornitore che del richiedente, relative a (per esempio):
 \begin{itemize}
 \item tempo di risposta osservato per una richiesta;
 \item affidabilità (completamento con successo) di una richiesta;
@@ -22,7 +22,7 @@ I dati “grezzi” ricevuti dai componenti di monitoraggio vengono elaborati da
 \item[Resource Monitor (RM):] un componente di questo tipo fornisce le informazioni relative a una delle risorse elencate sopra.
 \end{description}
 \subsection{Ambiente d'uso}
-L’ambiente in cui si immagina che il servizio di controllo di SLA venga realizzato è costituito, in generale, da una molteplicità di nodi (fissi o mobili) con vari livelli di disponibilità di risorse interne (memoria, cpu, ecc.), connessi tra loro da infrastrutture di comunicazione di varia qualità. Su tali nodi sono in esecuzione componenti che offrono/richiedono servizi. Ogni volta che una coppia fornitore/richiedente stipula un SLA, il controllo di questo SLA viene affidato a un componente SC.
+L’ambiente in cui si immagina che il servizio di controllo di SLA venga realizzato è costituito, in generale, da una molteplicità di nodi (fissi o mobili) con vari livelli di disponibilità di risorse interne (memoria, cpu, ecc.), connessi tra loro da infrastrutture di comunicazione di varia qualità. Su tali nodi sono in esecuzione componenti che offrono/richiedono servizi. Ogni volta che una coppia fornitore/richiedente\cite{eug}\cite{schiller}\footnote{non è un vero sistema publisher/subscriber ma una simulazione necessaria a rendere l'idea del contesto} stipula un SLA, il controllo di questo SLA viene affidato a un componente SC.
 \subsection{Lavoro progettuale}
 Si richiede di progettare e realizzare, utilizzando la piattaforma JADE (\url{http://jade.tilab.com}), l’architettura indicata nella sezione precedente. In particolare, occorre definire una localizzazione dei componenti e organizzazione del modello DSM (basato sulla realizzazione di uno o più "tuple space") che sia adeguata alla esecuzione del servizio di controllo SLA in un ambiente possibilmente mobile, caratterizzato da possibile scarsità di risorse per i componenti in esecuzione su determinati nodi. Il livello di adeguatezza andrà valutato rispetto alla capacità di ottimizzare misure di prestazione quali:
 \begin{itemize}
@@ -42,7 +42,7 @@ Il paradigma DSM fornisce agli host in un sistema distribuito la vista di uno sp
 \end{figure} 
 
 \section{Mobile Agent}
-Un agente mobile è un componente software in grado di traserirsi su nodi remoti di una rete e di interagire con le risorse nei nodi visitati, scoprendo i servizi offerti.
+Un agente mobile\cite{fuggetta} è un componente software in grado di traserirsi su nodi remoti di una rete e di interagire con le risorse nei nodi visitati, scoprendo i servizi offerti.
 Dalla definizione fornita si arguisce che l'Agente deve possedere un certo grado di \var{intelligenza}, sia per le decisioni che deve prendere una volta spedito, sia per la capacità di memorizzare i risultati ottenuti su ciascun nodo (capacità di mantenere ed aggiornare il suo stato).
 La possibilità per un agente di muoversi e di conseguenza il comportamento che questo può assumere si deve basare sugli obiettivi definiti nel suo stato. Tale concetto di mobilità unito a quello di agente ha permesso di conferire a questo componente la capacità di cooperare al fine di poter risolvere un dato problema.
 Il processo di trasferimento del codice e del relativo stato può avvenire secondo due modalità differenti:
@@ -60,7 +60,7 @@ JADE è un framework interamente realizzato in Java, che permette di  semplifica
 I vari containers possono essere raggruppati formando così una \var{platform}.
 \begin{figure}[H]
 \begin{center}
-\includegraphics[scale=0.5]{etc/jade_architettura.png}
+\includegraphics[scale=0.45]{etc/jade_architettura.png}
 \caption{architettua di JADE}
 \label{architettura_jade}
 \end{center}

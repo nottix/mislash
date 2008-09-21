@@ -106,7 +106,7 @@ index = cpu \cdot 0.23 + ram \cdot 0.23 + memory \cdot 0.23 + (100-energy) \cdot
 \end{equation}
 Il valore $index$ calcolato rappresenta una percentuale che va da 0 a 100 che indica l'utilizzazione del nodo valutato. L'indice è il fulcro dell'algoritmo di \var{Migration checking}, in quanto la migrazione si basa proprio sul confronto di tale valore. Verranno ora riportati i passi dell'algoritmo:
 \begin{enumerate}
-	\item Si recupera il nodo migliore su cui migrare tramite la funzione \code{getBestNode()};
+	\item Innanzitutto si recupera il nodo migliore su cui migrare tramite la funzione \code{getBestNode()};
 	\item si seleziona il contesto attuale del nodo in cui si trova lo SC;
 	\item si verifica che l'indice del contesto attuale sia maggiore dell'indice di migrazione;
 	\item se la condizione è verificata si effettua la migrazione sul nodo risultato migliore;
