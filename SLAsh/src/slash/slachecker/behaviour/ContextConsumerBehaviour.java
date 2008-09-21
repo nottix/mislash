@@ -1,15 +1,13 @@
 package slash.slachecker.behaviour;
 
-import jade.core.behaviours.*;
-import jade.lang.acl.ACLMessage;
-import jade.lang.acl.MessageTemplate;
-import jade.lang.acl.UnreadableException;
-import slash.slachecker.agent.*;
-import slash.util.PropertiesReader;
+import jade.core.AID;
+import jade.core.behaviours.TickerBehaviour;
 import slash.dsm.client.DsmClient;
-import slash.entity.*;
-import slash.dsm.tuple.*;
-import jade.core.*;
+import slash.dsm.tuple.Tuple;
+import slash.entity.Context;
+import slash.entity.SLAContract;
+import slash.slachecker.agent.SLACheckerAgent;
+import slash.util.PropertiesReader;
 
 public class ContextConsumerBehaviour extends TickerBehaviour {
 	

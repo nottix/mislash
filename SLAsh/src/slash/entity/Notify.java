@@ -2,8 +2,6 @@ package slash.entity;
 
 import java.io.Serializable;
 
-import jade.core.*;
-
 public class Notify implements Serializable {
 
 	private static final long serialVersionUID = 6443212295017254395L;

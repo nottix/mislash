@@ -1,10 +1,9 @@
 package slash.resource.agent;
 
 import jade.core.AID;
-import jade.core.Agent;
-import slash.df.DFUtil;
 import slash.entity.Context;
-import slash.resource.behaviour.*;
+import slash.resource.behaviour.CpuBehaviour;
+import slash.resource.behaviour.NotifyReceiverBehaviour;
 
 public class CpuAgent extends ResourceAgent {
 
@@ -15,8 +14,6 @@ public class CpuAgent extends ResourceAgent {
 	
 	protected void setup() {
 		System.out.println("Cpu: "+this.getName());
-
-		//DFUtil.register(this, this.getLocalName(), "resource");
 		
 		Object[] args = this.getArguments();
 		if(args.length==2) {
@@ -32,10 +29,6 @@ public class CpuAgent extends ResourceAgent {
 		this.addBehaviour(new CpuBehaviour(cmAid, this));
 		this.addBehaviour(new NotifyReceiverBehaviour(this));
 
-	}
-	
-	protected void takeDown() {
-		//DFUtil.deregister(this, this.getLocalName(), "resource");
 	}
 
 	public int getNetwork() {

@@ -1,13 +1,8 @@
 package slash.slachecker.behaviour;
 
-import java.io.IOException;
-
-import slash.entity.Notify;
-import jade.core.AID;
-import jade.core.behaviours.*;
-import jade.lang.acl.ACLMessage;
-import slash.slachecker.agent.*;
-import slash.slachecker.util.*;
+import jade.core.behaviours.OneShotBehaviour;
+import slash.slachecker.agent.SLACheckerAgent;
+import slash.slachecker.util.MigrationUtil;
 
 public class SLAStarterBehaviour extends OneShotBehaviour {
 

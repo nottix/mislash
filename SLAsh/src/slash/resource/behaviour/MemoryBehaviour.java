@@ -1,11 +1,9 @@
 package slash.resource.behaviour;
 
 import jade.core.AID;
-import jade.core.behaviours.*;
-import jade.lang.acl.ACLMessage;
-import jade.lang.acl.MessageTemplate;
+import jade.core.behaviours.TickerBehaviour;
 import slash.dsm.client.DsmClient;
-import slash.resource.agent.*;
+import slash.resource.agent.MemoryAgent;
 import slash.util.DataWriter;
 import slash.util.PropertiesReader;
 
@@ -17,8 +15,6 @@ public class MemoryBehaviour extends TickerBehaviour {
 	
 	private AID cmAid;
 	private MemoryAgent agent;
-	private MessageTemplate mt;
-	private ACLMessage recvMsg;
 	private DsmClient dsmClient;
 	
 	public MemoryBehaviour(AID cmAid, MemoryAgent agent) {

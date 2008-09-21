@@ -1,12 +1,10 @@
 package slash.contextmanager.behaviour;
 
-import jade.core.behaviours.*;
-import jade.lang.acl.ACLMessage;
-import jade.lang.acl.MessageTemplate;
+import jade.core.behaviours.TickerBehaviour;
+import slash.contextmanager.agent.ContextManagerAgent;
 import slash.dsm.client.DsmClient;
-import slash.contextmanager.agent.*;
+import slash.dsm.tuple.Tuple;
 import slash.util.PropertiesReader;
-import slash.dsm.tuple.*;
 
 public class ViolationConsumerBehaviour extends TickerBehaviour {
 

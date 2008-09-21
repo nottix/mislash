@@ -17,7 +17,6 @@ public class PropertiesReader {
 			if(id=="" || id==null)
 				return null;
 			if(file==null) {
-//				file = new File(System.getProperty("user.dir")+"/conf/config.properties");
 				System.out.println(System.getProperty("user.dir"));
 				file = new File("conf/config.properties");
 				if(!file.exists())

@@ -1,10 +1,12 @@
 package slash.dsm.data;
 
-import java.util.*;
-import slash.dsm.tuple.*;
-import slash.entity.*;
-import java.io.*;
-import java.math.*;
+import java.io.Serializable;
+import java.util.Enumeration;
+import java.util.Hashtable;
+import java.util.LinkedList;
+import java.util.Queue;
+
+import slash.dsm.tuple.Tuple;
 
 public class DsmDataManager implements Serializable {
 
@@ -75,16 +77,9 @@ public class DsmDataManager implements Serializable {
 			Enumeration<String> keys = this.tupleSpace.keys();
 			while(enumeration.hasMoreElements() && keys.hasMoreElements()) {
 				String key = keys.nextElement();
-				//System.out.println("TYPE: "+key);
 				Hashtable<String, Queue<Object>> typeTable = enumeration.nextElement();
-				//if((Math.random()%2)==1) {
-				//	System.out.println("continue");
-				//	continue;
-				//}
 				Queue<Object> queue = typeTable.get(type);
-				//System.out.println("IN -> type: "+type);
 				if(queue!=null) {
-					//System.out.println("QUEUE OK");
 					Object obj = queue.poll();
 					return new Tuple(Tuple.IN, type, key, obj);
 				}
@@ -102,7 +97,6 @@ public class DsmDataManager implements Serializable {
 	}
 	
 	public synchronized Tuple read(String index, String type) {
-		//System.out.println("READ: "+index+", type: "+type);
 		if(this.tupleSpace.containsKey(index)) {
 			if(this.tupleSpace.get(index).containsKey(type)) {
 				Queue<Object> queue = this.tupleSpace.get(index).get(type);

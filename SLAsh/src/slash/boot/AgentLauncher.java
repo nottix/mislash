@@ -1,9 +1,11 @@
 package slash.boot;
 
-import jade.core.Runtime;
 import jade.core.Profile;
 import jade.core.ProfileImpl;
-import jade.wrapper.*;
+import jade.core.Runtime;
+import jade.wrapper.AgentController;
+import jade.wrapper.ContainerController;
+import jade.wrapper.StaleProxyException;
 
 public class AgentLauncher {
 
@@ -64,8 +66,6 @@ public class AgentLauncher {
 		launchAgent("rm-latency"+counter, "slash.resourcemonitor.agent.LatencyRmAgent", arg, cc);
 		launchAgent("rm-reliability"+counter, "slash.resourcemonitor.agent.ReliabilityRmAgent", arg, cc);
 		launchAgent("rm-reqInterval"+counter, "slash.resourcemonitor.agent.ReqIntervalRmAgent", arg, cc);
-			
-		//launchAgent("rm"+counter, "slash.resourcemonitor.agent.CpuRmAgent", new Object[]{type}, cc);
 		
 		counter++;
 	}

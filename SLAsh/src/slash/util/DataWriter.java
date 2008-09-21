@@ -1,7 +1,10 @@
 package slash.util;
 
-import java.io.*;
-import java.util.*;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Hashtable;
 
 public class DataWriter {
 

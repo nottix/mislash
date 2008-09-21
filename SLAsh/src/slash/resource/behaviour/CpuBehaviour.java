@@ -1,13 +1,11 @@
 package slash.resource.behaviour;
 
 import jade.core.AID;
-import jade.core.behaviours.*;
-import jade.lang.acl.ACLMessage;
-import jade.lang.acl.MessageTemplate;
-import slash.resource.agent.*;
-import slash.entity.*;
-import slash.util.*;
-import slash.dsm.client.*;
+import jade.core.behaviours.TickerBehaviour;
+import slash.dsm.client.DsmClient;
+import slash.resource.agent.CpuAgent;
+import slash.util.DataWriter;
+import slash.util.PropertiesReader;
 
 public class CpuBehaviour extends TickerBehaviour {
 
@@ -17,8 +15,6 @@ public class CpuBehaviour extends TickerBehaviour {
 	
 	private AID cmAid;
 	private CpuAgent agent;
-	private MessageTemplate mt;
-	private ACLMessage recvMsg;
 	private DsmClient dsmClient;
 	
 	public CpuBehaviour(AID cmAid, CpuAgent agent) {
@@ -32,8 +28,6 @@ public class CpuBehaviour extends TickerBehaviour {
 	private float generate() {
 		cpu = (float)((Math.random()*100)%60);
 		if(agent.isLocalSC()) {
-			//System.out.println("LOCAL: "+myAgent.getLocalName());
-			//cpu += (float)((Math.random()*100)%40);
 			cpu += 40;
 		}
 			

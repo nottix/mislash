@@ -39,11 +39,11 @@ Inizialmente lo SC risiede sul primo nodo, ovvero il publisher (ved. \ref{fig:pr
 In questa figura si può notare la presenza del dsm e dello SC sul primo nodo, in quanto la simulazione è stata appena avviata. Dal log si può rilevare che lo SC ha già iniziato a controllare la necessità di migrazione e che al momento si trova sul Container-1 ovvero il nodo 1. Il valore index del nodo attuale non ha ancora superato il valore di soglia (52), di conseguenza lo SC rimane sul nodo attuale.
 \begin{lstlisting}
 Sono su Container-1
-Context[cm3]--> cpu: 21.126825, ram: 12.573414, memory: 35.398045, energy: 64.588715, index: 26.515991
-Context[cm1]--> cpu: 78.77115, ram: 63.975082, memory: 15.567526, energy: 100.0, index: 36.412167
-Context[cm2]--> cpu: 50.302402, ram: 11.7872715, memory: 1.3100842, energy: 91.46843, index: 17.141415
+Context[cm3]--> cpu: 40.092556, ram: 16.937687, memory: 34.849556, energy: 81.61731, index: 26.647161
+Context[cm1]--> cpu: 57.77024, ram: 51.60415, memory: 45.732647, energy: 100.0, index: 35.674618
+Context[cm2]--> cpu: 4.5756726, ram: 52.93144, memory: 40.222347, energy: 98.34838, index: 22.97326
 Associated with: cm1
-Actual context--> cpu: 78.77115, ram: 63.975082, memory: 15.567526, energy: 100.0, index: 36.412167
+Actual context--> cpu: 57.77024, ram: 51.60415, memory: 45.732647, energy: 100.0, index: 35.674618
 \end{lstlisting}
 Nel momento in cui il carico su tale nodo raggiunge valori troppo alti avverrà la migrazione. Infatti poco tempo dopo si ha una situazione del genere:
 \begin{lstlisting}

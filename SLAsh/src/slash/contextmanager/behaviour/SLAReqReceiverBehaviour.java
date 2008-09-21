@@ -1,16 +1,11 @@
 package slash.contextmanager.behaviour;
 
 import jade.core.AID;
-import jade.core.behaviours.*;
-import jade.lang.acl.ACLMessage;
-import jade.lang.acl.MessageTemplate;
-
-import java.io.IOException;
-import slash.dsm.tuple.*;
-import slash.df.DFUtil;
+import jade.core.behaviours.TickerBehaviour;
+import slash.contextmanager.agent.ContextManagerAgent;
 import slash.dsm.client.DsmClient;
+import slash.dsm.tuple.Tuple;
 import slash.entity.SLAContract;
-import slash.contextmanager.agent.*;
 import slash.util.PropertiesReader;
 
 public class SLAReqReceiverBehaviour extends TickerBehaviour {
@@ -45,7 +40,6 @@ public class SLAReqReceiverBehaviour extends TickerBehaviour {
 				System.out.println("SLAContract-request received from "+req.getValue());
 				AID requester = new AID((String)req.getValue(), AID.ISLOCALNAME);
 				SLAContract contract = new SLAContract(myAgent.getAID(), requester, this.genLatency(), this.genReliability(), this.genReqInterval());
-				//System.out.println("SLAContract sending");
 				dsmClient.out("slacontract", "slacontract", contract);
 			}
 		}

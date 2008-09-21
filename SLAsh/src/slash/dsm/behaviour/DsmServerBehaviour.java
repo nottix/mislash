@@ -1,20 +1,17 @@
 package slash.dsm.behaviour;
 
-import java.io.IOException;
-
-import jade.core.behaviours.*;
-import jade.core.*;
+import jade.core.AID;
+import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
-import jade.lang.acl.UnreadableException;
-import slash.dsm.agent.*;
-import slash.dsm.tuple.*;
-import slash.dsm.data.*;
-import slash.entity.*;
-import java.util.*;
-import jade.content.*;
-import jade.content.onto.basic.*;
-import slash.entity.*;
+
+import java.io.IOException;
+
+import slash.dsm.agent.DsmServerAgent;
+import slash.dsm.data.DsmDataManager;
+import slash.dsm.tuple.Tuple;
+import slash.entity.Context;
+import slash.entity.Notify;
 
 public class DsmServerBehaviour extends CyclicBehaviour {
 
@@ -69,12 +66,6 @@ public class DsmServerBehaviour extends CyclicBehaviour {
 					msg.setLanguage("English");
 					msg.setConversationId("dsm");
 					msg.setContentObject(tupleRes);
-					if(tupleRes!=null && tupleRes.getValue()!=null) {
-						if(tupleRes.getType().equals("context")) {
-							Context context = (Context)tupleRes.getValue();
-							//System.out.println("Tuple IN sending, context->cpu: "+context.getCpu());
-						}
-					}
 					myAgent.send(msg);
 				}
 				else if(tuple.getOperation().equals(Tuple.READ)) {
@@ -84,12 +75,6 @@ public class DsmServerBehaviour extends CyclicBehaviour {
 					msg.setLanguage("English");
 					msg.setConversationId("dsm");
 					msg.setContentObject(tupleRes);
-					if(tupleRes!=null && tupleRes.getValue()!=null) {
-						if(tupleRes.getType().equals("context")) {
-							Context context = (Context)tupleRes.getValue();
-							//System.out.println("Tuple IN sending, context->cpu: "+context.getCpu());
-						}
-					}
 					myAgent.send(msg);
 				}
 				else if(tuple.getOperation().equals(Tuple.OUT)) {
@@ -98,12 +83,8 @@ public class DsmServerBehaviour extends CyclicBehaviour {
 				else if(tuple.getOperation().equals(Tuple.UPDATE)) {
 					dsmDataManager.update(tuple.getIndex(), tuple.getType(), tuple.getValue());
 				}
-				else if(tuple.getOperation().equals(Tuple.EVAL)) {
-					
-				}
 			}
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		

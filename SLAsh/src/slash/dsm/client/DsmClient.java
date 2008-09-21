@@ -1,14 +1,13 @@
 package slash.dsm.client;
 
+import jade.core.AID;
+import jade.core.Agent;
+import jade.lang.acl.ACLMessage;
+
 import java.io.IOException;
 import java.io.Serializable;
 
-import slash.df.DFUtil;
-import slash.dsm.tuple.*;
-import slash.entity.*;
-import jade.core.*;
-import jade.domain.FIPAAgentManagement.DFAgentDescription;
-import jade.lang.acl.ACLMessage;
+import slash.dsm.tuple.Tuple;
 
 public class DsmClient implements Serializable {
 
@@ -17,10 +16,6 @@ public class DsmClient implements Serializable {
 	
 	public DsmClient(Agent agent) {
 		this.agent = agent;
-		
-//		DFAgentDescription[] res = DFUtil.search(agent, "dsm");
-//		dsm = res[0].getName();
-		
 		dsm = new AID("dsm", AID.ISLOCALNAME);
 	}
 	
@@ -35,7 +30,6 @@ public class DsmClient implements Serializable {
 			msg.setLanguage("English");
 			msg.setConversationId("dsm");
 			msg.setContentObject(tuple);
-			//System.out.println("Sending msg to dsm");
 			agent.send(msg);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -55,7 +49,6 @@ public class DsmClient implements Serializable {
 			msg.setLanguage("English");
 			msg.setConversationId("dsm");
 			msg.setContentObject(tuple);
-			//System.out.println("Sending msg to dsm");
 			agent.send(msg);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -96,66 +89,19 @@ public class DsmClient implements Serializable {
 		try {
 			if(!index.matches("\\D*"))
 				index = index.replaceAll("\\D*", "");
-			//System.out.println("INDEX: "+index);
 			Tuple tuple = new Tuple(Tuple.IN, type, index, null);
-			
-//			if(type.equals("slacontract"))
-//				System.out.println("CONTRATTO Richiesto");
-			//System.out.println("Selected dsm: "+dsm.getLocalName()+", sending: index "+index+", type "+type);
-			
+
 			ACLMessage msg = new ACLMessage(ACLMessage.REQUEST);
 			msg.addReceiver(dsm);
 			msg.setLanguage("English");
 			msg.setConversationId("dsm");
 			msg.setContentObject(tuple);
 			agent.send(msg);
-			//System.out.println(agent.getLocalName()+" -> SEND");
 			
 			ACLMessage recvMsg = agent.blockingReceive();
-			//System.out.println(agent.getLocalName()+" -> RESPONSE");
-//			if(type.equals("slacontract"))
-//				System.out.println("CONTRATTO Ricevuto?");
 			if(recvMsg!=null) {
 				Object obj = recvMsg.getContentObject();
-				//System.out.println("RECV!!! "+obj);
 				if(obj!=null) {
-//					if(type.equals("slacontract"))
-//						System.out.println("CONTRATTO Ricevuto");
-					return ((Tuple)obj);
-				} 
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		return null;
-	}
-	
-	/**
-	 * OBSOLETA
-	 * @param type
-	 * @return
-	 */
-	public Tuple in(String type) {
-		try {
-			
-			Tuple tuple = new Tuple(Tuple.IN, type, null, null);			
-			ACLMessage msg = new ACLMessage(ACLMessage.REQUEST);
-			msg.addReceiver(dsm);
-			msg.setLanguage("English");
-			msg.setConversationId("dsm");
-			msg.setContentObject(tuple);
-			agent.send(msg);
-			//System.out.println(agent.getLocalName()+" -> SEND");
-			ACLMessage recvMsg = agent.blockingReceive();
-			//System.out.println(agent.getLocalName()+" -> RESPONSE");
-			if(recvMsg!=null) {
-				Object obj = recvMsg.getContentObject();
-				//System.out.println("RECV!!! "+obj);
-				if(obj!=null) {
-					Tuple tuple2 = (Tuple)obj;
-					if(tuple2.getType().equals("context") && tuple2.getValue()!=null)
-						System.out.println("RECV!!! cpu: "+((Context)tuple2.getValue()).getCpu());
 					return ((Tuple)obj);
 				} 
 			}

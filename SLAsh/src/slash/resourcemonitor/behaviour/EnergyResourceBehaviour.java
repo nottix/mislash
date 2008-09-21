@@ -1,12 +1,9 @@
 package slash.resourcemonitor.behaviour;
 
-import jade.core.AID;
-import jade.core.behaviours.*;
-import jade.lang.acl.ACLMessage;
-import jade.lang.acl.MessageTemplate;
-import slash.resourcemonitor.agent.*;
+import jade.core.behaviours.TickerBehaviour;
 import slash.dsm.client.DsmClient;
-import slash.dsm.tuple.*;
+import slash.dsm.tuple.Tuple;
+import slash.resourcemonitor.agent.EnergyRmAgent;
 import slash.util.PropertiesReader;
 
 public class EnergyResourceBehaviour extends TickerBehaviour {
@@ -25,7 +22,6 @@ public class EnergyResourceBehaviour extends TickerBehaviour {
 	protected void onTick() {
 		Tuple tuple = dsmClient.read(myAgent.getLocalName(), "energy");
 		if(tuple!=null) {
-			//System.out.println("Resource consumed -> cpu: "+(Float)tuple.getValue());
 			dsmClient.update(myAgent.getLocalName(), "rm-energy", tuple.getValue());
 		}
 	}
