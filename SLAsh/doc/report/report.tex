@@ -1,9 +1,9 @@
 %author: Simone Notargiacomo, Lorenzo Tavernese, Ibrahim Khalili
-%date: 22 Luglio 2008
-\documentclass[a4paper,italian,12pt]{report}
+%date: 21 Settembre 2008
+\documentclass[a4paper,12pt,oneside]{report}
 \usepackage[hyperindex]{hyperref}
 \usepackage[utf8]{inputenc}
-\usepackage[italian,english]{babel}
+\usepackage[italian]{babel}
 \usepackage[T1]{fontenc}
 \usepackage{makeidx}
 \usepackage{graphicx}
@@ -29,7 +29,7 @@
 \lstset{showstringspaces=false}
 \lstset{morecomment=[s]{/*}{*/}}
 \lstset{morecomment=[n]{/*}{*/}}
-\lstset{morekeywords={}}
+\lstset{morekeywords={Context, SLAContract, Notify, Agent, String, AID, Float, Hashtable, LinkedList, Queue, Enumeration, SLARequesterBehaviour, SLAReqReceiverBehaviour, ContextProducerBehaviour, ViolationConsumerBehaviour, RmConsumerBehaviour, ContextManagerAgent, CpuResourceBehaviour, RamResourceBehaviour, MemoryResourceBehaviour, EnergyResourceBehaviour, LatencyResourceBehaviour, ReliabilityResourceBehaviour, ReqIntervalResourceBehaviour, RamRmAgent, MemoryRmAgent, EnergyRmAgent, CpuRmAgent, LatencyRmAgent, ReliabilityRmAgent, ReqIntervalRmAgent, AgentLauncher, SLAReceiverBehaviour, SLACheckerBehaviour, SLAStarterBehaviour, ContextConsumerBehaviour, MigrationUtil, SLACheckerAgent, ReqIntervalBehaviour, NotifyReceiverBehaviour, LatencyBehaviour, RamBehaviour, CpuBehaviour, MemoryBehaviour, EnergyBehaviour, ReliabilityBehaviour, CpuAgent, ResourceAgent, MemoryAgent, EnergyAgent, ReliabilityAgent, ReqIntervalAgent, LatencyAgent, RamAgent, DFUtil, Context, Notify, SLAContract, DataWriter, PropertiesReader, DsmServerBehaviour, DsmDataManager, Tuple, DsmServerAgent, DsmClient}}
 \lstset{aboveskip=\bigskipamount}
 \lstset{belowskip=\bigskipamount}
 \lstset{showlines=false}
@@ -69,22 +69,28 @@
 \pagestyle{fancy}
 \include{layout}
 \setcounter{page}{1}
+\pagenumbering{roman}
 \tableofcontents
 
 \include{cap/abstract}
+\setcounter{page}{1}
+\pagenumbering{arabic}
 \include{cap/introduzione}
 \include{cap/architettura}
 \include{cap/dsm}
 \include{cap/modello}
+\include{cap/implementazione}
 \include{cap/simulazione}
-%\include{cap/conclusioni}
-%\include{cap/appendice}
+\include{cap/conclusioni}
+\lstset{backgroundcolor=\color{white}}
+\lstset{frame=f}
+\include{cap/appendice}
 
-%\lstlistoflistings
+\lstlistoflistings
 \listoftables
 \listoffigures
 \printindex
-\bibliographystyle{oxford_en}
+\bibliographystyle{plain}
 \bibliography{cap/bibliografia}
 
 \end{document}
